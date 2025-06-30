@@ -1,0 +1,21 @@
+---
+import { Image } from "astro:assets";
+import whatsappIcon from "@assets/icon/whatsapp-icon.png";
+
+// Reemplaza este número con tu número de WhatsApp, incluyendo el código de país sin el signo '+' o ceros iniciales.
+const phoneNumber = "56926465463";
+const message = "Hola, me gustaría agendar una cita.";
+const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+---
+
+<div class="fixed bottom-5 right-5 z-50">
+	<button
+		id="whatsapp-toggle"
+		class="block h-16 w-16 transition-transform duration-300 hover:scale-110"
+		aria-label="Abrir chat de WhatsApp"
+	>
+		<div class="h-full w-full rounded-full bg-white p-1 shadow-lg overflow-hidden">
+			<Image src={whatsappIcon} alt="Contactar por WhatsApp" class="h-full w-full scale-160" />
+		</div>
+	</button>
+</div>

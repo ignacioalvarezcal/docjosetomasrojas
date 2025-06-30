@@ -1,0 +1,154 @@
+---
+// src/components/ChatWidget.astro
+---
+
+<div id="chat-widget" class="hidden fixed bottom-24 right-5 w-80 h-96 bg-white rounded-lg shadow-xl z-50 flex flex-col">
+  <!-- Chat Header -->
+  <div class="bg-teal-500 text-white p-3 rounded-t-lg flex justify-between items-center">
+    <h3 class="font-bold">Chatea con nosotros</h3>
+    <button id="close-chat" class="text-white">&times;</button>
+  </div>
+
+  <!-- Messages Area -->
+  <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-gray-100">
+    <!-- Mensajes de ejemplo -->
+  </div>
+
+  <!-- Input Area -->
+  <div class="p-2 border-t border-gray-200">
+    <div class="flex">
+      <input type="text" id="chat-input" placeholder="Escribe un mensaje..." class="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+      <button id="send-chat" class="ml-2 px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600">&rarr;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const chatWidget = document.getElementById('chat-widget');
+  const closeChatButton = document.getElementById('close-chat');
+  const chatMessages = document.getElementById('chat-messages');
+  const chatInput = document.getElementById('chat-input') as HTMLInputElement;
+  const sendChatButton = document.getElementById('send-chat');
+  const whatsAppButton = document.getElementById('whatsapp-button');
+
+  const CHAT_HISTORY_KEY = 'chat_history';
+
+  // Función para añadir un mensaje al chat
+  const addMessage = (text: string, sender: 'user' | 'bot') => {
+    if (!chatMessages) return;
+
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('mb-2', 'text-sm');
+
+    const messageP = document.createElement('p');
+    messageP.classList.add('py-1', 'px-3', 'rounded-lg', 'inline-block');
+
+    if (sender === 'user') {
+      messageP.classList.add('bg-teal-500', 'text-white');
+      messageDiv.classList.add('text-right');
+    } else {
+      messageP.classList.add('bg-gray-300', 'text-black');
+    }
+
+    messageP.textContent = text;
+    messageDiv.appendChild(messageP);
+    chatMessages.appendChild(messageDiv);
+
+    // Scroll hasta el final
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    saveChatHistory();
+  };
+
+  // Función para guardar el historial en localStorage
+  const saveChatHistory = () => {
+    if (!chatMessages) return;
+    localStorage.setItem(CHAT_HISTORY_KEY, chatMessages.innerHTML);
+  };
+
+  // Función para cargar el historial desde localStorage
+  const loadChatHistory = () => {
+    if (!chatMessages) return;
+    const history = localStorage.getItem(CHAT_HISTORY_KEY);
+    if (history) {
+      chatMessages.innerHTML = history;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    } else {
+      // Si no hay historial, añade el mensaje de bienvenida
+      addMessage('Hola, ¿cómo podemos ayudarte?', 'bot');
+    }
+  };
+
+  // Manejar el envío de mensajes
+  const handleSendMessage = async () => {
+    const message = chatInput.value.trim();
+    if (message) {
+      addMessage(message, 'user');
+      chatInput.value = '';
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error('Error al enviar mensaje:', errorData.error);
+          addMessage(`Error: ${errorData.error}`, 'bot');
+        }
+      } catch (error) {
+        console.error('Error de red:', error);
+        addMessage('No se pudo conectar con el servidor.', 'bot');
+      }
+    }
+  };
+
+  // Conectar a Server-Sent Events para recibir mensajes
+  const listenForMessages = () => {
+    const eventSource = new EventSource('/api/chat-events');
+
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      // Asegurarse de que el número de teléfono coincide con el que estamos chateando
+      // Esto es importante si tienes múltiples chats simultáneos en el futuro
+      const targetPhoneNumber = '56926465463';
+      if (data.from.startsWith(targetPhoneNumber)) {
+         addMessage(data.text, 'bot');
+      }
+    };
+
+    eventSource.onerror = (err) => {
+      console.error('Error de EventSource:', err);
+      eventSource.close();
+    };
+  };
+
+  // Event Listeners
+  sendChatButton?.addEventListener('click', handleSendMessage);
+  chatInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  });
+
+  whatsAppButton?.addEventListener('click', () => {
+    chatWidget?.classList.toggle('hidden');
+    if (!chatWidget?.classList.contains('hidden')) {
+        chatInput.focus();
+    }
+  });
+
+  closeChatButton?.addEventListener('click', () => {
+    chatWidget?.classList.add('hidden');
+  });
+
+  // Inicializar
+  loadChatHistory();
+  listenForMessages();
+});
+</script>

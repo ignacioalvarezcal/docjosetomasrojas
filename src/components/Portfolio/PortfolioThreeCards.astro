@@ -1,0 +1,72 @@
+---
+/**
+ * * This is a component that displays a services grid
+ * Larger on the left, smaller two on the right
+ */
+
+import Button from "@components/Button/Button.astro";
+
+const services = [
+  {
+    title: "Implantología Oral Avanzada",
+    description: "Reposición fija de dientes perdidos con implantes de titanio.",
+  },
+  {
+    title: "Rehabilitación Oral Integral",
+    description: "Restauración completa de la función y estética de tu sonrisa.",
+  },
+  {
+    title: "Cirugía Oral Menor",
+    description: "Extracciones y procedimientos quirúrgicos con mínimo malestar.",
+  },
+  {
+    title: "Odontología General y Preventiva",
+    description: "Diagnósticos, limpiezas y prevención para tu salud bucal.",
+  },
+  {
+    title: "Diseño de Sonrisa y Estética Dental",
+    description: "Carillas, blanqueamientos y tratamientos para una sonrisa perfecta.",
+  },
+  {
+    title: "Periodoncia (Salud de Encías)",
+    description: "Cuidado especializado de encías para tratar gingivitis y periodontitis.",
+  },
+  {
+    title: "Prótesis Removibles",
+    description: "Soluciones a medida, funcionales y estéticas, para restaurar tu sonrisa.",
+  },
+  {
+    title: "Diagnóstico y Evaluación Integral",
+    description: "Evaluación completa con tecnología para un plan de tratamiento ideal.",
+  },
+  {
+    title: "Planificación Digital Pre-Implantaria",
+    description: "Planificación 3D para implantes precisos, seguros y de máxima calidad.",
+  },
+  {
+    title: "Armonización Orofacial",
+    description: "Rellenos faciales con ácido hialurónico para realzar y armonizar tu sonrisa.",
+  },
+];
+---
+
+<section id="portfolio-three-cards" class="bg-gray-100 scroll-mt-10 py-16 md:py-24">
+	<div class="mx-auto max-w-7xl px-4">
+		<div class="text-center">
+			<p class="font-heading-1 text-base font-semibold uppercase tracking-wider text-primary-500">
+				Servicios Destacados
+			</p>
+			<h2 class="h2 mt-3 font-roboto font-bold">
+				Tu mejor sonrisa está en mis manos<br /> Conoce mis principales tratamientos
+			</h2>
+		</div>
+	</div>
+	<div class="mx-auto mt-12 grid max-w-7xl grid-cols-1 gap-8 px-4 md:grid-cols-2 lg:grid-cols-5">
+		{services.map((service) => (
+			<div class="group flex h-full transform flex-col rounded-lg border-t-4 border-transparent bg-white p-6 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-2 hover:border-primary-500 hover:shadow-2xl">
+				<h3 class="h4 font-heading-2 font-bold text-primary-700">{service.title}</h3>
+				<p class="font-open-sans mt-2 flex-grow text-gray-700">{service.description}</p>
+			</div>
+		))}
+	</div>
+</section>
