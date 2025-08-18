@@ -18,13 +18,34 @@ const navConfig: navItem[] = [
 		link: "/",
 	},
 	{
-		text: "TRABAJOS",
+		text: "SOBRE MÍ",
 		link: "/portfolios/",
+	},
+	{
+		text: "SERVICIOS",
+		link: "/#pricing",
+	},
+	{
+		text: "CASOS CLÍNICOS",
+		link: "/#pricing",
+	},
+	{
+		text: "BLOG",
+		link: "/#pricing",
 	},
 	{
 		text: "VALORES",
 		link: "/#pricing",
 	},
+	{
+		text: "CONTACTO",
+		link: "/#pricing",
+	},
+	{
+		text: "TESTIMONIOS",
+		link: "/#pricing",
+	},
+	/*
 	{
 		text: "PAGINAS",
 		dropdown: [
@@ -50,6 +71,7 @@ const navConfig: navItem[] = [
 			},
 		],
 	},
+	*/
 ];
 
 export default navConfig;

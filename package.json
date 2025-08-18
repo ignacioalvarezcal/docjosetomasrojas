@@ -12,10 +12,10 @@
 		"lint": "eslint ."
 	},
 	"dependencies": {
-		"@astro/adapter-vercel": "^3.4.0",
-		"@astrojs/mdx": "4.2.6",
-		"@astrojs/rss": "4.0.11",
-		"@astrojs/sitemap": "3.3.1",
+		"@astrojs/vercel": "^8.0.0",
+		"@astrojs/mdx": "^4.0.0",
+		"@astrojs/rss": "^4.0.0",
+		"@astrojs/sitemap": "^3.0.0",
 		"@fontsource-variable/playfair-display": "5.2.5",
 		"@fontsource-variable/raleway": "5.2.5",
 		"@fontsource-variable/work-sans": "5.2.5",
@@ -25,11 +25,9 @@
 		"@tailwindcss/vite": "4.1.5",
 		"astro": "5.7.12",
 		"astro-auto-import": "0.4.4",
-		"astro-icon": "1.1.5",
+		"astro-icon": "^1.0.0",
 		"astro-seo": "0.8.4",
-		"qrcode-terminal": "^0.12.0",
-		"tailwindcss": "4.1.5",
-		"whatsapp-web.js": "^1.31.0"
+		"tailwindcss": "4.1.5"
 	},
 	"devDependencies": {
 		"@eslint/js": "9.26.0",

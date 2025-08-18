@@ -4,7 +4,6 @@
  */
 
 import ContactForm from "@components/Forms/ContactForm.astro";
-import { Image } from "astro:assets";
 import siteData from "@config/siteData.json.ts";
 
 interface Props {
@@ -13,38 +12,47 @@ interface Props {
 
 const { class: className } = Astro.props as Props;
 
-import contactImage from "@assets/images/rings-min.jpg"; // SOLUCIÓN TEMPORAL
-
+const address = siteData.contact.address;
+const gmapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 ---
 
-<section
-	id="contact"
-	class="mx-auto max-w-md scroll-mt-10 px-4 py-8 md:max-w-6xl md:py-12"
-	class:list={[className]}
->
-	<h2 class="h2 md:px-12 lg:text-6xl">Agenda tu Evaluación</h2>
-	<div class="grid gap-y-10 md:grid-cols-2">
-		<div class="border-primary-300 pt-8 md:border-r md:pr-20 md:pl-12">
-			<p class="description text-lg">
-				¿Listo para comenzar tu tratamiento o tienes alguna pregunta? Completa el formulario y te contactaremos a la brevedad.
-			</p>
-			<div class="mt-6 text-lg">
-				<p><strong>Teléfono:</strong> {siteData.contact.phone}</p>
-				<p><strong>Email:</strong> {siteData.contact.email}</p>
-				<p><strong>Dirección:</strong> {siteData.contact.address}</p>
-			</div>
-			<div class="mx-auto mt-8 aspect-square overflow-hidden">
-				<Image
-					src={contactImage}
-					alt="Clínica dental del Dr. José Tomás Rojas Vera en Providencia"
-					width={450}
-					densities={[1.5, 2]}
-					class="h-full w-full object-cover"
-				/>
-			</div>
-		</div>
-		<div class="md:pr-12 md:pl-20">
-			<ContactForm />
-		</div>
-	</div>
+<section id="contacto" class:list={["scroll-mt-10 bg-white", className]}>
+  <div class="mx-auto max-w-6xl px-4 py-16 md:py-24">
+    <!-- Section Header -->
+    <div class="mb-12 text-center">
+      <h2 class="h2">Agenda tu Evaluación</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
+        ¿Listo para comenzar tu tratamiento o tienes alguna pregunta? Completa el formulario y te contactaremos a la brevedad.
+      </p>
+    </div>
+
+    <!-- Grid Layout -->
+    <div class="grid gap-12 md:grid-cols-2">
+      <!-- Left Column: Contact Info & Map -->
+      <div class="flex flex-col justify-center space-y-8">
+        <div class="text-lg">
+          <p><strong>Teléfono:</strong> {siteData.contact.phone}</p>
+          <p><strong>Email:</strong> {siteData.contact.email}</p>
+          <p><strong>Dirección:</strong> {address}</p>
+        </div>
+        <div class="aspect-w-5 aspect-h-6 overflow-hidden rounded-3xl shadow-lg">
+          <iframe
+            src={gmapsUrl}
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen={false}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación de la clínica"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Right Column: Contact Form -->
+      <div class="flex items-center">
+        <ContactForm />
+      </div>
+    </div>
+  </div>
 </section>

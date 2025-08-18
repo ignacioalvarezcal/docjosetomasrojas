@@ -22,8 +22,17 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const page = Astro.props as Props;
 
 // convert markdown to html
-const { Content } = await render(page);
-const { title, description } = page.data;
+let Content: any = () => null;
+let title = "";
+let description = "";
+
+if (page) {
+  const rendered = await render(page as any);
+  Content = rendered.Content;
+  title = page.data?.title ?? page.id ?? "";
+  description = page.data?.description ?? "";
+}
+
 ---
 
 <BaseLayout title={title} description={description}>

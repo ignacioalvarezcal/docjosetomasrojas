@@ -12,12 +12,12 @@ import { Icon } from "astro-icon/components";
 		aria-label="open navigation menu"
 		aria-haspopup="true"
 		aria-expanded="false"
-		class="primary-focus h-10 w-10 rounded-none"
+		class="primary-focus h-12 w-12 rounded-none"
 	>
 		<!-- hamburger icon to open menu -->
 		<Icon
 			name="tabler:menu-2"
-			class="m-auto inline-block h-8 w-8 stroke-current"
+			class="m-auto inline-block h-10 w-10 stroke-current"
 			aria-hidden="true"
 		/>
 	</button>
@@ -52,9 +52,12 @@ import { Icon } from "astro-icon/components";
 				</ul>
 			</nav>
 			<div class="mx-1 mt-2 w-full px-4">
-				<Button variant="outline" class="w-full" href="https://cosmicthemes.com/themes/horizon/">
-					Get Horizon
-				</Button>
+				<div class="mt-12 flex justify-center">
+					<a href="#about-me" class="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-sky-500 px-6 py-2.5 text-base font-semibold text-white shadow-[0_8px_18px_-12px_rgba(14,165,233,0.35)] transition-all duration-300 hover:from-cyan-400 hover:via-sky-500 hover:to-sky-600 hover:-translate-y-[1px] hover:shadow-[0_14px_28px_-14px_rgba(14,165,233,0.35)] active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-sky-300/50">
+					  <span>Agenda una cita</span>
+					  <span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+					</a>
+				  </div>
 			</div>
 		</div>
 	</div>

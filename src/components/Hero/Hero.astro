@@ -4,64 +4,246 @@
  * You'll want a mobile image, and a desktop image for this.
  */
 
-import Button from "@components/Button/Button.astro";
-import heroImage from "@images/hero-bg-min.jpg";
+import heroImageOne from "@images/hero-slide/JoSlide1.png";
+import heroImageTwo from "@images/hero-slide/JoSlide2.png";
+import heroImageThree from "@images/hero-slide/JoSlide3.png";
 import heroImageMobile from "@images/hero-bg-min.jpg";
 import { Image } from "astro:assets";
 ---
 
-<section id="hero" class="relative z-10 flex min-h-[100lvh] w-full">
-	<!-- background image -->
+<section id="hero" class="relative z-10 flex min-h-[100svh] md:min-h-[100vh] w-full">
+	<!-- background image as 3-slide carousel -->
 	<div class="absolute -z-10 h-full min-h-full w-full overflow-hidden">
-		<div class="absolute inset-0 bg-black/50"></div>
+		<div id="hero-carousel" class="relative z-0 h-full w-full">
+			<!-- Slide 1 -->
+			<div class="absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out" data-slide="0" aria-hidden="false">
+				<Image
+					src={heroImageOne}
+					class="hidden min-h-full w-full object-cover object-right sm:block"
+					alt="Clínica dental del Dr. José Tomás Rojas Vera"
+					aria-hidden="true"
+					loading="eager"
+					height={1200}
+				/>
+				<Image
+					src={heroImageMobile}
+					class="h-auto min-h-full w-full object-cover sm:hidden"
+					alt="Clínica dental del Dr. José Tomás Rojas Vera"
+					aria-hidden="true"
+					loading="eager"
+					width={1200}
+				/>
+			</div>
+			<!-- Slide 2 (reutiliza la misma imagen; puedes reemplazarla por otra) -->
+			<div class="absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out" data-slide="1" aria-hidden="true">
+				<Image
+					src={heroImageTwo}
+					class="hidden h-auto min-h-full w-full object-cover object-right sm:block"
+					alt="Clínica dental del Dr. José Tomás Rojas Vera"
+					aria-hidden="true"
+					loading="eager"
+					height={1200}
+				/>
+				<Image
+					src={heroImageMobile}
+					class="h-auto min-h-full w-full object-cover sm:hidden"
+					alt="Clínica dental del Dr. José Tomás Rojas Vera"
+					aria-hidden="true"
+					loading="eager"
+					width={1200}
+				/>
+			</div>
+			<!-- Slide 3 (reutiliza la misma imagen; puedes reemplazarla por otra) -->
+			<div class="absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out" data-slide="2" aria-hidden="true">
+				<Image
+					src={heroImageThree}
+					class="hidden h-auto min-h-full w-full object-cover object-right sm:block"
+					alt="Clínica dental del Dr. José Tomás Rojas Vera"
+					aria-hidden="true"
+					loading="eager"
+					height={1200}
+				/>
+				<Image
+					src={heroImageMobile}
+					class="h-auto min-h-full w-full object-cover sm:hidden"
+					alt="Clínica dental del Dr. José Tomás Rojas Vera"
+					aria-hidden="true"
+					loading="eager"
+					width={1200}
+				/>
+			</div>
+		</div>
+		<!-- overlay por encima de imágenes, debajo del contenido -->
+		<div class="absolute inset-0 z-[5] bg-black/30 pointer-events-none"></div>
+	</div>
 
-		<Image
-			src={heroImage}
-			class="hidden h-auto min-h-full w-full object-cover object-right sm:block"
-			alt="Clínica dental del Dr. José Tomás Rojas Vera"
-			aria-hidden="true"
-			loading="eager"
-			height={1400}
-		/>
-		<Image
-			src={heroImageMobile}
-			class="h-auto min-h-full w-full object-cover sm:hidden"
-			alt="Clínica dental del Dr. José Tomás Rojas Vera"
-			aria-hidden="true"
-			loading="eager"
-			width={1200}
-		/>
+	<!-- controles del carrusel: abajo a la izquierda -->
+	<div class="pointer-events-auto absolute bottom-16 left-6 md:bottom-20 z-20 flex items-center gap-2">
+		<button data-dot="0" aria-label="Ir al slide 1" aria-controls="hero-carousel" class="h-2.5 w-8 rounded-full bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/80"></button>
+		<button data-dot="1" aria-label="Ir al slide 2" aria-controls="hero-carousel" class="h-2.5 w-8 rounded-full bg-white/40 transition-colors hover:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/80"></button>
+		<button data-dot="2" aria-label="Ir al slide 3" aria-controls="hero-carousel" class="h-2.5 w-8 rounded-full bg-white/40 transition-colors hover:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/80"></button>
 	</div>
 
 	<!-- hero items -->
-	<div class="site-container relative w-full gap-10 py-44 text-center md:py-52 md:text-left">
+	<div class="site-container relative w-full gap-10 py-42 md:py-44 text-center md:text-left">
 		<!-- Hero text -->
 		<div class="text-base-50 my-auto mr-auto flex-col md:max-w-xl">
-			<h2
-				class="text-pretty text-xl font-semibold tracking-widest drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]"
-			>
-				Implantología y rehabilitación oral
-			</h2>
 			<h3
-				class="font-heading-1 mt-4 text-pretty text-4xl font-semibold drop-shadow-[0_3px_3px_rgba(0,0,0,0.6)] md:text-6xl md:leading-tight"
+				class="font-heading-1 mt-4 text-pretty text-4xl font-semibold tracking-tight drop-shadow-[0_3px_3px_rgba(0,0,0,0.6)] md:text-6xl md:leading-tight md:whitespace-nowrap will-reveal"
 			>
-				Dr.<br> José Tomás<br> Rojas Vera
+				Dr. José Tomás Rojas Vera
 			</h3>
+			<h2
+				class="text-pretty text-xl font-semibold tracking-widest drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] will-reveal"
+			>
+				<br>Implantología Buco Maxilofacial
+			</h2>
 			
-			<div class="mt-8 rounded-lg bg-black/20 p-6 backdrop-blur-sm md:mb-10 lg:text-lg">
 			<!--
+			<div class="mt-8 rounded-lg bg-black/20 p-6 backdrop-blur-sm md:mb-10 lg:text-lg">
+			
 				<p class="text-pretty text-lg tracking-wide drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] md:text-xl">
 					Soy cirujano dentista con especialidad en Implantología y Odontología Estética.
 					Tengo un enfoque centrado en el bienestar y la rehabilitación oral. Quiero ofrecerte una atención integral basada en la confianza por que creo que cada tratamiento es una oportunidad para acompañar, escuchar y entregar soluciones reales con dedicación y precisión.
 				</p>
-				-->
 				
 				<div class="text-pretty text-lg tracking-wide drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] md:text-xl">
 					<p class="font-heading-1 text-3xl italic">Recupera la confianza en tu sonrisa</p>
 				</div>
 				
 			</div>
+			-->
 			
+			<!-- CTA: Agendar Cita -->
+			<div class="mt-8 flex justify-center md:justify-start">
+				<a href="#contacto" id="hero-cta" class="group relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-sky-500 px-7 py-3 text-lg font-semibold text-white shadow-[0_8px_18px_-12px_rgba(14,165,233,0.35)] transition-all duration-300 hover:from-cyan-400 hover:via-sky-500 hover:to-sky-600 hover:scale-[1.01] hover:shadow-[0_14px_28px_-14px_rgba(14,165,233,0.35)] active:scale-95 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-sky-300/50 will-reveal" aria-label="Agendar una cita">
+					<span class="relative z-10">Agenda tu Cita</span>
+					<span class="relative z-10 ml-1 inline-block transition-transform group-hover:translate-x-0.5">→</span>
+					<span class="pointer-events-none absolute inset-0 -z-0 rounded-full bg-white/0  blur-xl transition-all duration-300 group-hover:bg-white/10 group-hover:opacity-100"></span>
+				</a>
+			</div>
 		</div>
 	</div>
+
+	<!-- script del carrusel -->
+	<script is:inline>
+		(function() {
+			const root = document.getElementById('hero');
+			if (!root) return;
+			const slides = root.querySelectorAll('[data-slide]');
+			const dots = root.querySelectorAll('[data-dot]');
+			let current = 0;
+			const INTERVAL = 2500; // ms, velocidad del autoplay
+			let timerId;
+			let lastAdvance = Date.now();
+			let watchdogId;
+
+			function update(i) {
+				current = (i + slides.length) % slides.length;
+				slides.forEach((el, idx) => {
+					const active = idx === current;
+					el.style.opacity = active ? '1' : '0';
+					el.style.pointerEvents = active ? 'auto' : 'none';
+					el.setAttribute('aria-hidden', active ? 'false' : 'true');
+				});
+				dots.forEach((btn, idx) => {
+					btn.classList.toggle('bg-white', idx === current);
+					btn.classList.toggle('bg-white/40', idx !== current);
+				});
+			}
+
+			function scheduleNext() {
+				clearTimeout(timerId);
+				timerId = setTimeout(() => {
+					update(current + 1);
+					lastAdvance = Date.now();
+					scheduleNext();
+				}, INTERVAL);
+			}
+
+			function startTimer() {
+				scheduleNext();
+			}
+
+			function startWatchdog() {
+				clearInterval(watchdogId);
+				watchdogId = setInterval(() => {
+					if (Date.now() - lastAdvance > INTERVAL * 1.8) {
+						update(current + 1);
+						scheduleNext();
+					}
+				}, INTERVAL);
+			}
+
+			dots.forEach((btn, i) => btn.addEventListener('click', () => { update(i); scheduleNext(); }));
+
+			// autoplay con pausa al hover
+			startTimer();
+			startWatchdog();
+			root.addEventListener('mouseenter', () => {
+				clearTimeout(timerId);
+				clearInterval(watchdogId);
+			});
+			root.addEventListener('mouseleave', () => {
+				scheduleNext();
+				startWatchdog();
+			});
+
+			update(0);
+
+			// Garantizar que no se "pegue" cuando cambia la visibilidad de la pestaña
+			document.addEventListener('visibilitychange', () => {
+				if (document.hidden) {
+					clearTimeout(timerId);
+					clearInterval(watchdogId);
+				} else {
+					// al volver, avanzar inmediatamente y reprogramar
+					update(current + 1);
+					scheduleNext();
+					startWatchdog();
+				}
+			});
+
+			// Animaciones de revelado al cargar y al hacer scroll
+			const revealables = root.querySelectorAll('.will-reveal, h3.font-heading-1, h2');
+			revealables.forEach((el) => el.classList.add('reveal'));
+			const io = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('in-view');
+						io.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.2 });
+			revealables.forEach((el) => io.observe(el));
+
+			// Scroll suave al CTA
+			const cta = document.getElementById('hero-cta');
+			cta && cta.addEventListener('click', (e) => {
+				const el = e.currentTarget;
+				if (el instanceof HTMLAnchorElement) {
+					const href = el.getAttribute('href') || '';
+					if (href.startsWith('#')) {
+						e.preventDefault();
+						const target = document.querySelector(href);
+						target && target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					}
+				}
+			});
+		})();
+	</script>
+
+	<style>
+		/* Animaciones modernas de carga/scroll */
+		.reveal {
+			opacity: 0;
+			transform: translateY(14px) scale(0.995);
+			transition: opacity 600ms ease, transform 700ms ease;
+			will-change: opacity, transform;
+		}
+		.in-view {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	</style>
 </section>

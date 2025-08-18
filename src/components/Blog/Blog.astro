@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets";
+import implantologiaImage from "@assets/images/portfolio/implantologia.jpg";
+
+const articles = [
+  {
+    title: "¿Qué es un implante dental y cuándo se recomienda?",
+    excerpt: "Perder un diente puede afectar no solo la sonrisa, sino también la función al comer y hablar. Una de las soluciones más seguras, estéticas y duraderas para reemplazar piezas dentales ausentes es el implante dental.",
+    link: "/blog/que-es-un-implante-dental",
+  },
+  {
+    title: "¿Qué es una prótesis híbrida y cuándo se utiliza?",
+    excerpt: "La pérdida total de dientes puede afectar profundamente la calidad de vida, tanto desde el punto de vista funcional como emocional. Para estos casos, la prótesis híbrida es una excelente alternativa fija, cómoda y estética, especialmente cuando se buscan resultados estables a largo plazo.",
+    link: "/blog/que-es-una-protesis-hibrida",
+  },
+  {
+    title: "Cuidados después de una cirugía dental: Lo que debes saber",
+    excerpt: "Después de una cirugía dental, como una extracción, la colocación de implantes o una cirugía de encías, es normal tener algunas molestias. Pero seguir ciertas indicaciones puede marcar la diferencia en cómo te recuperas.",
+    link: "/blog/cuidados-post-cirugia",
+  },
+];
+---
+
+<section id="blog" class="mx-auto max-w-6xl scroll-mt-10 px-4 py-16 md:py-24">
+  <div class="mx-auto max-w-6xl text-center">
+    <h2 class="h2 text-pretty">Educación dental: Aprende sobre tu salud oral</h2>
+    <p class="mt-4 text-lg text-gray-600">En esta sección encontrarás información clara y confiable sobre distintos temas odontológicos.
+        La idea es ayudarte a entender mejor los tratamientos, resolver tus dudas y acompañarte en el cuidado de tu salud oral.</p>
+  </div>
+
+  <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+    {articles.map((article) => (
+      <a href={article.link} class="group block">
+        <div class="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+          <Image
+            src={implantologiaImage}
+            alt={article.title}
+            width={400}
+            height={300}
+            class="aspect-video w-full object-cover"
+          />
+          <div class="flex flex-grow flex-col p-6">
+            <div class="flex-grow">
+              <h3 class="h4 font-bold text-gray-800">{article.title}</h3>
+              <p class="mt-2 text-base text-gray-600">{article.excerpt}</p>
+            </div>
+            <div class="mt-4 text-right">
+              <span class="text-sm font-semibold text-primary-500 transition-colors duration-300 group-hover:text-primary-600">Leer más...</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <div class="mt-16 flex justify-center">
+    <a
+      href="/blog"
+      class="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-sky-500 px-6 py-2.5 text-base font-semibold text-white shadow-[0_8px_18px_-12px_rgba(14,165,233,0.35)] transition-all duration-300 hover:from-cyan-400 hover:via-sky-500 hover:to-sky-600 hover:-translate-y-[1px] hover:shadow-[0_14px_28px_-14px_rgba(14,165,233,0.35)] active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-sky-300/50"
+    >
+      <span>Ver todos los artículos</span>
+      <span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+    </a>
+  </div>
+</section>
