@@ -8,7 +8,8 @@ import heroImageOne from "@images/hero-slide/JoSlide1.png";
 import heroImageTwo from "@images/hero-slide/JoSlide2.png";
 import heroImageThree from "@images/hero-slide/JoSlide3.png";
 import heroImageMobileThree from "@images/hero-slide/JoSlideMobile3.png";
-import heroImageMobile from "@images/hero-bg-min.jpg";
+import heroImageMobileOne from "@images/hero-slide/JoSlideMobile1.png";
+import heroImageMobileTwo from "@images/hero-slide/JoSlideMobile2.png";
 import { Image } from "astro:assets";
 ---
 
@@ -27,7 +28,7 @@ import { Image } from "astro:assets";
 					height={1200}
 				/>
 				<Image
-					src={heroImageMobile}
+					src={heroImageMobileOne}
 					class="h-auto min-h-full w-full object-cover sm:hidden"
 					alt="Clínica dental del Dr. José Tomás Rojas Vera"
 					aria-hidden="true"
@@ -46,7 +47,7 @@ import { Image } from "astro:assets";
 					height={1200}
 				/>
 				<Image
-					src={heroImageMobile}
+					src={heroImageMobileTwo}
 					class="h-auto min-h-full w-full object-cover sm:hidden"
 					alt="Clínica dental del Dr. José Tomás Rojas Vera"
 					aria-hidden="true"
@@ -78,55 +79,40 @@ import { Image } from "astro:assets";
 		<div class="absolute inset-0 z-[5] bg-black/30 pointer-events-none"></div>
 	</div>
 
-	<!-- controles del carrusel: abajo a la izquierda -->
-	<div class="pointer-events-auto absolute bottom-16 left-6 md:bottom-20 z-20 flex items-center gap-2">
+	<!-- controles del carrusel: abajo centrados solo en móvil -->
+	<div class="pointer-events-auto absolute bottom-16 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:left-6 sm:translate-x-0 md:bottom-20">
 		<button data-dot="0" aria-label="Ir al slide 1" aria-controls="hero-carousel" class="h-2.5 w-8 rounded-full bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/80"></button>
 		<button data-dot="1" aria-label="Ir al slide 2" aria-controls="hero-carousel" class="h-2.5 w-8 rounded-full bg-white/40 transition-colors hover:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/80"></button>
 		<button data-dot="2" aria-label="Ir al slide 3" aria-controls="hero-carousel" class="h-2.5 w-8 rounded-full bg-white/40 transition-colors hover:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/80"></button>
 	</div>
 
 	<!-- hero items -->
-	<div class="site-container relative w-full gap-10 py-42 md:py-44 text-center md:text-left">
+	<div class="site-container relative w-full gap-10 py-20 sm:py-42 md:py-44 text-center md:text-left">
 		<!-- Hero text -->
-		<div class="text-base-50 my-auto mr-auto flex-col md:max-w-xl">
+		<div class="text-base-50 flex-col md:max-w-xl mt-0 mb-0 sm:my-auto mr-auto">
 			<h3
-				class="font-heading-1 mt-4 text-pretty text-4xl font-semibold tracking-tight drop-shadow-[0_3px_3px_rgba(0,0,0,0.6)] md:text-6xl md:leading-tight md:whitespace-nowrap will-reveal"
-			>
-				Dr. José Tomás Rojas Vera
-			</h3>
-			<h2
-				class="text-pretty text-xl font-semibold tracking-widest drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] will-reveal"
-			>
-				<br>Implantología Buco Maxilofacial
-			</h2>
-			
-			<!--
-			<div class="mt-8 rounded-lg bg-black/20 p-6 backdrop-blur-sm md:mb-10 lg:text-lg">
-			
-				<p class="text-pretty text-lg tracking-wide drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] md:text-xl">
-					Soy cirujano dentista con especialidad en Implantología y Odontología Estética.
-					Tengo un enfoque centrado en el bienestar y la rehabilitación oral. Quiero ofrecerte una atención integral basada en la confianza por que creo que cada tratamiento es una oportunidad para acompañar, escuchar y entregar soluciones reales con dedicación y precisión.
-				</p>
-				
-				<div class="text-pretty text-lg tracking-wide drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] md:text-xl">
-					<p class="font-heading-1 text-3xl italic">Recupera la confianza en tu sonrisa</p>
-				</div>
-				
-			</div>
-			-->
-			
-			<!-- CTA: Agendar Cita -->
-			<div class="mt-8 flex justify-center md:justify-start">
-				<a href="#contacto" id="hero-cta" class="group relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-sky-500 px-7 py-3 text-lg font-semibold text-white shadow-[0_8px_18px_-12px_rgba(14,165,233,0.35)] transition-all duration-300 hover:from-cyan-400 hover:via-sky-500 hover:to-sky-600 hover:scale-[1.01] hover:shadow-[0_14px_28px_-14px_rgba(14,165,233,0.35)] active:scale-95 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-sky-300/50 will-reveal" aria-label="Agendar una cita">
-					<span class="relative z-10">Agenda tu Cita</span>
-					<span class="relative z-10 ml-1 inline-block transition-transform group-hover:translate-x-0.5">→</span>
-					<span class="pointer-events-none absolute inset-0 -z-0 rounded-full bg-white/0  blur-xl transition-all duration-300 group-hover:bg-white/10 group-hover:opacity-100"></span>
-				</a>
-			</div>
-		</div>
-	</div>
+                class="font-heading-1 mt-0 mb-1 text-pretty text-2xl font-semibold tracking-tight drop-shadow-[0_3px_3px_rgba(0,0,0,0.6)] sm:mt-4 sm:mb-0 sm:text-4xl md:text-6xl md:leading-tight md:whitespace-nowrap will-reveal"
+            >
+                Dr. José Tomás Rojas Vera
+            </h3>
+            <h2
+                class="text-pretty text-base font-semibold tracking-widest drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] sm:text-xl will-reveal"
+            >
+                Implantología Buco Maxilofacial
+            </h2>
+            
+            <!-- CTA: Agendar Cita -->
+            <div class="mt-70 flex justify-center sm:mt-8 sm:justify-start">
+                <a href="#contacto" id="hero-cta" class="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-sky-500 px-4 py-2 text-base font-semibold text-white shadow-[0_8px_18px_-12px_rgba(14,165,233,0.35)] transition-all duration-300 hover:from-cyan-400 hover:via-sky-500 hover:to-sky-600 hover:scale-[1.01] hover:shadow-[0_14px_28px_-14px_rgba(14,165,233,0.35)] active:scale-95 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-sky-300/50 will-reveal sm:px-7 sm:py-3 sm:text-lg" aria-label="Agendar una cita">
+                    <span class="relative z-10">Agenda tu Cita</span>
+                    <span class="relative z-10 ml-1 inline-block transition-transform group-hover:translate-x-0.5">→</span>
+                    <span class="pointer-events-none mt-4 absolute inset-0 -z-0 rounded-full bg-white/0  blur-xl transition-all duration-300 group-hover:bg-white/10 group-hover:opacity-100"></span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-	<!-- script del carrusel -->
+    <!-- script del carrusel -->
 	<script is:inline>
 		(function() {
 			const root = document.getElementById('hero');

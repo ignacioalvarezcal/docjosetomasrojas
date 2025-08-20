@@ -6,10 +6,9 @@ export interface SiteDataProps {
 	author: {
 		name: string;
 		email: string;
-		twitter: string; // used for twitter cards when sharing a blog post on twitter
+		site: string; // used for twitter cards when sharing a blog post on twitter
 	};
 	contact: {
-		phone: string;
 		email: string;
 		address: string;
 	};
@@ -37,16 +36,15 @@ const siteData: SiteDataProps = {
 	useViewTransitions: true,
 	// Your information!
 	author: {
-		name: "Dr. José Tomás Rojas Vera",
-		email: "contacto@drtomasrojas.cl",
-		twitter: "@drtomasrojas",
+		name: "Ignacio Álvarez",
+		email: "ignacioaalvarezc@gmail.com",
+		site: "https://isoft.cl", // used for twitter cards when sharing a blog post on twitter
 	},
 
 	// Contact information
 	contact: {
-		phone: "+56 9 1234 5678",
-		email: "contacto@drtomasrojas.cl",
-		address: "Av. Providencia 1234, Oficina 56, Providencia, Santiago",
+		email: "joseto.rojas@gmail.com",
+		address: "Hernando de Aguirre 162, of 1302, Providencia, Santiago",
 	},
 
 	// default image for meta tags if the page doesn't have an image already

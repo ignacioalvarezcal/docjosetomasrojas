@@ -1,22 +1,28 @@
 ---
 import { Image } from "astro:assets";
 import implantologiaImage from "@assets/images/portfolio/Implantologia.jpg";
+import blog1 from "@assets/images/blog/blog1.png";
+import blog2 from "@assets/images/blog/blog2.png";
+import blog3 from "@assets/images/blog/blog3.png";
 
 const articles = [
   {
     title: "¿Qué es un implante dental y cuándo se recomienda?",
     excerpt: "Perder un diente puede afectar no solo la sonrisa, sino también la función al comer y hablar. Una de las soluciones más seguras, estéticas y duraderas para reemplazar piezas dentales ausentes es el implante dental.",
     link: "/blog/que-es-un-implante-dental",
+    image: blog1,
   },
   {
     title: "¿Qué es una prótesis híbrida y cuándo se utiliza?",
     excerpt: "La pérdida total de dientes puede afectar profundamente la calidad de vida, tanto desde el punto de vista funcional como emocional. Para estos casos, la prótesis híbrida es una excelente alternativa fija, cómoda y estética, especialmente cuando se buscan resultados estables a largo plazo.",
     link: "/blog/que-es-una-protesis-hibrida",
+    image: blog2,
   },
   {
     title: "Cuidados después de una cirugía dental: Lo que debes saber",
     excerpt: "Después de una cirugía dental, como una extracción, la colocación de implantes o una cirugía de encías, es normal tener algunas molestias. Pero seguir ciertas indicaciones puede marcar la diferencia en cómo te recuperas.",
     link: "/blog/cuidados-post-cirugia",
+    image: blog3,
   },
 ];
 ---
@@ -33,7 +39,7 @@ const articles = [
       <a href={article.link} class="group block">
         <div class="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
           <Image
-            src={implantologiaImage}
+            src={article.image}
             alt={article.title}
             width={400}
             height={300}
