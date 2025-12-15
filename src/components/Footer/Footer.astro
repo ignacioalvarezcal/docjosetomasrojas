@@ -8,67 +8,70 @@ import FooterLink from "./FooterLink.astro";
 const today = new Date();
 ---
 
-<footer class="bg-base-100/40 mt-12 flex flex-col items-center justify-center py-8">
-	<div class="site-container">
-		<!-- footer links -->
-		<div
-			class="flex w-full flex-col items-center justify-between gap-2 text-lg md:grid md:grid-cols-5"
-		>
-			<div class="flex justify-center py-2 text-center md:hidden">
-				<SiteLogo />
-			</div>
-			<div class="col-span-2 flex justify-end gap-4">
-				<FooterLink href="/#portfolio">Servicios</FooterLink>
-				<FooterLink href="/#portfolio">Casos</FooterLink>
-			</div>
-			<div class="hidden justify-center text-center md:flex">
-				<SiteLogo />
-			</div>
-			<div class="flex gap-4 md:col-span-2">
-				<FooterLink href="/#pricing">Valores</FooterLink>
-				<FooterLink href="/#contact">Contacto</FooterLink>
-			</div>
-		</div>
+<footer class="bg-base-100/40 mt-12 flex flex-col items-center justify-center py-12">
+    <div class="site-container w-full">
+        {/* --- SECCIÓN DE ENLACES (SIN CAMBIOS) --- */}
+        <div class="relative flex w-full flex-col items-center justify-center gap-y-4 text-lg md:flex-row md:items-end md:gap-x-16">
+            <div class="flex justify-center gap-x-16">
+                <FooterLink href="/#portfolio">Servicios</FooterLink>
+                <FooterLink href="/#portfolio">Casos</FooterLink>
+            </div>
+            <div class="text-center order-first md:order-none md:-translate-y-8 mt-4">
+                <SiteLogo class="font-bold text-[#34657F]" />
+            </div>
+            <div class="flex justify-center gap-x-16">
+                <FooterLink href="/#pricing">Valores</FooterLink>
+                <FooterLink href="/#contact">Contacto</FooterLink>
+            </div>
+        </div>
 
-		<!-- lets connect -->
-		<div class="description mx-auto mt-6 max-w-[21rem] px-4 text-center">
-			<p>
-				<span class="italic">Contactame!</span> Siguenos en mis redes sociales
-				y conoce mas sobre mí.
-			</p>
-		</div>
+        {/* --- SECCIÓN "LETS CONNECT" (SIN CAMBIOS) --- */}
+        <div class="description mx-auto mt-12 max-w-[21rem] px-4 text-center">
+            <p class="mb-6">
+                Sigueme en mis redes sociales
+                y conoce mas sobre mí.
+            </p>
+            <span class="italic font-bold text-primary-1000">Contactame!</span>
+        </div>
 
-		<!-- socials -->
-<div class="mt-8 flex justify-center gap-6">
-	<!-- YouTube -->
-	<a href="https://youtube.com/" target="_blank" rel="noopener noreferrer">
-	  <Icon 
-		name="socials/mdi-youtube" 
-		class="w-14 h-14 text-[#FF0000] transition hover:opacity-80" 
-	  />
-	  <span class="sr-only">YouTube</span>
-	</a>
-  
-	<!-- Instagram -->
-	<a href="https://instagram.com/dr.josetomasrojasvera" target="_blank" rel="noopener noreferrer">
-		<img 
-		  src="https://cdn.simpleicons.org/instagram/ffffff" 
-		  alt="Instagram" 
-		  class="w-10 h-10 mt-2 rounded-lg"
-		  style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); padding: 6px;"
-		/>
-	  </a>
-  </div>
+        {/* --- SECCIÓN DE REDES SOCIALES (ACTUALIZADA) --- */}
+        {/* CAMBIO: Se aumentó el espaciado con "gap-8" */}
+        <div class="mt-8 flex justify-center gap-8 items-center">
+            {/* YouTube */}
+            <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer">
+                <Icon
+                    name="mdi:youtube"  
+                    class="h-14 w-14 text-[#FF0000] transition hover:opacity-80"
+                />
+                <span class="sr-only">YouTube</span>
+            </a>
 
-		<!-- copyright -->
-		<div class="mt-4 mb-2 text-center text-sm opacity-80">
-			&copy; {today.getFullYear()} Desarrollado por <a
-				href="https://cosmicthemes.com"
-				class="hover:text-primary-600 transition"
-				target="_blank"
-				rel="noopener">Isoft</a
-			>
-			<!-- {siteData.name}. Algunos derechos reservados. -->
-		</div>
-	</div>
+            {/* CAMBIO: Ícono de LinkedIn agregado */}
+            <a href="URL-DE-TU-PERFIL-DE-LINKEDIN" target="_blank" rel="noopener noreferrer">
+                <Icon
+                    name="mdi:linkedin" 
+                    class="h-12 w-12 text-[#0077B5] transition hover:opacity-80"
+                />
+                <span class="sr-only">LinkedIn</span>
+            </a>
+
+            {/* Instagram */}
+            <a href="https://instagram.com/docjosetomasrojas" target="_blank" rel="noopener noreferrer">
+                <Icon
+                    name="mdi:instagram"
+                    class="h-12 w-12 text-[#C13584] transition hover:opacity-80"
+                />
+                <span class="sr-only">Instagram</span>
+            </a>
+        </div>
+
+        <div class="mt-4 mb-2 text-center text-sm opacity-80">
+            &copy; {today.getFullYear()} Desarrollado por <a
+                href="https://isoft.cl"
+                class="hover:text-primary-600 transition"
+                target="_blank"
+                rel="noopener">Isoft</a
+            >
+        </div>
+    </div>
 </footer>

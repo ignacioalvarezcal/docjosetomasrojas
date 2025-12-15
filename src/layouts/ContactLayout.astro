@@ -1,0 +1,40 @@
+---
+// src/layouts/ContactLayout.astro
+
+// Importamos los componentes del encabezado y pie de página.
+import Nav from '@components/Nav/Nav.astro';
+import Footer from '@components/Footer/Footer.astro';
+import '../styles/global.css';
+
+// Esta interfaz permite que la página le pase un título al layout.
+interface Props {
+    title: string;
+    description?: string;
+    navStartStyle?: "initial" | "scrolled";
+}
+
+const { title, description = 'Descripción por defecto', navStartStyle = "scrolled", } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+</head>
+<body class="bg-gray-100">
+
+    {/* El Navbar usa la prop 'navStartStyle', la hemos mantenido */}
+    <Nav startStyle={navStartStyle} />
+
+    <main>
+        {/* ESTO ES TODO LO QUE NECESITAS.
+            Astro pondrá aquí automáticamente el contenido de ContactPage.astro */}
+        <slot />
+    </main>
+
+    <Footer />
+
+</body>
+</html>

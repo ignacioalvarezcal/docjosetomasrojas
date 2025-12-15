@@ -1,9 +1,4 @@
 ---
-/**
- * * This is a testimonials section that displays three testimonials
- *
- */
-
 import { getCollection } from "astro:content";
 
 const testimonials = await getCollection("testimonials");
@@ -23,9 +18,8 @@ const firstThreeTestimonials = sortedTestimonials.slice(0, 3);
 
 <section id="testimonial" class="site-container scroll-mt-10 py-16 md:py-24">
 	<div class="mx-auto max-w-3xl px-4 text-center">
-		<h2 class="h2 font-heading-1 text-pretty">SOBRE MÍ</h2>
-	</div>
-	<div class="font-open-sans mt-8 flex flex-col gap-6 text-lg text-base-700 md:text-xl text-justify">
+		<h2 class="h2 font-open-sans font-bold !text-primary-1000">SOBRE MÍ</h2>
+		<div class="font-open-sans mt-8 flex flex-col gap-6 text-lg text-base-700 md:text-xl text-justify">
 		<p>
 			Soy el Dr. José Tomás Rojas Vera, Cirujano Dentista con enfoque en implantología y rehabilitación oral. 
 			Me interesa ofrecer una atención integral, basada en la confianza, el conocimiento y la cercanía.
@@ -33,10 +27,22 @@ const firstThreeTestimonials = sortedTestimonials.slice(0, 3);
 		
 		<!-- CTA bajo el texto -->
 		<div class="mt-4 flex justify-center">
-			<a href="#about-me" class="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-sky-500 px-6 py-2.5 text-base font-semibold text-white shadow-[0_8px_18px_-12px_rgba(14,165,233,0.35)] transition-all duration-300 hover:from-cyan-400 hover:via-sky-500 hover:to-sky-600 hover:-translate-y-[1px] hover:shadow-[0_14px_28px_-14px_rgba(14,165,233,0.35)] active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-sky-300/50">
+			<a 
+				href="/about" 
+				class="group relative inline-flex items-center gap-2 rounded-full 
+					bg-gradient-to-r from-primary-600 to-primary-800 
+					px-6 py-2.5 text-base font-semibold text-white 
+					shadow-lg shadow-primary-500/30 
+					transition-all duration-300 
+					hover:from-primary-700 hover:to-primary-900 
+					hover:-translate-y-[1px] hover:shadow-xl hover:shadow-primary-500/40 
+					active:translate-y-0 
+					focus:outline-none focus:ring-4 focus:ring-primary-400/50"
+			>
 				<span>Conóceme más</span>
 				<span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
 			</a>
 		</div>
+	</div>
 	</div>
 </section>

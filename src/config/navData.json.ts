@@ -19,7 +19,7 @@ const navConfig: navItem[] = [
 	},
 	{
 		text: "SOBRE MÍ",
-		link: "/portfolios/",
+		link: "/about/",
 	},
 	{
 		text: "SERVICIOS",
@@ -34,15 +34,7 @@ const navConfig: navItem[] = [
 		link: "/#pricing",
 	},
 	{
-		text: "VALORES",
-		link: "/#pricing",
-	},
-	{
 		text: "CONTACTO",
-		link: "/#pricing",
-	},
-	{
-		text: "TESTIMONIOS",
 		link: "/#pricing",
 	},
 	/*
