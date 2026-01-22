@@ -147,7 +147,7 @@ const { startStyle = "initial" } = Astro.props;
   /* Hacer los selectores más específicos y usar !important para el estado inicial */
   :global(#nav__container.initial) {
     color: var(--primary);
-    background-color: rgba(0, 0, 0, 0.10) !important;
+    background-color: rgba(0, 0, 0, 0) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
