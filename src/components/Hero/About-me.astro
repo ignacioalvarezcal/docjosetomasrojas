@@ -1,4 +1,5 @@
 ---
+import heroImageOne from "@images/hero-slide/about-me.png";
 ---
 
 <style>
@@ -9,8 +10,10 @@
       --bg-light: #F6F7F7;
       --accent-soft: #9FB6B8;
     }
-	.section{ padding:60px; }
-	.container{ max-width: 1200px; margin: 0 auto; }
+	.section{ 
+    padding:60px; 
+  }
+	.container{ max-width: 1200px; margin: 0 auto; margin-top: 90px; margin-bottom: 90px}
 	.grid-2{ display:grid; grid-template-columns: repeat(2,1fr); gap:4rem; align-items:center; }
 	h2.section-title{
       font-family:'Playfair Display',serif;
@@ -20,6 +23,18 @@
     }
 	p {
 		color:var(--bg-light);
+	}
+
+	.foto-container {
+		height: 420px;
+		border-radius: 16px;
+		overflow: hidden;
+	}
+
+	.foto-container img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
   @media (max-width:900px){
@@ -43,6 +58,8 @@
       <p style="line-height:1.8;">Creo en una odontología que acompaña, explica y propone soluciones pensadas para el largo plazo, integrando ciencia, experiencia y criterio profesional.</p>
       <div style="margin-top:2rem;"><a href="#" style="color:var(--bg-light); text-decoration:none; font-weight:500;">Ver más →</a></div>
     </div>
-    <div style="height:420px; background:#ddd; display:flex; align-items:center; justify-content:center; color:#777;">FOTO SOBRE MÍ</div>
+    <div class="foto-container">
+      <img src={heroImageOne.src} alt="Foto del Dr. José Tomás Rojas" />
+    </div>
   </div>
 </section>
