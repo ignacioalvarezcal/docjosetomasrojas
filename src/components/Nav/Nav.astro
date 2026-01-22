@@ -6,7 +6,6 @@ import NavDropdown from "@components/Nav/NavDropdown/NavDropdown.astro";
 import NavLink from "@components/Nav/NavLink.astro";
 import navData from "@config/navData.json";
 import logo from "@images/logo/logojo.png";
-import whiteLogo from "@images/logo/white-logojo.png";
 
 // 1. DEFINIMOS LA PROP FORMALMENTE
 interface Props {
@@ -25,7 +24,7 @@ const { startStyle = "initial" } = Astro.props;
   data-start-style={startStyle} >
   <div class="mx-auto flex h-14 w-full max-w-7xl items-center justify-between">
     <a href="/" class="logo-container">
-      <img id="navbar-logo" src={whiteLogo.src} alt="Logo Dr. José Tomás Rojas" class="logo-img" data-logo-normal={logo.src} data-logo-white={whiteLogo.src} />
+      <img src={logo.src} alt="Logo Dr. José Tomás Rojas" class="logo-img" />
       <div class="logo-text">
         <div class="logo-name">Dr. José Tomás Rojas V.</div>
         <div class="logo-subtitle">Implantología Buco Maxilofacial</div>
@@ -53,34 +52,25 @@ const { startStyle = "initial" } = Astro.props;
 
 <script>
   let navbar: HTMLElement | null;
-  let navbarLogo: HTMLImageElement | null;
 
   function scrollHandler() {
-    if (!navbar || !navbarLogo) return;
-
-    const logoNormalSrc = navbarLogo.getAttribute('data-logo-normal');
-    const logoWhiteSrc = navbarLogo.getAttribute('data-logo-white');
+    if (!navbar) return;
 
     if (window.scrollY > 800) {
       // Primero removemos la clase initial
       navbar.classList.remove('initial');
       // Luego añadimos scrolled
       navbar.classList.add('scrolled');
-      // Cambiar logo al normal
-      if (logoNormalSrc) navbarLogo.src = logoNormalSrc;
     } else {
       // Primero removemos scrolled
       navbar.classList.remove('scrolled');
       // Luego añadimos initial
       navbar.classList.add('initial');
-      // Cambiar logo al blanco
-      if (logoWhiteSrc) navbarLogo.src = logoWhiteSrc;
     }
   }
 
   function initNav() {
     navbar = document.getElementById("nav__container");
-    navbarLogo = document.getElementById("navbar-logo") as HTMLImageElement | null;
     if (navbar) {
       // Aseguramos que tenga la clase initial al inicio
       navbar.classList.add('initial');
@@ -119,10 +109,8 @@ const { startStyle = "initial" } = Astro.props;
   }
 
   :global(#nav__container.initial .logo-img) {
-    width: 90px !important;
-    height: 90px !important;
-    margin-left: -15px;
-    margin-top: 10px;
+    width:50px !important;
+    height: 50px !important;
   }
 
   :global(#nav__container.scrolled .logo-img) {
@@ -158,7 +146,7 @@ const { startStyle = "initial" } = Astro.props;
 
   /* Hacer los selectores más específicos y usar !important para el estado inicial */
   :global(#nav__container.initial) {
-    color: white !important;
+    color: var(--primary);
     background-color: rgba(0, 0, 0, 0.10) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
@@ -166,7 +154,7 @@ const { startStyle = "initial" } = Astro.props;
   }
 
   :global(#nav__container.initial *) {
-    color: white !important;
+    color: var(--primary);
   }
 
   :global(#nav__container.initial .logo-text) {
