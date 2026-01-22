@@ -3,8 +3,253 @@
  * * Hero simplificado con una sola imagen de fondo y efecto parallax
  */
 import heroImageOne from "@images/hero-slide/JoSlide1.png";
-import heroImageMobileOne from "@images/front.jpg";
+import heroImageMobileOne from "@images/front-real.png";
 ---
+
+<style>
+    :root {
+      --primary: #4F7A7C;
+      --heading: #2F3E46;
+      --text: #4A4A4A;
+      --bg-light: #F6F7F7;
+      --accent-soft: #9FB6B8;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+    }
+
+    /* ===== HEADER / BARRA SUPERIOR ===== */
+    header{
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #e6e6e6;
+    }
+
+    .nav-container{
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.1rem 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo{
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--heading);
+      white-space: nowrap; /* todo en una sola línea */
+    }
+
+    nav ul{
+      list-style: none;
+      display: flex;
+      gap: 2.2rem;
+    }
+
+    nav a{
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    nav a:hover{ color: var(--primary); }
+
+    /* ===== HERO ===== */
+    .hero{
+      height: 100vh;
+      width: 100%;
+      background: #9FB6B8;
+      background-size: cover;
+      background-position: right center;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      padding-left: 8vw;
+      padding-top: 90px; /* espacio para la barra superior */
+    }
+
+    .hero-content{ max-width: 640px; }
+
+    .hero-content h1{
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-content h2{
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--primary);
+      margin-bottom: 1.4rem;
+    }
+
+    .divider{
+      width: 52px;
+      height: 1px;
+      background: var(--primary);
+      margin-bottom: 2.2rem;
+    }
+
+    .btn{
+      display: inline-block;
+      padding: 14px 38px;
+      background: var(--bg-light);
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      border-radius: 3px;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover{ 
+      background:var(--accent-soft);
+      color:#ffffff;}
+
+    section{ padding: 6rem 8vw; }
+
+    .container{ max-width: 1200px; margin: 0 auto; }
+
+    h2.section-title{
+      font-family:'Playfair Display',serif;
+      font-size:2.2rem;
+      margin-bottom:1.5rem;
+    }
+
+    .grid-2{ display:grid; grid-template-columns: repeat(2,1fr); gap:4rem; align-items:center; }
+    .grid-3{ display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; }
+    .grid-4{ display:grid; grid-template-columns: repeat(4,1fr); gap:2rem; }
+
+    .card{ background:#fff; border:1px solid #e6e6e6; }
+    .card-body{ padding:1.5rem; }
+
+    /* ===== ANIMACIONES DE ENTRADA ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOutUp {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+    }
+
+    .hero-content.visible h1,
+    .hero-content.visible h2,
+    .hero-content.visible .divider,
+    .hero-content.visible .btn {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .hero-content.visible h1 {
+      animation-delay: 0.1s;
+    }
+
+    .hero-content.visible h2 {
+      animation-delay: 0.2s;
+    }
+
+    .hero-content.visible .divider {
+      animation-delay: 0.3s;
+    }
+
+    .hero-content.visible .btn {
+      animation-delay: 0.4s;
+    }
+
+    .hero-content.hidden h1,
+    .hero-content.hidden h2,
+    .hero-content.hidden .divider,
+    .hero-content.hidden .btn {
+      animation: fadeOutUp 0.5s ease-in forwards;
+    }
+
+    @media (max-width:900px){
+      nav ul{ display:none; }
+      .hero{
+        background-position: center top;
+        padding: 120px 7vw;
+        align-items: flex-end;
+      }
+      .hero-content h1{ font-size:2.6rem; }
+      .hero-content h2{ font-size:1.15rem; }
+      .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; }
+    }
+  </style>
+
+<section 
+  class="hero"
+  style={`
+    background-image: url(${heroImageOne.src});
+    @media (min-width: 640px) {
+      background-image: url(${heroImageOne.src});
+    }
+  `}>
+  <div class="hero-content" id="heroContent">
+    <h1>Dr. José Tomás Rojas V.</h1>
+    <h2>Implantología Buco Maxilofacial</h2>
+    <div class="divider"></div>
+    <a href="#" class="btn">Conóceme</a>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const heroContent = document.getElementById('heroContent');
+    const heroSection = document.querySelector('.hero');
+
+    if (!heroContent || !heroSection) return;
+
+    // Crear Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // El hero está visible en el viewport
+          heroContent.classList.remove('hidden');
+          heroContent.classList.add('visible');
+        } else {
+          // El hero salió del viewport
+          heroContent.classList.remove('visible');
+          heroContent.classList.add('hidden');
+        }
+      });
+    }, {
+      threshold: 0.3 // Se activa cuando 30% del hero es visible
+    });
+
+    // Observar el hero section
+    observer.observe(heroSection);
+  });
+</script>
+
+<!--
+<!DOCTYPE html >
 
 <section
   id="hero"
@@ -59,3 +304,5 @@ import heroImageMobileOne from "@images/front.jpg";
     transform: translateY(0) scale(1);
   }
 </style>
+
+-->

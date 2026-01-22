@@ -1,0 +1,158 @@
+<style>
+    :root {
+      --primary: #4F7A7C;
+      --heading: #2F3E46;
+      --text: #4A4A4A;
+      --bg-light: #F6F7F7;
+      --accent-soft: #9FB6B8;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      background: var(--bg-light);
+    }
+
+    /* ===== HEADER / BARRA SUPERIOR ===== */
+    header{
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #e6e6e6;
+    }
+
+    .nav-container{
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.1rem 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo{
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--heading);
+      white-space: nowrap; /* todo en una sola línea */
+    }
+
+    nav ul{
+      list-style: none;
+      display: flex;
+      gap: 2.2rem;
+    }
+
+    nav a{
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    nav a:hover{ color: var(--primary); }
+
+    /* ===== HERO ===== */
+    .hero{
+      height: 100vh;
+      width: 100%;
+      background-image: url('Firefly 20260107131824.png');
+      background-size: cover;
+      background-position: right center;
+      display: flex;
+      align-items: center;
+      padding-left: 8vw;
+      padding-top: 90px; /* espacio para la barra superior */
+    }
+
+    .hero-content{ max-width: 540px; }
+
+    .hero-content h1{
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-content h2{
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--primary);
+      margin-bottom: 1.4rem;
+    }
+
+    .divider{
+      width: 52px;
+      height: 1px;
+      background: var(--primary);
+      margin-bottom: 2.2rem;
+    }
+
+    .btn{
+      display: inline-block;
+      padding: 14px 38px;
+      background: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      border-radius: 3px;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover{ background:#3f6668; }
+
+    section{ padding: 6rem 8vw; }
+
+    .container{ max-width: 1200px; margin: 0 auto; }
+
+    h2.section-title{
+      font-family:'Playfair Display',serif;
+      font-size:2.2rem;
+      color:var(--heading);
+      margin-bottom:1.5rem;
+    }
+
+    .grid-2{ display:grid; grid-template-columns: repeat(2,1fr); gap:4rem; align-items:center; }
+    .grid-3{ display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; }
+    .grid-4{ display:grid; grid-template-columns: repeat(4,1fr); gap:2rem; }
+
+    .card{ background:#fff; border:1px solid #e6e6e6; }
+    .card-body{ padding:1.5rem; }
+
+    @media (max-width:900px){
+      nav ul{ display:none; }
+      .hero{
+        background-position: center top;
+        padding: 120px 7vw;
+        align-items: flex-end;
+      }
+      .hero-content h1{ font-size:2.6rem; }
+      .hero-content h2{ font-size:1.15rem; }
+      .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; }
+    }
+  </style>
+
+<section style="background:#ffffff;">
+  <div class="container">
+    <h2 class="section-title">Presencia en redes</h2>
+    <p style="max-width:720px; line-height:1.8; color:var(--text); margin-bottom:3rem;">Comparto contenido clínico, educativo y casos reales en formato visual y audiovisual para ayudarte a comprender mejor los tratamientos y el cuidado de tu salud oral.</p>
+
+    <div class="grid-4" style="gap:1.5rem;">
+      <div style="position:relative; background:#ddd; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; color:#777;">▶ Reel clínico</div>
+      <div style="position:relative; background:#ddd; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; color:#777;">▶ Reel educativo</div>
+      <div style="position:relative; background:#ddd; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; color:#777;">▶ Video explicativo</div>
+      <div style="position:relative; background:#ddd; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; color:#777;">▶ Caso real</div>
+    </div>
+
+    <div style="margin-top:3rem;"><a href="#" class="btn">Ver más en Instagram</a></div>
+  </div>
+</section>

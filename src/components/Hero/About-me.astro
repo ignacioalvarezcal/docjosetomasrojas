@@ -1,0 +1,48 @@
+---
+---
+
+<style>
+	:root {
+      --primary: #4F7A7C;
+      --heading: #2F3E46;
+      --text: #4A4A4A;
+      --bg-light: #F6F7F7;
+      --accent-soft: #9FB6B8;
+    }
+	.section{ padding:60px; }
+	.container{ max-width: 1200px; margin: 0 auto; }
+	.grid-2{ display:grid; grid-template-columns: repeat(2,1fr); gap:4rem; align-items:center; }
+	h2.section-title{
+      font-family:'Playfair Display',serif;
+      font-size:2.2rem;
+      color:var(--bg-light);
+      margin-bottom:1.5rem;
+    }
+	p {
+		color:var(--bg-light);
+	}
+
+  @media (max-width:900px){
+      nav ul{ display:none; }
+      .hero{
+        background-position: center top;
+        padding: 120px 7vw;
+        align-items: flex-end;
+      }
+      .hero-content h1{ font-size:2.6rem; }
+      .hero-content h2{ font-size:1.15rem; }
+      .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; }
+    }
+</style>
+
+<section id="about-me" class="section" style="background:var(--primary);">
+  <div class="container grid-2">
+    <div>
+      <h2 class="section-title">Sobre mí</h2>
+      <p style="line-height:1.8; margin-bottom:1.2rem;">Soy el Dr. José Tomás Rojas Vera, Cirujano Dentista con enfoque en implantología y rehabilitación oral. Mi forma de trabajo se basa en una planificación cuidadosa, la precisión clínica y una relación de confianza con cada paciente.</p>
+      <p style="line-height:1.8;">Creo en una odontología que acompaña, explica y propone soluciones pensadas para el largo plazo, integrando ciencia, experiencia y criterio profesional.</p>
+      <div style="margin-top:2rem;"><a href="#" style="color:var(--bg-light); text-decoration:none; font-weight:500;">Ver más →</a></div>
+    </div>
+    <div style="height:420px; background:#ddd; display:flex; align-items:center; justify-content:center; color:#777;">FOTO SOBRE MÍ</div>
+  </div>
+</section>

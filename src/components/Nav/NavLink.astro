@@ -15,7 +15,7 @@ const { text, link, newTab = false } = navItem;
 <li>
 	<a
 		class:list={[
-			`nav__link--base flex w-full items-center ${className}`,
+			`nav__link--base flex w-full items-center nav_link ${className}`,
 			{
 				// styling for current active page link
 				"": Astro.url.pathname === link,
@@ -28,3 +28,10 @@ const { text, link, newTab = false } = navItem;
 		{text}
 	</a>
 </li>
+
+<style>
+	.nav_link {
+		color: #4A4A4A;
+	}
+</style>
+
