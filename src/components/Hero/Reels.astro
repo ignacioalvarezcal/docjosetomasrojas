@@ -1,3 +1,11 @@
+---
+import instaProfile from "@images/hero-slide/insta-profile.jpg";
+import video1 from "@videos/reels1.mp4";
+import video2 from "@videos/reels2.mp4";
+import video3 from "@videos/reels3.mp4";
+import video4 from "@videos/reels4.mp4";
+---
+
 <style>
     :root {
       --primary: #4F7A7C;
@@ -39,7 +47,7 @@
       font-size: 1.25rem;
       font-weight: 600;
       color: var(--heading);
-      white-space: nowrap; /* todo en una sola línea */
+      white-space: nowrap;
     }
 
     nav ul{
@@ -68,7 +76,7 @@
       display: flex;
       align-items: center;
       padding-left: 8vw;
-      padding-top: 90px; /* espacio para la barra superior */
+      padding-top: 90px;
     }
 
     .hero-content{ max-width: 540px; }
@@ -128,6 +136,325 @@
     .card{ background:#fff; border:1px solid #e6e6e6; }
     .card-body{ padding:1.5rem; }
 
+    /* ===== REELS PLAYER ===== */
+    .reel-item {
+      position: relative;
+      aspect-ratio: 9 / 16;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .reel-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+    }
+
+    .reel-video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .reel-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Overlay superior */
+    .reel-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 16px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .reel-profile {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #ddd;
+      flex-shrink: 0;
+      border: 2px solid #fff;
+      cursor: pointer;
+    }
+
+    .reel-profile img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .reel-username {
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .reel-follow {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .reel-follow:hover {
+      background: #3f6668;
+    }
+
+    /* Overlay inferior */
+    .reel-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+      z-index: 10;
+    }
+
+    .reel-caption {
+      color: #fff;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    /* Controles derecha */
+    .reel-actions {
+      position: absolute;
+      right: 12px;
+      bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 10;
+    }
+
+    .reel-action-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .reel-action-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.1);
+    }
+
+    .reel-action-btn.liked {
+      color: #ff0000;
+    }
+
+    .reel-action-count {
+      color: #fff;
+      font-size: 0.75rem;
+      text-align: center;
+      margin-top: -10px;
+      font-weight: 600;
+    }
+
+    /* Reproductor controls */
+    .reel-player-controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 100%);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .play-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .play-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 3px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .volume-btn {
+      width: 28px;
+      height: 28px;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .time-display {
+      color: #fff;
+      font-size: 0.7rem;
+      min-width: 40px;
+      text-align: right;
+    }
+
+    /* Modal Instagram */
+    .instagram-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .instagram-modal.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .instagram-modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      max-width: 400px;
+      animation: slideUp 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .instagram-logo {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .instagram-modal-title {
+      font-size: 1.5rem;
+      color: var(--heading);
+      margin-bottom: 8px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    .instagram-modal-desc {
+      color: var(--text);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .instagram-btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .instagram-btn {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .instagram-btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .instagram-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .instagram-btn-secondary {
+      background: #f0f0f0;
+      color: var(--text);
+    }
+
+    .instagram-btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
     @media (max-width:900px){
       nav ul{ display:none; }
       .hero{
@@ -137,7 +464,34 @@
       }
       .hero-content h1{ font-size:2.6rem; }
       .hero-content h2{ font-size:1.15rem; }
-      .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; }
+      .grid-2,.grid-3{ grid-template-columns:1fr; }
+      
+      .grid-4{
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.5rem;
+      }
+
+      .reel-item {
+        flex: 0 0 calc(100vw - 12vw);
+        scroll-snap-align: start;
+      }
+
+      .grid-4::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      .grid-4::-webkit-scrollbar-track {
+        background: #e6e6e6;
+      }
+
+      .grid-4::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 2px;
+      }
     }
   </style>
 
@@ -147,12 +501,299 @@
     <p style="max-width:720px; line-height:1.8; color:var(--text); margin-bottom:3rem;">Comparto contenido clínico, educativo y casos reales en formato visual y audiovisual para ayudarte a comprender mejor los tratamientos y el cuidado de tu salud oral.</p>
 
     <div class="grid-4" style="gap:1.5rem;">
-      <div style="position:relative; background:#ddd; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; color:#777;">▶ Reel clínico</div>
-      <div style="position:relative; background:#ddd; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; color:#777;">▶ Reel educativo</div>
-      <div style="position:relative; background:#ddd; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; color:#777;">▶ Video explicativo</div>
-      <div style="position:relative; background:#ddd; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; color:#777;">▶ Caso real</div>
+      <!-- Reel 1 -->
+      <div class="reel-item">
+        <div class="reel-video-container">
+          <video class="reel-video" src={video1} playsinline muted></video>
+          
+          <div class="reel-header">
+            <div class="reel-profile">
+              <img src={instaProfile.src} alt="Foto perfil Insta" />
+            </div>
+            <div class="reel-username">Dr. José Tomás Rojas V.</div>
+          </div>
+
+          <div class="reel-actions">
+          </div>
+
+          <div class="reel-footer">
+            <a href="https://www.instagram.com/reel/DPcs0lkEVLB/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+              <div class="reel-caption">Tratamiento de implante dental con técnica avanzada. Resultado espectacular después de 6 meses ✨</div>
+            </a>
+          </div>
+
+          <div class="reel-player-controls">
+            <button class="play-btn" onclick="togglePlay(event)">▶️</button>
+            <div class="progress-bar" onclick="seek(event)">
+              <div class="progress-bar-fill"></div>
+            </div>
+            <button class="volume-btn" onclick="toggleVolume(event)">🔊</button>
+            <div class="time-display">0:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reel 2 -->
+      <div class="reel-item">
+        <div class="reel-video-container">
+          <video class="reel-video" src={video2} playsinline muted></video>
+          
+          <div class="reel-header">
+            <div class="reel-profile">
+              <img src={instaProfile.src} alt="Foto perfil Insta" />
+            </div>
+            <div class="reel-username">Dr. José Tomás Rojas V.</div>
+          </div>
+
+          <div class="reel-actions">
+          </div>
+
+          <div class="reel-footer">
+            <a href="https://www.instagram.com/reel/TU_ID_2/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+              <div class="reel-caption">Guía completa sobre higiene dental: los 5 errores más comunes que debes evitar 🪥</div>
+            </a>
+          </div>
+
+          <div class="reel-player-controls">
+            <button class="play-btn" onclick="togglePlay(event)">▶️</button>
+            <div class="progress-bar" onclick="seek(event)">
+              <div class="progress-bar-fill"></div>
+            </div>
+            <button class="volume-btn" onclick="toggleVolume(event)">🔊</button>
+            <div class="time-display">0:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reel 3 -->
+      <div class="reel-item">
+        <div class="reel-video-container">
+          <video class="reel-video" src={video3} playsinline muted></video>
+          
+          <div class="reel-header">
+            <div class="reel-profile">
+              <img src={instaProfile.src} alt="Foto perfil Insta" />
+            </div>
+            <div class="reel-username">Dr. José Tomás Rojas V.</div>
+          </div>
+
+          <div class="reel-footer">
+            <a href="https://www.instagram.com/reel/TU_ID_3/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+              <div class="reel-caption">Blanqueamiento dental profesional: antes y después en 30 minutos 🦷✨</div>
+            </a>
+          </div>
+
+          <div class="reel-player-controls">
+            <button class="play-btn" onclick="togglePlay(event)">▶️</button>
+            <div class="progress-bar" onclick="seek(event)">
+              <div class="progress-bar-fill"></div>
+            </div>
+            <button class="volume-btn" onclick="toggleVolume(event)">🔊</button>
+            <div class="time-display">0:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reel 4 -->
+      <div class="reel-item">
+        <div class="reel-video-container">
+          <video class="reel-video" src={video4} playsinline muted></video>
+          
+          <div class="reel-header">
+            <div class="reel-profile">
+              <img src={instaProfile.src} alt="Foto perfil Insta" />
+            </div>
+            <div class="reel-username">Dr. José Tomás Rojas V.</div>
+          </div>
+
+          <div class="reel-footer">
+            <a href="https://www.instagram.com/reel/TU_ID_4/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+              <div class="reel-caption">Caso de ortodoncia: transformación completa en 18 meses 🎉</div>
+            </a>
+          </div>
+
+          <div class="reel-player-controls">
+            <button class="play-btn" onclick="togglePlay(event)">▶️</button>
+            <div class="progress-bar" onclick="seek(event)">
+              <div class="progress-bar-fill"></div>
+            </div>
+            <button class="volume-btn" onclick="toggleVolume(event)">🔊</button>
+            <div class="time-display">0:00</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div style="margin-top:3rem;"><a href="#" class="btn">Ver más en Instagram</a></div>
   </div>
 </section>
+
+<!-- Modal Instagram -->
+<div class="instagram-modal" id="instagramModal">
+  <div class="instagram-modal-content">
+    <div class="instagram-logo">📷</div>
+    <h3 class="instagram-modal-title">Ver en Instagram</h3>
+    <p class="instagram-modal-desc">¿Te gustaría ver este contenido en Instagram?</p>
+    <div class="instagram-btn-group">
+      <button class="instagram-btn instagram-btn-secondary" onclick="closeInstagramModal()">No, gracias</button>
+      <a id="instagramLink" href="" target="_blank" rel="noopener noreferrer" class="instagram-btn instagram-btn-primary" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">Ver en Instagram</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentPlayingVideo: HTMLVideoElement | null = null;
+
+  function closeInstagramModal() {
+    const modal = document.getElementById('instagramModal');
+    if (modal) {
+      modal.classList.remove('active');
+    }
+  }
+
+  function openInstagramModal(instagramUrl: string) {
+    const modal = document.getElementById('instagramModal');
+    const link = document.getElementById('instagramLink') as HTMLAnchorElement;
+    if (modal && link) {
+      link.href = instagramUrl;
+      modal.classList.add('active');
+    }
+  }
+
+  // Cerrar modal al hacer click fuera
+  const instagramModalElement = document.getElementById('instagramModal');
+  if (instagramModalElement) {
+    instagramModalElement.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeInstagramModal();
+      }
+    });
+  }
+
+  function pauseAllVideos() {
+    document.querySelectorAll('.reel-video').forEach((video: Element) => {
+      const videoElement = video as HTMLVideoElement;
+      if (videoElement !== currentPlayingVideo && !videoElement.paused) {
+        videoElement.pause();
+        const container = videoElement.closest('.reel-video-container');
+        const btn = container?.querySelector('.play-btn');
+        if (btn) btn.textContent = '▶️';
+      }
+    });
+  }
+
+  function togglePlay(e: Event) {
+    const btn = e.target as HTMLButtonElement;
+    const video = btn.closest('.reel-video-container')?.querySelector('video') as HTMLVideoElement;
+    
+    if (!video) return;
+
+    if (video.paused) {
+      pauseAllVideos();
+      currentPlayingVideo = video;
+      
+      // Obtener URL de Instagram
+      const container = video.closest('.reel-video-container');
+      const instagramLink = container?.querySelector('a') as HTMLAnchorElement;
+      const instagramUrl = instagramLink?.href || 'https://instagram.com';
+      
+      openInstagramModal(instagramUrl);
+      
+      video.play().catch(err => console.log('Play error:', err));
+      btn.textContent = '⏸️';
+    } else {
+      video.pause();
+      currentPlayingVideo = null;
+      btn.textContent = '▶️';
+    }
+  }
+
+  function toggleVolume(e: Event) {
+    const btn = e.target as HTMLButtonElement;
+    const video = btn.closest('.reel-video-container')?.querySelector('video') as HTMLVideoElement;
+    
+    if (!video) return;
+
+    if (video.muted) {
+      video.muted = false;
+      btn.textContent = '🔊';
+    } else {
+      video.muted = true;
+      btn.textContent = '🔇';
+    }
+  }
+
+  function seek(event: Event) {
+    const e = event as MouseEvent;
+    const progressBar = e.currentTarget as HTMLElement;
+    const video = progressBar.closest('.reel-player-controls')?.closest('.reel-video-container')?.querySelector('video') as HTMLVideoElement;
+    
+    if (!video) return;
+
+    const rect = progressBar.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
+    video.currentTime = percent * video.duration;
+  }
+
+  function toggleLike(btn: Element) {
+    btn.classList.toggle('liked');
+  }
+
+  // Inicializar videos
+  document.querySelectorAll('.reel-video').forEach((video: Element) => {
+    const videoElement = video as HTMLVideoElement;
+    
+    // Click en cualquier parte del video para reproducir/pausar
+    videoElement.addEventListener('click', function() {
+      if (this.paused) {
+        pauseAllVideos();
+        currentPlayingVideo = this;
+        
+        // Obtener URL de Instagram
+        const container = this.closest('.reel-video-container');
+        const instagramLink = container?.querySelector('a') as HTMLAnchorElement;
+        const instagramUrl = instagramLink?.href || 'https://instagram.com';
+        
+        openInstagramModal(instagramUrl);
+        
+        this.play().catch(err => console.log('Play error:', err));
+        const playBtn = container?.querySelector('.play-btn');
+        if (playBtn) playBtn.textContent = '⏸️';
+      } else {
+        this.pause();
+        currentPlayingVideo = null;
+        const playBtn = this.closest('.reel-video-container')?.querySelector('.play-btn');
+        if (playBtn) playBtn.textContent = '▶️';
+      }
+    });
+
+    // Actualizar barra de progreso
+    videoElement.addEventListener('timeupdate', function() {
+      const container = this.closest('.reel-video-container');
+      if (!container) return;
+      
+      const fill = container.querySelector('.progress-bar-fill') as HTMLElement;
+      const time = container.querySelector('.time-display') as HTMLElement;
+      
+      if (this.duration) {
+        const percent = (this.currentTime / this.duration) * 100;
+        if (fill) fill.style.width = percent + '%';
+        
+        const mins = Math.floor(this.currentTime / 60);
+        const secs = Math.floor(this.currentTime % 60);
+        if (time) time.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+      }
+    });
+
+    videoElement.addEventListener('ended', function() {
+      const container = this.closest('.reel-video-container');
+      const btn = container?.querySelector('.play-btn');
+      if (btn) btn.textContent = '▶️';
+    });
+
+    // Cargar metadatos
+    videoElement.addEventListener('loadedmetadata', function() {
+      console.log('Video cargado:', this.duration);
+    });
+  });
+</script>

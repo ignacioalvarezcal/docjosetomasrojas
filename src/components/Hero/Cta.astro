@@ -1,150 +1,196 @@
 <style>
-    :root {
-      --primary: #4F7A7C;
-      --heading: #2F3E46;
-      --text: #4A4A4A;
-      --bg-light: #F6F7F7;
-      --accent-soft: #9FB6B8;
-    }
-    
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      font-family: 'Montserrat', sans-serif;
-      color: var(--text);
-      background: var(--bg-light);
-    }
+	:root {
+		--primary: #4f7a7c;
+		--heading: #2f3e46;
+		--text: #4a4a4a;
+		--bg-light: #f6f7f7;
+		--accent-soft: #9fb6b8;
+	}
 
-    /* ===== HEADER / BARRA SUPERIOR ===== */
-    header{
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      background: rgba(255,255,255,0.96);
-      border-bottom: 1px solid #e6e6e6;
-    }
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
 
-    .nav-container{
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 1.1rem 6vw;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+	body {
+		font-family: "Montserrat", sans-serif;
+		color: var(--text);
+		background: var(--bg-light);
+	}
 
-    .logo{
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--heading);
-      white-space: nowrap; /* todo en una sola línea */
-    }
+	/* ===== HEADER / BARRA SUPERIOR ===== */
+	header {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 1000;
+		background: rgba(255, 255, 255, 0.96);
+		border-bottom: 1px solid #e6e6e6;
+	}
 
-    nav ul{
-      list-style: none;
-      display: flex;
-      gap: 2.2rem;
-    }
+	.nav-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 1.1rem 6vw;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-    nav a{
-      text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      color: var(--text);
-      font-weight: 400;
-    }
+	.logo {
+		font-family: "Playfair Display", serif;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: var(--heading);
+		white-space: nowrap; /* todo en una sola línea */
+	}
 
-    nav a:hover{ color: var(--primary); }
+	nav ul {
+		list-style: none;
+		display: flex;
+		gap: 2.2rem;
+	}
 
-    /* ===== HERO ===== */
-    .hero{
-      height: 100vh;
-      width: 100%;
-      background-image: url('Firefly 20260107131824.png');
-      background-size: cover;
-      background-position: right center;
-      display: flex;
-      align-items: center;
-      padding-left: 8vw;
-      padding-top: 90px; /* espacio para la barra superior */
-    }
+	nav a {
+		text-decoration: none;
+		font-size: 0.85rem;
+		letter-spacing: 0.08em;
+		color: var(--text);
+		font-weight: 400;
+	}
 
-    .hero-content{ max-width: 540px; }
+	nav a:hover {
+		color: var(--primary);
+	}
 
-    .hero-content h1{
-      font-family: 'Playfair Display', serif;
-      font-size: 3.6rem;
-      font-weight: 600;
-      color: var(--heading);
-      margin-bottom: 0.8rem;
-    }
+	/* ===== HERO ===== */
+	.hero {
+		height: 100vh;
+		width: 100%;
+		background-image: url("Firefly 20260107131824.png");
+		background-size: cover;
+		background-position: right center;
+		display: flex;
+		align-items: center;
+		padding-left: 8vw;
+		padding-top: 90px; /* espacio para la barra superior */
+	}
 
-    .hero-content h2{
-      font-size: 1.3rem;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      color: var(--primary);
-      margin-bottom: 1.4rem;
-    }
+	.hero-content {
+		max-width: 540px;
+	}
 
-    .divider{
-      width: 52px;
-      height: 1px;
-      background: var(--primary);
-      margin-bottom: 2.2rem;
-    }
+	.hero-content h1 {
+		font-family: "Playfair Display", serif;
+		font-size: 3.6rem;
+		font-weight: 600;
+		color: var(--heading);
+		margin-bottom: 0.8rem;
+	}
 
-    .btn{
-      display: inline-block;
-      padding: 14px 38px;
-      background: var(--primary);
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-      border-radius: 3px;
-      transition: background 0.2s ease;
-    }
+	.hero-content h2 {
+		font-size: 1.3rem;
+		font-weight: 400;
+		letter-spacing: 0.04em;
+		color: var(--primary);
+		margin-bottom: 1.4rem;
+	}
 
-    .btn:hover{ background:#3f6668; }
+	.divider {
+		width: 52px;
+		height: 1px;
+		background: var(--primary);
+		margin-bottom: 2.2rem;
+	}
 
-    section{ padding: 6rem 8vw; }
+	.btn {
+		display: inline-block;
+		padding: 14px 38px;
+		background: var(--primary);
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.9rem;
+		letter-spacing: 0.08em;
+		border-radius: 3px;
+		transition: background 0.2s ease;
+	}
 
-    .container{ max-width: 1200px; margin: 0 auto; }
+	.btn:hover {
+		background: #3f6668;
+	}
 
-    h2.section-title{
-      font-family:'Playfair Display',serif;
-      font-size:2.2rem;
-      color:var(--heading);
-      margin-bottom:1.5rem;
-    }
+	section {
+		padding: 6rem 8vw;
+	}
 
-    .grid-2{ display:grid; grid-template-columns: repeat(2,1fr); gap:4rem; align-items:center; }
-    .grid-3{ display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; }
-    .grid-4{ display:grid; grid-template-columns: repeat(4,1fr); gap:2rem; }
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
 
-    .card{ background:#fff; border:1px solid #e6e6e6; }
-    .card-body{ padding:1.5rem; }
+	h2.section-title {
+		font-family: "Playfair Display", serif;
+		font-size: 2.2rem;
+		color: var(--heading);
+		margin-bottom: 1.5rem;
+	}
 
-    @media (max-width:900px){
-      nav ul{ display:none; }
-      .hero{
-        background-position: center top;
-        padding: 120px 7vw;
-        align-items: flex-end;
-      }
-      .hero-content h1{ font-size:2.6rem; }
-      .hero-content h2{ font-size:1.15rem; }
-      .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; }
-    }
-  </style>
+	.grid-2 {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 4rem;
+		align-items: center;
+	}
+	.grid-3 {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+	.grid-4 {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 2rem;
+	}
+
+	.card {
+		background: #fff;
+		border: 1px solid #e6e6e6;
+	}
+	.card-body {
+		padding: 1.5rem;
+	}
+
+	@media (max-width: 900px) {
+		nav ul {
+			display: none;
+		}
+		.hero {
+			background-position: center top;
+			padding: 120px 7vw;
+			align-items: flex-end;
+		}
+		.hero-content h1 {
+			font-size: 2.6rem;
+		}
+		.hero-content h2 {
+			font-size: 1.15rem;
+		}
+		.grid-2,
+		.grid-3,
+		.grid-4 {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
 
 <section style="background:var(--bg-light); text-align:center;">
-  <div class="container">
-    <h2 class="section-title">Agenda tu evaluación</h2>
-    <p style="max-width:700px; margin:0 auto 3rem auto; line-height:1.8;">Si estás considerando un tratamiento implantológico, una rehabilitación oral o necesitas una evaluación profesional, puedes agendar directamente o contactarme para resolver tus dudas.</p>
-    <a href="#" class="btn">Agendar hora</a>
-  </div>
+	<div class="container">
+		<h2 class="section-title">Agenda tu evaluación</h2>
+		<p style="max-width:700px; margin:0 auto 3rem auto; line-height:1.8;">
+			Si estás considerando un tratamiento implantológico, una rehabilitación oral o necesitas una
+			evaluación profesional, puedes agendar directamente o contactarme para resolver tus dudas.
+		</p>
+		<a href="/agendar" class="btn">Agendar hora</a>
+	</div>
 </section>

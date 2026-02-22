@@ -1,56 +1,80 @@
 <style>
-    .section {
-        padding-top: 100px;
-        padding-bottom: 100px;
-    }
-    .container{ max-width: 1200px; margin: 0 auto; }
-    h2.section-title{
-      font-family:'Playfair Display',serif;
-      font-size:2.2rem;
-      color:var(--heading);
-      margin-bottom:1.5rem;
-    }
-    .grid-4{ display:grid; grid-template-columns: repeat(4,1fr); gap:2rem; }
+	.section {
+		padding-top: 100px;
+		padding-bottom: 100px;
+	}
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	h2.section-title {
+		font-family: "Playfair Display", serif;
+		font-size: 2.2rem;
+		color: var(--heading);
+		margin-bottom: 1.5rem;
+	}
+	.grid-4 {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 2rem;
+	}
 
-    .btn{
-      display: inline-block;
-      padding: 14px 38px;
-      background: var(--primary);
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-      border-radius: 3px;
-      transition: background 0.2s ease;
-    }
+	.btn {
+		display: inline-block;
+		padding: 14px 38px;
+		background: var(--primary);
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.9rem;
+		letter-spacing: 0.08em;
+		border-radius: 3px;
+		transition: background 0.2s ease;
+	}
 
-    .btn:hover{ background:#3f6668; }
+	.btn:hover {
+		background: #3f6668;
+	}
 
-    .card{ background:#fff; border:1px solid #e6e6e6; }
-    .card-body{ padding:1.5rem; }
+	.card {
+		background: #fff;
+		border: 1px solid #e6e6e6;
+	}
+	.card-body {
+		padding: 1.5rem;
+	}
 
-    @media (max-width:900px){
-      nav ul{ display:none; }
-      .hero{
-        background-position: center top;
-        padding: 120px 7vw;
-        align-items: flex-end;
-      }
-      .hero-content h1{ font-size:2.6rem; }
-      .hero-content h2{ font-size:1.15rem; }
-      .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; }
-    }
+	@media (max-width: 900px) {
+		nav ul {
+			display: none;
+		}
+		.hero {
+			background-position: center top;
+			padding: 120px 7vw;
+			align-items: flex-end;
+		}
+		.hero-content h1 {
+			font-size: 2.6rem;
+		}
+		.hero-content h2 {
+			font-size: 1.15rem;
+		}
+		.grid-2,
+		.grid-3,
+		.grid-4 {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>
 
 <section id="services" class="section" style="background:var(--bg-light);">
-  <div class="container">
-    <h2 class="section-title">Servicios</h2>
-    <div class="grid-4">
-      <div class="card card-body">Implantología Buco Maxilofacial</div>
-      <div class="card card-body">Rehabilitación oral</div>
-      <div class="card card-body">Cirugía oral</div>
-      <div class="card card-body">Evaluación integral</div>
-    </div>
-    <div style="margin-top:3rem;"><a href="#" class="btn">Ver todos los servicios</a></div>
-  </div>
+	<div class="container">
+		<h2 class="section-title">Servicios</h2>
+		<div class="grid-4">
+			<div class="card card-body">Implantología Buco Maxilofacial</div>
+			<div class="card card-body">Rehabilitación oral</div>
+			<div class="card card-body">Cirugía oral</div>
+			<div class="card card-body">Evaluación integral</div>
+		</div>
+		<div style="margin-top:3rem;"><a href="/servicios" class="btn">Ver todos los servicios</a></div>
+	</div>
 </section>
