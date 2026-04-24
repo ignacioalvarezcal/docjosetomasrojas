@@ -1,1 +1,0 @@
-let i;function s(){i&&(window.scrollY>800?(i.classList.remove("initial"),i.classList.add("scrolled")):(i.classList.remove("scrolled"),i.classList.add("initial")))}function e(){i=document.getElementById("nav__container"),i&&(i.classList.add("initial"),window.addEventListener("scroll",s,{passive:!0}),s())}e(),document.addEventListener("astro:after-swap",e);
