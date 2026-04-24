@@ -1,80 +1,505 @@
 <style>
-	.section {
-		padding-top: 100px;
-		padding-bottom: 100px;
-	}
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-	h2.section-title {
-		font-family: "Playfair Display", serif;
-		font-size: 2.2rem;
-		color: var(--heading);
-		margin-bottom: 1.5rem;
-	}
-	.grid-4 {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 2rem;
+	/* ===== SECTION ===== */
+	.services-section {
+		padding: 100px 8vw;
+		background: var(--bg-light);
+		position: relative;
+		overflow: hidden;
 	}
 
-	.btn {
+	.services-section::before {
+		content: "";
+		position: absolute;
+		top: -120px;
+		right: -120px;
+		width: 320px;
+		height: 320px;
+		background: radial-gradient(circle, rgba(79, 122, 124, 0.06) 0%, transparent 70%);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.services-section::after {
+		content: "";
+		position: absolute;
+		bottom: -80px;
+		left: -80px;
+		width: 240px;
+		height: 240px;
+		background: radial-gradient(circle, rgba(79, 122, 124, 0.04) 0%, transparent 70%);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.services-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		position: relative;
+		z-index: 1;
+	}
+
+	/* ===== HEADER ===== */
+	.services-header {
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.services-label {
 		display: inline-block;
-		padding: 14px 38px;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: var(--primary);
+		margin-bottom: 1rem;
+		position: relative;
+	}
+
+	.services-label::before,
+	.services-label::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		width: 28px;
+		height: 1px;
+		background: var(--primary);
+		opacity: 0.4;
+	}
+
+	.services-label::before {
+		right: calc(100% + 12px);
+	}
+
+	.services-label::after {
+		left: calc(100% + 12px);
+	}
+
+	.services-title {
+		font-family: "Playfair Display", serif;
+		font-size: 2.6rem;
+		font-weight: 600;
+		color: var(--heading);
+		margin-bottom: 1rem;
+		line-height: 1.2;
+	}
+
+	.services-subtitle {
+		font-size: 1.05rem;
+		color: #6b7b82;
+		max-width: 560px;
+		margin: 0 auto;
+		line-height: 1.7;
+	}
+
+	/* ===== GRID ===== */
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+	}
+
+	/* ===== CARD ===== */
+	.service-card {
+		background: #ffffff;
+		border-radius: 12px;
+		padding: 2.5rem 2rem 2rem;
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+		cursor: default;
+		border: 1px solid rgba(79, 122, 124, 0.08);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+		transition:
+			transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			border-color 0.3s ease;
+
+		/* reveal animation initial state */
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	.service-card.revealed {
+		opacity: 1;
+		transform: translateY(0);
+		transition:
+			opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			border-color 0.3s ease;
+	}
+
+	.service-card::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, var(--primary), var(--accent-soft));
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	}
+
+	.service-card:hover {
+		transform: translateY(-6px);
+		box-shadow:
+			0 16px 40px rgba(79, 122, 124, 0.12),
+			0 4px 12px rgba(0, 0, 0, 0.04);
+		border-color: rgba(79, 122, 124, 0.15);
+	}
+
+	.service-card:hover::before {
+		transform: scaleX(1);
+	}
+
+	/* ===== ICON ===== */
+	.service-icon-wrapper {
+		width: 64px;
+		height: 64px;
+		margin: 0 auto 1.5rem;
+		border-radius: 50%;
+		background: linear-gradient(
+			135deg,
+			rgba(79, 122, 124, 0.08) 0%,
+			rgba(159, 182, 184, 0.12) 100%
+		);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition:
+			background 0.3s ease,
+			transform 0.3s ease;
+	}
+
+	.service-card:hover .service-icon-wrapper {
+		background: linear-gradient(135deg, rgba(79, 122, 124, 0.15) 0%, rgba(159, 182, 184, 0.2) 100%);
+		transform: scale(1.08);
+	}
+
+	.service-icon {
+		width: 28px;
+		height: 28px;
+		color: var(--primary);
+		transition: color 0.3s ease;
+	}
+
+	/* ===== TEXT ===== */
+	.service-name {
+		font-family: "Playfair Display", serif;
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: var(--heading);
+		margin-bottom: 0.75rem;
+		line-height: 1.35;
+		transition: color 0.3s ease;
+	}
+
+	.service-description {
+		font-size: 0.88rem;
+		color: #7d8e94;
+		line-height: 1.65;
+	}
+
+	/* ===== DIVIDER ===== */
+	.service-divider {
+		width: 30px;
+		height: 2px;
+		margin: 1rem auto 0.85rem;
+		background: linear-gradient(90deg, var(--primary), var(--accent-soft));
+		border-radius: 2px;
+		opacity: 0;
+		transform: scaleX(0);
+		transition:
+			opacity 0.3s ease 0.1s,
+			transform 0.3s ease 0.1s;
+	}
+
+	.service-card:hover .service-divider {
+		opacity: 1;
+		transform: scaleX(1);
+	}
+
+	/* ===== CTA ===== */
+	.services-cta {
+		text-align: center;
+		margin-top: 3.5rem;
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	.services-cta.revealed {
+		opacity: 1;
+		transform: translateY(0);
+		transition:
+			opacity 0.7s ease,
+			transform 0.7s ease;
+	}
+
+	.services-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 14px 36px;
 		background: var(--primary);
 		color: #ffffff;
 		text-decoration: none;
-		font-size: 0.9rem;
-		letter-spacing: 0.08em;
-		border-radius: 3px;
-		transition: background 0.2s ease;
+		font-size: 0.88rem;
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		border-radius: 6px;
+		transition:
+			background 0.3s ease,
+			transform 0.2s ease,
+			box-shadow 0.3s ease;
+		box-shadow: 0 2px 8px rgba(79, 122, 124, 0.2);
 	}
 
-	.btn:hover {
+	.services-btn:hover {
 		background: #3f6668;
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(79, 122, 124, 0.3);
 	}
 
-	.card {
-		background: #fff;
-		border: 1px solid #e6e6e6;
-	}
-	.card-body {
-		padding: 1.5rem;
+	.services-btn:active {
+		transform: translateY(0);
 	}
 
-	@media (max-width: 900px) {
-		nav ul {
-			display: none;
+	.btn-arrow {
+		width: 16px;
+		height: 16px;
+		transition: transform 0.3s ease;
+	}
+
+	.services-btn:hover .btn-arrow {
+		transform: translateX(4px);
+	}
+
+	/* ===== REVEAL DELAYS ===== */
+	.service-card:nth-child(1) {
+		transition-delay: 0s;
+	}
+	.service-card:nth-child(2) {
+		transition-delay: 0.1s;
+	}
+	.service-card:nth-child(3) {
+		transition-delay: 0.2s;
+	}
+	.service-card:nth-child(4) {
+		transition-delay: 0.3s;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 1024px) {
+		.services-grid {
+			grid-template-columns: repeat(2, 1fr);
 		}
-		.hero {
-			background-position: center top;
-			padding: 120px 7vw;
-			align-items: flex-end;
+	}
+
+	@media (max-width: 600px) {
+		.services-section {
+			padding: 70px 6vw;
 		}
-		.hero-content h1 {
-			font-size: 2.6rem;
+
+		.services-title {
+			font-size: 2rem;
 		}
-		.hero-content h2 {
-			font-size: 1.15rem;
-		}
-		.grid-2,
-		.grid-3,
-		.grid-4 {
+
+		.services-grid {
 			grid-template-columns: 1fr;
+			gap: 1.2rem;
+		}
+
+		.service-card {
+			padding: 2rem 1.5rem 1.8rem;
 		}
 	}
 </style>
 
-<section id="services" class="section" style="background:var(--bg-light);">
-	<div class="container">
-		<h2 class="section-title">Servicios</h2>
-		<div class="grid-4">
-			<div class="card card-body">Implantología Buco Maxilofacial</div>
-			<div class="card card-body">Rehabilitación oral</div>
-			<div class="card card-body">Cirugía oral</div>
-			<div class="card card-body">Evaluación integral</div>
+<section id="services" class="services-section">
+	<div class="services-container">
+		<!-- Header -->
+		<div class="services-header">
+			<span class="services-label">Nuestros servicios</span>
+			<h2 class="services-title">Excelencia en cada tratamiento</h2>
+			<p class="services-subtitle">
+				Atención especializada con los más altos estándares de calidad y tecnología de vanguardia
+			</p>
 		</div>
-		<div style="margin-top:3rem;"><a href="/servicios" class="btn">Ver todos los servicios</a></div>
+
+		<!-- Cards Grid -->
+		<div class="services-grid" id="servicesGrid">
+			<!-- Card 1 -->
+			<div class="service-card">
+				<div class="service-icon-wrapper">
+					<svg
+						class="service-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path
+							d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+						></path>
+						<circle cx="12" cy="12" r="3"></circle>
+					</svg>
+				</div>
+				<h3 class="service-name">Implantología Buco Maxilofacial</h3>
+				<div class="service-divider"></div>
+				<p class="service-description">
+					Restauración funcional y estética con implantes de última generación
+				</p>
+			</div>
+
+			<!-- Card 2 -->
+			<div class="service-card">
+				<div class="service-icon-wrapper">
+					<svg
+						class="service-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M9 12l2 2 4-4"></path>
+						<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"></path>
+					</svg>
+				</div>
+				<h3 class="service-name">Rehabilitación oral</h3>
+				<div class="service-divider"></div>
+				<p class="service-description">Recuperación integral de la función y armonía dental</p>
+			</div>
+
+			<!-- Card 3 -->
+			<div class="service-card">
+				<div class="service-icon-wrapper">
+					<svg
+						class="service-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+					</svg>
+				</div>
+				<h3 class="service-name">Cirugía oral</h3>
+				<div class="service-divider"></div>
+				<p class="service-description">
+					Procedimientos quirúrgicos seguros con técnica de precisión
+				</p>
+			</div>
+
+			<!-- Card 4 -->
+			<div class="service-card">
+				<div class="service-icon-wrapper">
+					<svg
+						class="service-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+						></path>
+						<rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+						<path d="M9 14l2 2 4-4"></path>
+					</svg>
+				</div>
+				<h3 class="service-name">Evaluación integral</h3>
+				<div class="service-divider"></div>
+				<p class="service-description">
+					Diagnóstico completo para un plan de tratamiento personalizado
+				</p>
+			</div>
+		</div>
+
+		<!-- CTA -->
+		<div class="services-cta" id="servicesCta">
+			<a href="/servicios" class="services-btn">
+				Ver todos los servicios
+				<svg
+					class="btn-arrow"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M5 12h14M12 5l7 7-7 7"></path>
+				</svg>
+			</a>
+		</div>
 	</div>
 </section>
+
+<script>
+	function initServicesReveal() {
+		const cards = document.querySelectorAll(".service-card");
+		const cta = document.getElementById("servicesCta");
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("revealed");
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 },
+		);
+
+		cards.forEach((card) => observer.observe(card));
+		if (cta) observer.observe(cta);
+	}
+
+	function revealAllInstantly() {
+		const cards = document.querySelectorAll<HTMLElement>(".service-card");
+		const cta = document.getElementById("servicesCta");
+
+		cards.forEach((card) => {
+			card.style.transition = "none";
+			card.classList.add("revealed");
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					card.style.transition = "";
+				});
+			});
+		});
+
+		if (cta) {
+			cta.style.transition = "none";
+			cta.classList.add("revealed");
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					cta.style.transition = "";
+				});
+			});
+		}
+	}
+
+	// Initial page load
+	document.addEventListener("DOMContentLoaded", initServicesReveal);
+
+	// Back/forward navigation (bfcache restore)
+	window.addEventListener("pageshow", (event) => {
+		if (event.persisted) {
+			revealAllInstantly();
+		}
+	});
+
+	// Astro View Transitions (client-side navigation)
+	document.addEventListener("astro:page-load", initServicesReveal);
+</script>

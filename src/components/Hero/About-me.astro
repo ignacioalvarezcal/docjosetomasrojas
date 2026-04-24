@@ -1,5 +1,5 @@
 ---
-import heroImageOne from "@images/hero-slide/cortada.png";
+import heroImageOne from "@images/hero-slide/cortada.jpg";
 ---
 
 <style>
@@ -31,17 +31,17 @@ import heroImageOne from "@images/hero-slide/cortada.png";
 	}
 
 	.foto-container {
-		height: 600px;
-		overflow: hidden;
 		display: flex;
-		align-items: flex-start;
+		align-items: center;
+		justify-content: center;
+		max-height: 600px;
 	}
 
 	.foto-container img {
 		width: 100%;
-		height: auto;
+		max-height: 600px;
 		object-fit: contain;
-		object-position: center top;
+		object-position: center center;
 	}
 
 	@media (max-width: 900px) {
@@ -83,7 +83,8 @@ import heroImageOne from "@images/hero-slide/cortada.png";
 			<div style="margin-top:2rem;">
 				<a
 					href="/conoceme-mas"
-					style="color:var(--bg-light); text-decoration:none; font-weight:500;">Ver más →</a>
+					style="color:var(--bg-light); text-decoration:none; font-weight:500;">Ver más →</a
+				>
 			</div>
 		</div>
 		<div class="foto-container">
