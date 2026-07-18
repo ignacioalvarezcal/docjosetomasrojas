@@ -1,18 +1,18 @@
 ---
+// src/layouts/BaseLayout.astro
 import "@/styles/global.css";
 import Footer from "@components/Footer/Footer.astro";
 import Nav from "@components/Nav/Nav.astro";
+import WhatsappButton from "@components/Booking/WhatsappButton.astro";
 import BaseHead from "@layouts/BaseHead.astro";
 
-// heroImage and authorData are defined on blog posts
-// authorData could also be defined on the about author page
 interface Props {
 	type?: "general";
 	navStartStyle?: "initial" | "scrolled";
 	title: string;
 	description: string;
 	heroImage?: ImageMetadata;
-	noindex?: boolean; // you need to opt-in to no indexing, as it hides the page from search engines
+	noindex?: boolean; // opt-in para ocultar de buscadores
 }
 
 const {
@@ -26,11 +26,12 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="fade">
+<!-- FIX C2: idioma correcto para SEO local + a11y -->
+<html lang="es" transition:animate="fade">
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+		<!-- FIX C2: BaseHead es el ÚNICO dueño del <head>.
+		     Se eliminaron charset/viewport duplicados y el <link> a Google Fonts
+		     (las fuentes ya están self-hosted y precargadas en BaseHead). -->
 		<BaseHead
 			type={type}
 			title={title}
@@ -47,7 +48,7 @@ const {
 			</main>
 		</div>
 		<Footer />
+		<!-- Widget flotante de WhatsApp, presente en todo el sitio -->
+		<WhatsappButton />
 	</body>
 </html>
-
-

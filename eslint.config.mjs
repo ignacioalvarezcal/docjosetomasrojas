@@ -11,7 +11,6 @@ const tsParser = tseslint.parser;
 const astroParser = astro.parser;
 
 export default defineConfig([
-	// Global configuration
 	{
 		languageOptions: {
 			globals: {
@@ -21,7 +20,6 @@ export default defineConfig([
 		},
 	},
 
-	// Base configs
 	js.configs.recommended,
 	tseslint.configs.recommended,
 
@@ -34,13 +32,12 @@ export default defineConfig([
 			"prettier/prettier": "off",
 			"simple-import-sort/imports": "warn",
 			"simple-import-sort/exports": "warn",
-			"@typescript-eslint/no-explicit-any": "off", // you may want this as it can get annoying
-			"@typescript-eslint/no-unused-vars": "off", // I sometimes purposely have unused vars as this is a template
+			"@typescript-eslint/no-explicit-any": "off",
+			"@typescript-eslint/no-unused-vars": "off",
 			"@typescript-eslint/ban-ts-comment": "off",
 		},
 	},
 
-	// astro setup
 	astro.configs.recommended,
 	astro.configs["jsx-a11y-recommended"],
 	{
@@ -52,19 +49,17 @@ export default defineConfig([
 				extraFileExtensions: [".astro"],
 				sourceType: "module",
 				ecmaVersion: "latest",
-				project: "./tsconfig.json",
 			},
 		},
 		rules: {
-			"no-undef": "off", // Disable "not defined" errors for specific Astro types that are globally available (ImageMetadata)
-			"@typescript-eslint/no-explicit-any": "off", // you may want this as it can get annoying
-			"@typescript-eslint/no-unused-vars": "off", // I sometimes purposely have unused vars as this is a template
-			"astro/jsx-a11y/anchor-is-valid": "off", // Disable anchor-is-valid rule for Astro files as this is a template
+			"no-undef": "off",
+			"@typescript-eslint/no-explicit-any": "off",
+			"@typescript-eslint/no-unused-vars": "off",
+			"astro/jsx-a11y/anchor-is-valid": "off",
 			"@typescript-eslint/no-unused-expressions": "off",
 		},
 	},
 
-	// Ignore patterns
 	{
 		ignores: [
 			"dist/**",

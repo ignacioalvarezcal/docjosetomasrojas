@@ -1,0 +1,6591 @@
+﻿# src\components\Admonition\Admonition.astro
+```astro
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	variant: "tip" | "caution" | "danger" | "info";
+}
+
+const { variant } = Astro.props as Props;
+
+// create a switch statement that switches on "variant" and returns the appropriate icon
+const icon = (() => {
+	switch (variant) {
+		case "tip":
+			return "tabler:bulb";
+		case "caution":
+			return "tabler:alert-triangle";
+		case "danger":
+			return "tabler:flame";
+		case "info":
+			return "tabler:info-circle";
+	}
+})();
+---
+
+<div
+	class:list={[
+		"admonition dark:text-base-900 my-3 rounded-md border-l-4 px-4 py-3",
+		{
+			"border-success bg-success/10 text-success-foreground [&_code]:bg-success/10 [&_code]:border-success/10":
+				variant === "tip",
+		},
+		{
+			"border-warning bg-warning/10 text-base-900 [&_code]:bg-warning/10 [&_code]:border-warning/10":
+				variant === "caution",
+		},
+		{
+			"border-error bg-error/10 text-base-900 [&_code]:bg-error/10 [&_code]:border-error/10":
+				variant === "danger",
+		},
+		{
+			"border-info bg-info/10 text-info-foreground [&_code]:bg-info/10 [&_code]:border-info/10":
+				variant === "info",
+		},
+	]}
+>
+	<div class="not-content flex items-center gap-2 pb-2">
+		<Icon name={icon} class="h-7 w-7" aria-hidden="true" />
+		<p class="text-sm font-bold">{variant.toUpperCase()}</p>
+	</div>
+	<slot />
+</div>
+
+<style is:global>
+	.admonition > :first-child {
+		margin-top: 0;
+	}
+	.admonition > :nth-child(2) {
+		margin-top: 0;
+	}
+	.admonition > :last-child {
+		margin-top: 0;
+	}
+</style>
+
+```
+# src\components\Blog\Blog.astro
+```astro
+---
+import { Image } from "astro:assets";
+import implantologiaImage from "@assets/images/portfolio/Implantologia.jpg";
+import blog1 from "@assets/images/blog/blog1.png";
+import blog2 from "@assets/images/blog/blog2.png";
+import blog3 from "@assets/images/blog/blog3.png";
+
+const articles = [
+  {
+    title: "¿Qué es un implante dental y cuándo se recomienda?",
+    excerpt: "Perder un diente puede afectar no solo la sonrisa, sino también la función al comer y hablar. Una de las soluciones más seguras, estéticas y duraderas para reemplazar piezas dentales ausentes es el implante dental.",
+    link: "/blog/que-es-un-implante-dental",
+    image: blog1,
+  },
+  {
+    title: "¿Qué es una prótesis híbrida y cuándo se utiliza?",
+    excerpt: "La pérdida total de dientes puede afectar profundamente la calidad de vida, tanto desde el punto de vista funcional como emocional. Para estos casos, la prótesis híbrida es una excelente alternativa fija, cómoda y estética, especialmente cuando se buscan resultados estables a largo plazo.",
+    link: "/blog/que-es-una-protesis-hibrida",
+    image: blog2,
+  },
+  {
+    title: "Cuidados después de una cirugía dental: Lo que debes saber",
+    excerpt: "Después de una cirugía dental, como una extracción, la colocación de implantes o una cirugía de encías, es normal tener algunas molestias. Pero seguir ciertas indicaciones puede marcar la diferencia en cómo te recuperas.",
+    link: "/blog/cuidados-post-cirugia",
+    image: blog3,
+  },
+];
+---
+
+<section id="blog" class="mx-auto max-w-6xl scroll-mt-10 px-4 py-16 md:py-24">
+  <div class="mx-auto max-w-3xl text-center">
+    <h2 class="h2 text-pretty">Educación dental:<br> Aprende sobre tu salud oral</h2>
+    <p class="mt-6 text-lg text-gray-600">En esta sección encontrarás información clara y confiable sobre distintos temas odontológicos.
+        La idea es ayudarte a entender mejor los tratamientos, resolver tus dudas y acompañarte en el cuidado de tu salud oral.</p>
+  </div>
+
+  <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+    {articles.map((article) => (
+      <a href={article.link} class="group block">
+        <div class="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+          <Image
+            src={article.image}
+            alt={article.title}
+            width={400}
+            height={300}
+            class="aspect-video w-full object-cover"
+          />
+          <div class="flex flex-grow flex-col p-6">
+            <div class="flex-grow">
+              <h3 class="h4 font-bold text-gray-800">{article.title}</h3>
+              <p class="mt-2 text-base text-gray-600">{article.excerpt}</p>
+            </div>
+            <div class="mt-4 text-right">
+              <span class="text-sm font-semibold text-primary-500 transition-colors duration-300 group-hover:text-primary-600">Leer más...</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <div class="mt-4 flex justify-center">
+			<a 
+				href="#about-me" 
+				class="mt-6 group relative inline-flex items-center gap-2 rounded-full 
+					bg-gradient-to-r from-primary-600 to-primary-800 
+					px-6 py-2.5 text-base font-semibold text-white 
+					shadow-lg shadow-primary-500/30 
+					transition-all duration-300 
+					hover:from-primary-700 hover:to-primary-900 
+					hover:-translate-y-[1px] hover:shadow-xl hover:shadow-primary-500/40 
+					active:translate-y-0 
+					focus:outline-none focus:ring-4 focus:ring-primary-400/50"
+			>
+				<span>Todos los artículos</span>
+				<span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+			</a>
+		</div>
+</section>
+
+```
+# src\components\Button\Button.astro
+```astro
+---
+import { Icon } from "astro-icon/components";
+
+/**
+ *  * Notes:
+ *  if this is to be a link (<a>), pass an "href" prop
+ *  if this is to be a button (<button>), pass a "type" prop
+ *  you can pass the arrow prop with "left" or "right" to add an arrow to any button variant
+ */
+interface Props {
+	type?: "button" | "submit" | "reset" | null | undefined;
+	variant?: "primary" | "secondary" | "outline" | "ghost";
+	href?: string; // the href to go to, ex "/posts/"
+	target?: string; // the target for the link, ex "_blank"
+	rel?: string; // the rel for the link, ex "noopener"
+	arrow?: "left" | "right" | "none";
+	onclick?: any; // any onclick events
+	class?: string; // any additional classes
+	rest?: any; // catch-all for any additional parameters, such as "aria-label"
+}
+
+const {
+	type,
+	variant = "primary",
+	href,
+	arrow = "none",
+	onclick,
+	class: className,
+	...rest
+} = Astro.props as Props;
+---
+
+<!-- normal link -->{
+	href && (
+		<a
+			class:list={[
+				className,
+				`button group gap-2`,
+				{
+					"button--primary": variant === "primary",
+				},
+				{
+					"button--secondary": variant === "secondary",
+				},
+				{
+					"button--outline": variant === "outline",
+				},
+				{
+					"button--ghost": variant === "ghost",
+				},
+			]}
+			href={href}
+			onclick={onclick}
+			{...rest}
+		>
+			{arrow === "left" && (
+				<Icon
+					name="mynaui/arrow-long-right"
+					class="h-[1.4em] w-[1.4em] rotate-180 transition-[transform]"
+					aria-hidden="true"
+				/>
+			)}
+			<span>
+				<slot />
+			</span>
+			{arrow === "right" && (
+				<Icon
+					name="mynaui/arrow-long-right"
+					class="h-[1.4em] w-[1.4em] transition-[transform]"
+					aria-hidden="true"
+				/>
+			)}
+		</a>
+	)
+}
+
+<!-- button for "submit" or other -->
+{
+	!href && (
+		<button
+			class:list={[
+				className,
+				`button group gap-2`,
+				{
+					"button--primary": variant === "primary",
+				},
+				{
+					"button--secondary": variant === "secondary",
+				},
+				{
+					"button--outline": variant === "outline",
+				},
+				{
+					"button--ghost": variant === "ghost",
+				},
+			]}
+			type={type}
+			onclick={onclick}
+			{...rest}
+		>
+			{arrow === "left" && (
+				<Icon
+					name="mynaui/arrow-long-right"
+					class="h-[1.4em] w-[1.4em] rotate-180 transition-[transform]"
+					aria-hidden="true"
+				/>
+			)}
+			<span>
+				<slot />
+			</span>
+			{arrow === "right" && (
+				<Icon
+					name="mynaui/arrow-long-right"
+					class="h-[1.4em] w-[1.4em] transition-[transform]"
+					aria-hidden="true"
+				/>
+			)}
+		</button>
+	)
+}
+
+```
+# src\components\Contact\Contact.astro
+```astro
+---
+---
+
+<section 
+  id="contacto" 
+  class="relative h-[40rem] bg-cover bg-center bg-fixed" 
+  style="background-image: url('/images/1932.jpg');"
+>
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+
+  <div class="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
+    <h2 class="h1 font-heading-1 text-pretty">Agenda tu Evaluación</h2>
+    <p class="mt-25 max-w-2xl text-lg md:text-xl">
+      ¿Listo para comenzar? Agenda tu evaluación en el siguiente enlace.
+    </p>
+    <div class="mt-4 flex justify-center">
+			<a 
+				href="/contact-me" 
+				class="mt-6 group relative inline-flex items-center gap-2 rounded-full 
+					bg-gradient-to-r from-primary-600 to-primary-800 
+					px-6 py-2.5 text-base font-semibold text-white 
+					shadow-lg shadow-primary-500/30 
+					transition-all duration-300 
+					hover:from-primary-700 hover:to-primary-900 
+					hover:-translate-y-[1px] hover:shadow-xl hover:shadow-primary-500/40 
+					active:translate-y-0 
+					focus:outline-none focus:ring-4 focus:ring-primary-400/50"
+			>
+				<span>Agendar ahora</span>
+				<span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+			</a>
+		</div>
+  </div>
+</section>
+```
+# src\components\FeatureCard\FeatureCardNumbers.astro
+```astro
+---
+/**
+ * * These are cards with a large number, and description below
+ */
+
+interface Props {
+	largeText: string;
+	description: string;
+	rest?: any; // catch-all for any additional parameters, such as "aria-label"
+}
+
+const { largeText, description, ...rest } = Astro.props as Props;
+---
+
+<div {...rest} class="flex flex-col gap-3 text-center">
+	<h3 class="font-decorative text-primary-500 text-[8rem] leading-none">
+		{largeText}
+	</h3>
+
+	<p class="description font-heading-1 pr-2 text-2xl">
+		{description}
+	</p>
+</div>
+
+```
+# src\components\Footer\Footer.astro
+```astro
+---
+import siteData from "@config/siteData.json";
+import { Icon } from "astro-icon/components";
+import whiteLogo from "@images/logo/white-logojo.png";
+import FooterLink from "./FooterLink.astro";
+
+const today = new Date();
+---
+
+<footer class="footer">
+  <!-- Glow decorativo superior -->
+  <div class="footer__glow"></div>
+
+  <div class="footer__inner">
+    <!-- ═══ LOGO CENTRADO ═══ -->
+    <div class="footer__brand">
+      <a href="/" class="footer__logo-link" aria-label="Inicio">
+        <img
+          src={whiteLogo.src}
+          alt="Logo Dr. José Tomás Rojas"
+          class="footer__logo-img"
+          width="80"
+          height="80"
+          loading="lazy"
+        />
+      </a>
+      <h3 class="footer__name">Dr. José Tomás Rojas Vera</h3>
+      <p class="footer__specialty">Implantología Buco Maxilofacial</p>
+    </div>
+
+    <!-- ═══ LÍNEA DECORATIVA ═══ -->
+    <div class="footer__divider"></div>
+
+    <!-- ═══ COLUMNAS ═══ -->
+    <div class="footer__grid">
+      <!-- Columna: Navegación -->
+      <div class="footer__col">
+        <h4 class="footer__col-title">Navegación</h4>
+        <ul class="footer__nav-list">
+          <li><FooterLink href="/">Inicio</FooterLink></li>
+          <li><FooterLink href="#about-me">Sobre Mí</FooterLink></li>
+          <li><FooterLink href="#services">Servicios</FooterLink></li>
+          <li><FooterLink href="#cases">Casos Clínicos</FooterLink></li>
+          <li><FooterLink href="/#pricing">Contacto</FooterLink></li>
+        </ul>
+      </div>
+
+      <!-- Columna: Contacto -->
+      <div class="footer__col">
+        <h4 class="footer__col-title">Contacto</h4>
+        <ul class="footer__contact-list">
+          <li>
+            <Icon name="mdi:map-marker-outline" class="footer__contact-icon" />
+            <span>{siteData.contact.address}</span>
+          </li>
+          <li>
+            <Icon name="mdi:email-outline" class="footer__contact-icon" />
+            <a href={`mailto:${siteData.contact.email}`} class="footer__contact-link">
+              {siteData.contact.email}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna: Redes Sociales -->
+      <div class="footer__col footer__col--social">
+        <h4 class="footer__col-title">Síguenos</h4>
+        <div class="footer__socials">
+          <a
+            href="https://instagram.com/docjosetomasrojas"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer__social-link footer__social-link--ig"
+            aria-label="Instagram"
+          >
+            <Icon name="mdi:instagram" class="footer__social-icon" />
+          </a>
+          <a
+            href="https://youtube.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer__social-link footer__social-link--yt"
+            aria-label="YouTube"
+          >
+            <Icon name="mdi:youtube" class="footer__social-icon" />
+          </a>
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer__social-link footer__social-link--li"
+            aria-label="LinkedIn"
+          >
+            <Icon name="mdi:linkedin" class="footer__social-icon" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BARRA INFERIOR ═══ -->
+  <div class="footer__bottom">
+    <div class="footer__bottom-inner">
+      <span>&copy; {today.getFullYear()} Dr. José Tomás Rojas Vera. Todos los derechos reservados.</span>
+      <span class="footer__bottom-sep">·</span>
+      <span>
+        Desarrollado por
+        <a href="https://isoft.cl" target="_blank" rel="noopener" class="footer__dev-link">Isoft</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* ══════════════════════════════════════
+     FOOTER — Design System
+     ══════════════════════════════════════ */
+
+  .footer {
+    position: relative;
+    background: linear-gradient(175deg, #2a3b42 0%, #1a2327 100%);
+    color: #c8d6da;
+    overflow: hidden;
+  }
+
+  /* Glow decorativo arriba */
+  .footer__glow {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #4f7a7c 20%,
+      #6ba3a6 50%,
+      #4f7a7c 80%,
+      transparent 100%
+    );
+    opacity: 0.8;
+  }
+
+  .footer__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 2rem;
+  }
+
+  /* ── BRAND / LOGO ── */
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .footer__logo-link {
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.4s ease;
+  }
+
+  .footer__logo-link:hover {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 18px rgba(107, 163, 166, 0.45));
+  }
+
+  .footer__logo-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 12px rgba(107, 163, 166, 0.25));
+  }
+
+  .footer__name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  .footer__specialty {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: #9fb6b8;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 0.35rem;
+  }
+
+  /* ── DIVIDER ── */
+  .footer__divider {
+    width: 100%;
+    max-width: 500px;
+    height: 1px;
+    margin: 0 auto 2.5rem;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(79, 122, 124, 0.5) 30%,
+      rgba(79, 122, 124, 0.5) 70%,
+      transparent 100%
+    );
+  }
+
+  /* ── GRID 3 COLUMNAS ── */
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .footer__col-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-bottom: 0.7rem;
+  }
+
+  .footer__col-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 28px;
+    height: 2px;
+    background: #4f7a7c;
+    border-radius: 1px;
+  }
+
+  /* ── NAV LINKS ── */
+  .footer__nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer__nav-list :global(a) {
+    color: #9fb6b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    display: inline-block;
+  }
+
+  .footer__nav-list :global(a:hover) {
+    color: #ffffff;
+    padding-left: 6px;
+  }
+
+  /* ── CONTACT ── */
+  .footer__contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .footer__contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #9fb6b8;
+  }
+
+  .footer__contact-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #4f7a7c;
+  }
+
+  .footer__contact-link {
+    color: #9fb6b8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer__contact-link:hover {
+    color: #ffffff;
+  }
+
+  /* ── SOCIAL ICONS ── */
+  .footer__col--social {
+    text-align: center;
+  }
+
+  .footer__col--social .footer__col-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .footer__socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #9fb6b8;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .footer__social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .footer__social-link--ig:hover {
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    border-color: transparent;
+    color: #ffffff;
+  }
+
+  .footer__social-link--yt:hover {
+    background: #FF0000;
+    border-color: transparent;
+    color: #ffffff;
+  }
+
+  .footer__social-link--li:hover {
+    background: #0077B5;
+    border-color: transparent;
+    color: #ffffff;
+  }
+
+  .footer__social-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* ── BOTTOM BAR ── */
+  .footer__bottom {
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 2.5rem;
+  }
+
+  .footer__bottom-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #6b8a8d;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .footer__bottom-sep {
+    opacity: 0.4;
+  }
+
+  .footer__dev-link {
+    color: #9fb6b8;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .footer__dev-link:hover {
+    color: #ffffff;
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE
+     ══════════════════════════════════════ */
+
+  @media (max-width: 768px) {
+    .footer__inner {
+      padding: 3rem 1.5rem 1.5rem;
+    }
+
+    .footer__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .footer__col-title::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .footer__nav-list {
+      align-items: center;
+    }
+
+    .footer__nav-list :global(a:hover) {
+      padding-left: 0;
+    }
+
+    .footer__contact-list li {
+      justify-content: center;
+      text-align: left;
+    }
+
+    .footer__contact-list {
+      align-items: center;
+    }
+
+    .footer__bottom-inner {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .footer__bottom-sep {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer__logo-img {
+      width: 65px;
+      height: 65px;
+    }
+
+    .footer__name {
+      font-size: 1.2rem;
+    }
+
+    .footer__specialty {
+      font-size: 0.75rem;
+    }
+  }
+</style>
+
+```
+# src\components\Footer\FooterLink.astro
+```astro
+---
+interface Props {
+	href: string;
+	newTab?: boolean; // defaults to false
+	rest?: Partial<HTMLAnchorElement>; // catch-all for any additional parameters, such as "aria-label"
+}
+
+const { href, newTab = false, ...rest } = Astro.props as Props;
+---
+
+<a
+	href={href}
+	class="nav__link--base"
+	target={newTab ? "_blank" : undefined}
+	rel={newTab ? "noopener noreferrer" : undefined}
+	{...rest}
+>
+	<slot />
+</a>
+
+```
+# src\components\Forms\ContactForm.astro
+```astro
+---
+import Button from "@components/Button/Button.astro";
+---
+
+<form id="contact-form" name="contact form" class="flex h-full flex-col justify-between gap-4">
+	<input type="hidden" name="form-name" value="contact" />
+	<div>
+		<label for="contact-name" class="font-heading-1 text-lg uppercase">Nombre Completo</label>
+		<input type="text" class="form__input rounded-lg" name="name" id="contact-name" placeholder="Tu nombre y apellido" required />
+	</div>
+	<div class="flex flex-col gap-1">
+		<label for="contact-email" class="font-heading-1 text-lg uppercase">Email de Contacto</label>
+		<input
+			type="email"
+			class="form__input rounded-lg"
+			name="email"
+			id="contact-email"
+			inputmode="email"
+			placeholder="ejemplo@correo.com"
+			required
+		/>
+	</div>
+	<div>
+		<label for="contact-phone" class="font-heading-1 text-lg uppercase">Teléfono</label>
+		<input type="tel" class="form__input rounded-lg" name="phone" id="contact-phone" placeholder="+56 9 1234 5678" required />
+	</div>
+	<div>
+		<label for="contact-message" class="font-heading-1 text-lg uppercase">Motivo de la Consulta</label>
+		<textarea
+			name="message"
+			class="form__input rounded-lg"
+			id="contact-message"
+			rows="4"
+			placeholder="Ej: Quisiera agendar una evaluación para un implante."
+			required></textarea>
+	</div>
+	<div class="mt-8 flex justify-center">
+		<button
+			type="submit"
+			class="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-sky-500 px-6 py-2.5 text-base font-semibold text-white shadow-[0_8px_18px_-12px_rgba(14,165,233,0.35)] transition-all duration-300 hover:from-cyan-400 hover:via-sky-500 hover:to-sky-600 hover:-translate-y-[1px] hover:shadow-[0_14px_28px_-14px_rgba(14,165,233,0.35)] active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-sky-300/50"
+		>
+			<span>Enviar Solicitud</span>
+		</button>
+	</div>
+</form>
+
+```
+# src\components\Hero\About-me.astro
+```astro
+---
+import heroImageOne from "@images/hero-slide/cortada.jpg";
+---
+
+<style>
+	:root {
+		--primary: #4f7a7c;
+		--heading: #2f3e46;
+		--text: #4a4a4a;
+		--bg-light: #f6f7f7;
+		--accent-soft: #9fb6b8;
+	}
+
+	/* FIX responsive: la sección no tenía padding → texto pegado a los bordes en móvil */
+	.section {
+		padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 8vw, 6rem);
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	.grid-2 {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 4rem;
+		align-items: center;
+	}
+	h2.section-title {
+		font-family: "Playfair Display", serif;
+		font-size: clamp(1.7rem, 5vw, 2.2rem); /* fluido */
+		color: var(--bg-light);
+		margin-bottom: 1.5rem;
+	}
+	p {
+		color: var(--bg-light);
+	}
+
+	.foto-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-height: 600px;
+	}
+
+	.foto-container img {
+		width: 100%;
+		max-height: 600px;
+		object-fit: contain;
+		object-position: center center;
+	}
+
+	@media (max-width: 900px) {
+		.grid-2,
+		.grid-3,
+		.grid-4 {
+			grid-template-columns: 1fr;
+			gap: 2rem; /* menos espacio vertical al apilarse */
+		}
+	}
+</style>
+
+<section id="about-me" class="section" style="background:var(--primary);">
+	<div class="grid-2 container">
+		<div>
+			<h2 class="section-title">Sobre mí</h2>
+			<p style="line-height:1.8; margin-bottom:1.2rem;">
+				Soy el Dr. José Tomás Rojas Vera, Cirujano Dentista con enfoque en implantología y
+				rehabilitación oral. Mi forma de trabajo se basa en una planificación cuidadosa, la
+				precisión clínica y una relación de confianza con cada paciente.
+			</p>
+			<p style="line-height:1.8;">
+				Creo en una odontología que acompaña, explica y propone soluciones pensadas para el largo
+				plazo, integrando ciencia, experiencia y criterio profesional.
+			</p>
+			<div style="margin-top:2rem;">
+				
+					href="/sobre-mi"
+					style="color:var(--bg-light); text-decoration:none; font-weight:500;"<a>Ver más →</a>
+			</div>
+		</div>
+		<div class="foto-container">
+			<img src={heroImageOne.src} alt="Foto del Dr. José Tomás Rojas Vera" />
+		</div>
+	</div>
+</section>
+```
+# src\components\Hero\Blog.astro
+```astro
+<style>
+    :root {
+      --primary: #4F7A7C;
+      --heading: #2F3E46;
+      --text: #4A4A4A;
+      --bg-light: #F6F7F7;
+      --accent-soft: #9FB6B8;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      background: var(--bg-light);
+    }
+
+    /* ===== HEADER / BARRA SUPERIOR ===== */
+    header{
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #e6e6e6;
+    }
+
+    .nav-container{
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.1rem 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo{
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--heading);
+      white-space: nowrap; /* todo en una sola línea */
+    }
+
+    nav ul{
+      list-style: none;
+      display: flex;
+      gap: 2.2rem;
+    }
+
+    nav a{
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    nav a:hover{ color: var(--primary); }
+
+    /* ===== HERO ===== */
+    .hero{
+      height: 100vh;
+      width: 100%;
+      background-image: url('Firefly 20260107131824.png');
+      background-size: cover;
+      background-position: right center;
+      display: flex;
+      align-items: center;
+      padding-left: 8vw;
+      padding-top: 90px; /* espacio para la barra superior */
+    }
+
+    .hero-content{ max-width: 540px; }
+
+    .hero-content h1{
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-content h2{
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--primary);
+      margin-bottom: 1.4rem;
+    }
+
+    .divider{
+      width: 52px;
+      height: 1px;
+      background: var(--primary);
+      margin-bottom: 2.2rem;
+    }
+
+    .btn{
+      display: inline-block;
+      padding: 14px 38px;
+      background: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      border-radius: 3px;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover{ background:#3f6668; }
+
+    section{ padding: 6rem 8vw; }
+
+    .container{ max-width: 1200px; margin: 0 auto; }
+
+    h2.section-title{
+      font-family:'Playfair Display',serif;
+      font-size:2.2rem;
+      color:var(--heading);
+      margin-bottom:1.5rem;
+    }
+
+    .grid-2{ display:grid; grid-template-columns: repeat(2,1fr); gap:4rem; align-items:center; }
+    .grid-3{ display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; }
+    .grid-4{ display:grid; grid-template-columns: repeat(4,1fr); gap:2rem; }
+
+    .card{ background:#fff; border:1px solid #e6e6e6; }
+    .card-body{ padding:1.5rem; }
+
+    @media (max-width:900px){
+      nav ul{ display:none; }
+      .hero{
+        background-position: center top;
+        padding: 120px 7vw;
+        align-items: flex-end;
+      }
+      .hero-content h1{ font-size:2.6rem; }
+      .hero-content h2{ font-size:1.15rem; }
+      .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; }
+    }
+  </style>
+
+  <section id="blog" style="background:#ffffff;">
+  <div class="container">
+    <h2 class="section-title">Educación dental</h2>
+    <div class="grid-3">
+      <div class="card"><div style="height:200px; background:#ddd;"></div><div class="card-body">¿Qué es un implante dental?</div></div>
+      <div class="card"><div style="height:200px; background:#ddd;"></div><div class="card-body">¿Qué es una prótesis híbrida?</div></div>
+      <div class="card"><div style="height:200px; background:#ddd;"></div><div class="card-body">Cuidados post cirugía</div></div>
+    </div>
+    <div style="margin-top:3rem;"><a href="#" class="btn">Explorar el blog</a></div>
+  </div>
+</section>
+```
+# src\components\Hero\Cta.astro
+```astro
+<style>
+	:root {
+		--primary: #4f7a7c;
+		--heading: #2f3e46;
+		--text: #4a4a4a;
+		--bg-light: #f6f7f7;
+		--accent-soft: #9fb6b8;
+	}
+
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		font-family: "Montserrat", sans-serif;
+		color: var(--text);
+		background: var(--bg-light);
+	}
+
+	/* ===== HEADER / BARRA SUPERIOR ===== */
+	header {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 1000;
+		background: rgba(255, 255, 255, 0.96);
+		border-bottom: 1px solid #e6e6e6;
+	}
+
+	.nav-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 1.1rem 6vw;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.logo {
+		font-family: "Playfair Display", serif;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: var(--heading);
+		white-space: nowrap; /* todo en una sola línea */
+	}
+
+	nav ul {
+		list-style: none;
+		display: flex;
+		gap: 2.2rem;
+	}
+
+	nav a {
+		text-decoration: none;
+		font-size: 0.85rem;
+		letter-spacing: 0.08em;
+		color: var(--text);
+		font-weight: 400;
+	}
+
+	nav a:hover {
+		color: var(--primary);
+	}
+
+	/* ===== HERO ===== */
+	.hero {
+		height: 100vh;
+		width: 100%;
+		background-image: url("Firefly 20260107131824.png");
+		background-size: cover;
+		background-position: right center;
+		display: flex;
+		align-items: center;
+		padding-left: 8vw;
+		padding-top: 90px; /* espacio para la barra superior */
+	}
+
+	.hero-content {
+		max-width: 540px;
+	}
+
+	.hero-content h1 {
+		font-family: "Playfair Display", serif;
+		font-size: 3.6rem;
+		font-weight: 600;
+		color: var(--heading);
+		margin-bottom: 0.8rem;
+	}
+
+	.hero-content h2 {
+		font-size: 1.3rem;
+		font-weight: 400;
+		letter-spacing: 0.04em;
+		color: var(--primary);
+		margin-bottom: 1.4rem;
+	}
+
+	.divider {
+		width: 52px;
+		height: 1px;
+		background: var(--primary);
+		margin-bottom: 2.2rem;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 14px 38px;
+		background: var(--primary);
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.9rem;
+		letter-spacing: 0.08em;
+		border-radius: 3px;
+		transition: background 0.2s ease;
+	}
+
+	.btn:hover {
+		background: #3f6668;
+	}
+
+	section {
+		padding: 6rem 8vw;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	h2.section-title {
+		font-family: "Playfair Display", serif;
+		font-size: 2.2rem;
+		color: var(--heading);
+		margin-bottom: 1.5rem;
+	}
+
+	.grid-2 {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 4rem;
+		align-items: center;
+	}
+	.grid-3 {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+	.grid-4 {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 2rem;
+	}
+
+	.card {
+		background: #fff;
+		border: 1px solid #e6e6e6;
+	}
+	.card-body {
+		padding: 1.5rem;
+	}
+
+	@media (max-width: 900px) {
+		nav ul {
+			display: none;
+		}
+		.hero {
+			background-position: center top;
+			padding: 120px 7vw;
+			align-items: flex-end;
+		}
+		.hero-content h1 {
+			font-size: 2.6rem;
+		}
+		.hero-content h2 {
+			font-size: 1.15rem;
+		}
+		.grid-2,
+		.grid-3,
+		.grid-4 {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<section style="background:var(--bg-light); text-align:center;">
+	<div class="container">
+		<h2 class="section-title">Agenda tu evaluación</h2>
+		<p style="max-width:700px; margin:0 auto 3rem auto; line-height:1.8;">
+			Si estás considerando un tratamiento implantológico, una rehabilitación oral o necesitas una
+			evaluación profesional, puedes agendar directamente o contactarme para resolver tus dudas.
+		</p>
+		<a href="/agendar" class="btn">Agendar hora</a>
+	</div>
+</section>
+
+```
+# src\components\Hero\Hero.astro
+```astro
+---
+/**
+ * * Hero responsive: fondo en desktop, apilado (texto + foto) en móvil
+ */
+import heroImageOne from "@images/hero-slide/JoSlide1.png";
+import heroImageMobileOne from "@images/front-real.png";
+---
+
+<style>
+	:root {
+		--primary: #4f7a7c;
+		--heading: #2f3e46;
+		--text: #4a4a4a;
+		--bg-light: #f6f7f7;
+		--accent-soft: #9fb6b8;
+	}
+
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	/* ===== HERO ===== */
+	.hero {
+		min-height: 100vh; /* fallback */
+		min-height: 100svh; /* móvil: altura real visible */
+		width: 100%;
+		background: var(--bg-light);
+		background-size: cover;
+		background-position: right center;
+		display: flex;
+		align-items: center;
+		padding-left: 8vw;
+		padding-top: 90px;
+	}
+
+	.hero-content {
+		max-width: 640px;
+	}
+
+	.hero-content h1 {
+		font-family: "Playfair Display", serif;
+		font-size: clamp(2.1rem, 7vw, 3.6rem);
+		font-weight: 600;
+		color: var(--heading);
+		margin-bottom: 1.8rem;
+	}
+
+	.hero-content h2 {
+		font-size: clamp(1.05rem, 3.2vw, 1.3rem);
+		font-weight: 400;
+		letter-spacing: 0.04em;
+		color: var(--primary);
+		margin-bottom: 1.4rem;
+	}
+
+	.divider {
+		width: 52px;
+		height: 1px;
+		background: var(--primary);
+		margin-bottom: 2.2rem;
+	}
+
+	/* Foto del doctor: SOLO visible en móvil (oculta en desktop) */
+	.hero-mobile-photo {
+		display: none;
+	}
+
+	/* ===== ANIMACIONES DE ENTRADA ===== */
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes fadeOutUp {
+		from {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		to {
+			opacity: 0;
+			transform: translateY(-30px);
+		}
+	}
+
+	.hero-content.visible h1,
+	.hero-content.visible h2,
+	.hero-content.visible .divider {
+		animation: fadeInUp 0.8s ease-out forwards;
+	}
+
+	.hero-content.visible h1 {
+		animation-delay: 0.1s;
+	}
+	.hero-content.visible h2 {
+		animation-delay: 0.2s;
+	}
+	.hero-content.visible .divider {
+		animation-delay: 0.3s;
+	}
+
+	.hero-content.hidden h1,
+	.hero-content.hidden h2,
+	.hero-content.hidden .divider {
+		animation: fadeOutUp 0.5s ease-in forwards;
+	}
+
+	/* ===== MÓVIL / TABLET: apilar texto + foto completa ===== */
+	@media (max-width: 900px) {
+		.hero {
+			background-image: none !important; /* quitamos el fondo recortado */
+			min-height: auto;
+			flex-direction: column;
+			align-items: stretch;
+			justify-content: flex-start;
+			padding: 110px 7vw 0; /* deja espacio bajo el nav fijo */
+			gap: 1.5rem;
+		}
+
+		.hero-content {
+			max-width: none;
+		}
+
+		.hero-content h1 {
+			margin-bottom: 1rem;
+		}
+
+		.divider {
+			margin-bottom: 0;
+		}
+
+		/* La foto del doctor, completa y centrada */
+		.hero-mobile-photo {
+			display: block;
+			width: 100%;
+			max-width: 460px;
+			height: auto;
+			margin: 0 auto;
+			object-fit: contain;
+			object-position: bottom center;
+		}
+	}
+</style>
+
+<section class="hero" style={`background-image: url(${heroImageOne.src});`}>
+	<div class="hero-content" id="heroContent">
+		<h1>Dr. José Tomás Rojas V.</h1>
+		<h2>Implantología Buco Maxilofacial</h2>
+		<div class="divider"></div>
+	</div>
+
+	<img
+		class="hero-mobile-photo"
+		src={heroImageMobileOne.src}
+		alt="Dr. José Tomás Rojas Vera, implantólogo buco maxilofacial en Providencia"
+		loading="eager"
+	/>
+</section>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const heroContent = document.getElementById("heroContent");
+		const heroSection = document.querySelector(".hero");
+
+		if (!heroContent || !heroSection) return;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						heroContent.classList.remove("hidden");
+						heroContent.classList.add("visible");
+					} else {
+						heroContent.classList.remove("visible");
+						heroContent.classList.add("hidden");
+					}
+				});
+			},
+			{ threshold: 0.3 },
+		);
+
+		observer.observe(heroSection);
+	});
+</script>
+```
+# src\components\Hero\Phrase.astro
+```astro
+<style>
+    :root {
+      --primary: #4F7A7C;
+      --heading: #2F3E46;
+      --text: #4A4A4A;
+      --bg-light: #F6F7F7;
+      --accent-soft: #9FB6B8;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      background: var(--bg-light);
+    }
+
+    /* ===== HEADER / BARRA SUPERIOR ===== */
+    header{
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #e6e6e6;
+    }
+
+    .nav-container{
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.1rem 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo{
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--heading);
+      white-space: nowrap; /* todo en una sola línea */
+    }
+
+    nav ul{
+      list-style: none;
+      display: flex;
+      gap: 2.2rem;
+    }
+
+    nav a{
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    nav a:hover{ color: var(--primary); }
+
+    /* ===== HERO ===== */
+    .hero{
+      height: 100vh;
+      width: 100%;
+      background-image: url('Firefly 20260107131824.png');
+      background-size: cover;
+      background-position: right center;
+      display: flex;
+      align-items: center;
+      padding-left: 8vw;
+      padding-top: 90px; /* espacio para la barra superior */
+    }
+
+    .hero-content{ max-width: 540px; }
+
+    .hero-content h1{
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-content h2{
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--primary);
+      margin-bottom: 1.4rem;
+    }
+
+    .divider{
+      width: 52px;
+      height: 1px;
+      background: var(--primary);
+      margin-bottom: 2.2rem;
+    }
+
+    .btn{
+      display: inline-block;
+      padding: 14px 38px;
+      background: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      border-radius: 3px;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover{ background:#3f6668; }
+
+    section{ padding: 6rem 8vw; }
+
+    .container{ max-width: 1200px; margin: 0 auto; }
+
+    h2.section-title{
+      font-family:'Playfair Display',serif;
+      font-size:2.2rem;
+      color:var(--heading);
+      margin-bottom:1.5rem;
+    }
+
+    .grid-2{ display:grid; grid-template-columns: repeat(2,1fr); gap:4rem; align-items:center; }
+    .grid-3{ display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; }
+    .grid-4{ display:grid; grid-template-columns: repeat(4,1fr); gap:2rem; }
+
+    .card{ background:#fff; border:1px solid #e6e6e6; }
+    .card-body{ padding:1.5rem; }
+
+    @media (max-width:900px){
+      nav ul{ display:none; }
+      .hero{
+        background-position: center top;
+        padding: 120px 7vw;
+        align-items: flex-end;
+      }
+      .hero-content h1{ font-size:2.6rem; }
+      .hero-content h2{ font-size:1.15rem; }
+      .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; }
+    }
+  </style>
+
+  <!-- FRASE CLAVE -->
+<section style="background:#ffffff; padding:4.5rem 8vw;">
+  <div class="container" style="text-align:center;">
+    <p style="font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--heading); line-height:1.5; max-width:900px; margin:0 auto;">
+      “Cada tratamiento comienza con una buena evaluación y una decisión bien informada.”
+    </p>
+  </div>
+</section>
+```
+# src\components\Hero\Reels.astro
+```astro
+---
+import instaProfile from "@images/hero-slide/insta-profile.jpg";
+import reels1Image from "@images/reels/reels1.jpg";
+import reels2Image from "@images/reels/reels2.png";
+import reels3Image from "@images/reels/reels3.png";
+import reels4Image from "@images/reels/reels4.png";
+
+const instagramPosts = [
+	{
+		id: "post1",
+		url: "https://www.instagram.com/p/DRcWUy6EfYr/",
+		image: reels1Image.src,
+		alt: "Post clínico del Dr. José Tomás Rojas",
+	},
+	{
+		id: "post2",
+		url: "https://www.instagram.com/p/DQrtn5SgLBP/",
+		image: reels2Image.src,
+		alt: "Caso clínico de implantología",
+	},
+	{
+		id: "post3",
+		url: "https://www.instagram.com/p/DSLt0ghkZR-/",
+		image: reels3Image.src,
+		alt: "Tratamiento de cirugía maxilofacial",
+	},
+	{
+		id: "post4",
+		url: "https://www.instagram.com/p/DNvbrrfXKox/",
+		image: reels4Image.src,
+		alt: "Procedimiento de implante dental",
+	},
+];
+
+const instagramProfileUrl = "https://instagram.com/docjosetomasrojas";
+---
+
+<style>
+	/* ===== INSTAGRAM POSTS SECTION ===== */
+	.insta-section {
+		padding: 6rem 8vw;
+		background: #ffffff;
+	}
+
+	.insta-container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.insta-section-header {
+		margin-bottom: 3rem;
+	}
+
+	.insta-section-title {
+		font-family: "Playfair Display", serif;
+		font-size: 2.2rem;
+		color: #2f3e46;
+		margin-bottom: 1rem;
+	}
+
+	.insta-section-subtitle {
+		max-width: 720px;
+		line-height: 1.8;
+		color: #4a4a4a;
+		font-size: 1rem;
+	}
+
+	/* ===== GRID DE POSTS ===== */
+	.insta-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+	}
+
+	/* ===== TARJETA DE POST ===== */
+	.insta-card {
+		background: #fff;
+		border-radius: 12px;
+		overflow: hidden;
+		border: 1px solid #e8e8e8;
+		transition:
+			transform 0.3s ease,
+			box-shadow 0.3s ease;
+		cursor: pointer;
+		text-decoration: none;
+		display: block;
+		color: inherit;
+	}
+
+	.insta-card:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+	}
+
+	/* --- Header del post --- */
+	.insta-card-header {
+		display: flex;
+		align-items: center;
+		padding: 12px 14px;
+		gap: 10px;
+	}
+
+	.insta-card-avatar {
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 2px solid transparent;
+		background-image:
+			linear-gradient(#fff, #fff),
+			linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+		background-origin: border-box;
+		background-clip: content-box, border-box;
+		flex-shrink: 0;
+	}
+
+	.insta-card-user {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.insta-card-username {
+		font-size: 0.82rem;
+		font-weight: 600;
+		color: #262626;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.insta-card-badge {
+		font-size: 0.7rem;
+		color: #8e8e8e;
+	}
+
+	.insta-card-logo {
+		width: 20px;
+		height: 20px;
+		flex-shrink: 0;
+		opacity: 0.7;
+		transition: opacity 0.2s ease;
+	}
+
+	.insta-card:hover .insta-card-logo {
+		opacity: 1;
+	}
+
+	/* --- Imagen del post --- */
+	.insta-card-image-wrapper {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 1 / 1;
+		overflow: hidden;
+		background: #f5f5f5;
+	}
+
+	.insta-card-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.4s ease;
+	}
+
+	.insta-card:hover .insta-card-image {
+		transform: scale(1.03);
+	}
+
+	/* Overlay con ícono al hover */
+	.insta-card-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background 0.3s ease;
+	}
+
+	.insta-card:hover .insta-card-overlay {
+		background: rgba(0, 0, 0, 0.15);
+	}
+
+	.insta-overlay-icon {
+		opacity: 0;
+		transform: scale(0.8);
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s ease;
+		background: rgba(255, 255, 255, 0.92);
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.insta-card:hover .insta-overlay-icon {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	.insta-overlay-icon svg {
+		width: 22px;
+		height: 22px;
+		color: #e1306c;
+	}
+
+	/* --- Footer del post --- */
+	.insta-card-footer {
+		padding: 10px 14px 14px;
+	}
+
+
+
+	.insta-card-cta {
+		font-size: 0.78rem;
+		font-weight: 600;
+		color: #4f7a7c;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.insta-card-cta svg {
+		width: 14px;
+		height: 14px;
+		transition: transform 0.2s ease;
+	}
+
+	.insta-card:hover .insta-card-cta svg {
+		transform: translateX(3px);
+	}
+
+	/* ===== BOTÓN VER MÁS ===== */
+	.insta-cta-wrapper {
+		margin-top: 3rem;
+		text-align: left;
+	}
+
+	.insta-cta-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 14px 32px;
+		background: linear-gradient(135deg, #4f7a7c 0%, #3f6668 100%);
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.9rem;
+		font-weight: 500;
+		letter-spacing: 0.04em;
+		border-radius: 8px;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.insta-cta-btn:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 24px rgba(79, 122, 124, 0.3);
+	}
+
+	.insta-cta-btn svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 1024px) {
+		.insta-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.insta-section {
+			padding: 4rem 5vw;
+		}
+
+		.insta-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 0.8rem;
+		}
+
+		.insta-section-title {
+			font-size: 1.6rem;
+		}
+
+		.insta-card-header {
+			padding: 8px 10px;
+			gap: 6px;
+		}
+
+		.insta-card-avatar {
+			width: 26px;
+			height: 26px;
+		}
+
+		.insta-card-username {
+			font-size: 0.7rem;
+		}
+
+		.insta-card-badge {
+			display: none;
+		}
+
+		.insta-card-logo {
+			width: 16px;
+			height: 16px;
+		}
+
+		.insta-card-footer {
+			padding: 8px 10px 10px;
+		}
+
+
+
+		.insta-card-cta {
+			font-size: 0.7rem;
+		}
+
+		.insta-overlay-icon {
+			width: 40px;
+			height: 40px;
+		}
+
+		.insta-overlay-icon svg {
+			width: 18px;
+			height: 18px;
+		}
+	}
+</style>
+
+<section class="insta-section">
+	<div class="insta-container">
+		<div class="insta-section-header">
+			<h2 class="insta-section-title">Presencia en redes</h2>
+			<p class="insta-section-subtitle">
+				Comparto contenido clínico, educativo y casos reales para ayudarte a comprender mejor los
+				tratamientos y el cuidado de tu salud oral.
+			</p>
+		</div>
+
+		<div class="insta-grid">
+			{
+				instagramPosts.map((post) => (
+					<a
+						href={post.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="insta-card"
+						id={post.id}
+					>
+						{/* Header */}
+						<div class="insta-card-header">
+							<img src={instaProfile.src} alt="Dr. José Tomás Rojas V." class="insta-card-avatar" />
+							<div class="insta-card-user">
+								<div class="insta-card-username">docjosetomasrojas</div>
+								<div class="insta-card-badge">Publicación</div>
+							</div>
+							{/* Instagram icon */}
+							<svg
+								class="insta-card-logo"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+								<circle cx="12" cy="12" r="5" />
+								<circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+							</svg>
+						</div>
+
+						{/* Imagen */}
+						<div class="insta-card-image-wrapper">
+							<img src={post.image} alt={post.alt} class="insta-card-image" loading="lazy" />
+							<div class="insta-card-overlay">
+								<div class="insta-overlay-icon">
+									{/* External link icon */}
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+										<polyline points="15 3 21 3 21 9" />
+										<line x1="10" y1="14" x2="21" y2="3" />
+									</svg>
+								</div>
+							</div>
+						</div>
+
+						{/* Footer */}
+						<div class="insta-card-footer">
+
+							<div class="insta-card-cta">
+								Ver en Instagram
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+									<polyline points="9 18 15 12 9 6" />
+								</svg>
+							</div>
+						</div>
+					</a>
+				))
+			}
+		</div>
+
+		<div class="insta-cta-wrapper">
+			<a href={instagramProfileUrl} target="_blank" rel="noopener noreferrer" class="insta-cta-btn">
+				<svg
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+					<circle cx="12" cy="12" r="5"></circle>
+					<circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"></circle>
+				</svg>
+				Ver más en Instagram
+			</a>
+		</div>
+	</div>
+</section>
+
+```
+# src\components\Hero\Services.astro
+```astro
+<style>
+	/* ===== SECTION ===== */
+	.services-section {
+		padding: 100px 8vw;
+		background: var(--bg-light);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.services-section::before {
+		content: "";
+		position: absolute;
+		top: -120px;
+		right: -120px;
+		width: 320px;
+		height: 320px;
+		background: radial-gradient(circle, rgba(79, 122, 124, 0.06) 0%, transparent 70%);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.services-section::after {
+		content: "";
+		position: absolute;
+		bottom: -80px;
+		left: -80px;
+		width: 240px;
+		height: 240px;
+		background: radial-gradient(circle, rgba(79, 122, 124, 0.04) 0%, transparent 70%);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.services-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		position: relative;
+		z-index: 1;
+	}
+
+	/* ===== HEADER ===== */
+	.services-header {
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.services-label {
+		display: inline-block;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: var(--primary);
+		margin-bottom: 1rem;
+		position: relative;
+	}
+
+	.services-label::before,
+	.services-label::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		width: 28px;
+		height: 1px;
+		background: var(--primary);
+		opacity: 0.4;
+	}
+
+	.services-label::before {
+		right: calc(100% + 12px);
+	}
+
+	.services-label::after {
+		left: calc(100% + 12px);
+	}
+
+	.services-title {
+		font-family: "Playfair Display", serif;
+		font-size: 2.6rem;
+		font-weight: 600;
+		color: var(--heading);
+		margin-bottom: 1rem;
+		line-height: 1.2;
+	}
+
+	.services-subtitle {
+		font-size: 1.05rem;
+		color: #6b7b82;
+		max-width: 560px;
+		margin: 0 auto;
+		line-height: 1.7;
+	}
+
+	/* ===== GRID ===== */
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+	}
+
+	/* ===== CARD ===== */
+	.service-card {
+		background: #ffffff;
+		border-radius: 12px;
+		padding: 2.5rem 2rem 2rem;
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+		cursor: default;
+		border: 1px solid rgba(79, 122, 124, 0.08);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+		transition:
+			transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			border-color 0.3s ease;
+
+		/* reveal animation initial state */
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	.service-card.revealed {
+		opacity: 1;
+		transform: translateY(0);
+		transition:
+			opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			border-color 0.3s ease;
+	}
+
+	.service-card::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, var(--primary), var(--accent-soft));
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	}
+
+	.service-card:hover {
+		transform: translateY(-6px);
+		box-shadow:
+			0 16px 40px rgba(79, 122, 124, 0.12),
+			0 4px 12px rgba(0, 0, 0, 0.04);
+		border-color: rgba(79, 122, 124, 0.15);
+	}
+
+	.service-card:hover::before {
+		transform: scaleX(1);
+	}
+
+	/* ===== ICON ===== */
+	.service-icon-wrapper {
+		width: 64px;
+		height: 64px;
+		margin: 0 auto 1.5rem;
+		border-radius: 50%;
+		background: linear-gradient(
+			135deg,
+			rgba(79, 122, 124, 0.08) 0%,
+			rgba(159, 182, 184, 0.12) 100%
+		);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition:
+			background 0.3s ease,
+			transform 0.3s ease;
+	}
+
+	.service-card:hover .service-icon-wrapper {
+		background: linear-gradient(135deg, rgba(79, 122, 124, 0.15) 0%, rgba(159, 182, 184, 0.2) 100%);
+		transform: scale(1.08);
+	}
+
+	.service-icon {
+		width: 28px;
+		height: 28px;
+		color: var(--primary);
+		transition: color 0.3s ease;
+	}
+
+	/* ===== TEXT ===== */
+	.service-name {
+		font-family: "Playfair Display", serif;
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: var(--heading);
+		margin-bottom: 0.75rem;
+		line-height: 1.35;
+		transition: color 0.3s ease;
+	}
+
+	.service-description {
+		font-size: 0.88rem;
+		color: #7d8e94;
+		line-height: 1.65;
+	}
+
+	/* ===== DIVIDER ===== */
+	.service-divider {
+		width: 30px;
+		height: 2px;
+		margin: 1rem auto 0.85rem;
+		background: linear-gradient(90deg, var(--primary), var(--accent-soft));
+		border-radius: 2px;
+		opacity: 0;
+		transform: scaleX(0);
+		transition:
+			opacity 0.3s ease 0.1s,
+			transform 0.3s ease 0.1s;
+	}
+
+	.service-card:hover .service-divider {
+		opacity: 1;
+		transform: scaleX(1);
+	}
+
+	/* ===== CTA ===== */
+	.services-cta {
+		text-align: center;
+		margin-top: 3.5rem;
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	.services-cta.revealed {
+		opacity: 1;
+		transform: translateY(0);
+		transition:
+			opacity 0.7s ease,
+			transform 0.7s ease;
+	}
+
+	.services-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 14px 36px;
+		background: var(--primary);
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.88rem;
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		border-radius: 6px;
+		transition:
+			background 0.3s ease,
+			transform 0.2s ease,
+			box-shadow 0.3s ease;
+		box-shadow: 0 2px 8px rgba(79, 122, 124, 0.2);
+	}
+
+	.services-btn:hover {
+		background: #3f6668;
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(79, 122, 124, 0.3);
+	}
+
+	.services-btn:active {
+		transform: translateY(0);
+	}
+
+	.btn-arrow {
+		width: 16px;
+		height: 16px;
+		transition: transform 0.3s ease;
+	}
+
+	.services-btn:hover .btn-arrow {
+		transform: translateX(4px);
+	}
+
+	/* ===== REVEAL DELAYS ===== */
+	.service-card:nth-child(1) {
+		transition-delay: 0s;
+	}
+	.service-card:nth-child(2) {
+		transition-delay: 0.1s;
+	}
+	.service-card:nth-child(3) {
+		transition-delay: 0.2s;
+	}
+	.service-card:nth-child(4) {
+		transition-delay: 0.3s;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 1024px) {
+		.services-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.services-section {
+			padding: 70px 6vw;
+		}
+
+		.services-title {
+			font-size: 2rem;
+		}
+
+		.services-grid {
+			grid-template-columns: 1fr;
+			gap: 1.2rem;
+		}
+
+		.service-card {
+			padding: 2rem 1.5rem 1.8rem;
+		}
+	}
+</style>
+
+<section id="services" class="services-section">
+	<div class="services-container">
+		<!-- Header -->
+		<div class="services-header">
+			<span class="services-label">Nuestros servicios</span>
+			<h2 class="services-title">Excelencia en cada tratamiento</h2>
+			<p class="services-subtitle">
+				Atención especializada con los más altos estándares de calidad y tecnología de vanguardia
+			</p>
+		</div>
+
+		<!-- Cards Grid -->
+		<div class="services-grid" id="servicesGrid">
+			<!-- Card 1 -->
+			<div class="service-card">
+				<div class="service-icon-wrapper">
+					<svg
+						class="service-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path
+							d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+						></path>
+						<circle cx="12" cy="12" r="3"></circle>
+					</svg>
+				</div>
+				<h3 class="service-name">Implantología Buco Maxilofacial</h3>
+				<div class="service-divider"></div>
+				<p class="service-description">
+					Restauración funcional y estética con implantes de última generación
+				</p>
+			</div>
+
+			<!-- Card 2 -->
+			<div class="service-card">
+				<div class="service-icon-wrapper">
+					<svg
+						class="service-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M9 12l2 2 4-4"></path>
+						<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"></path>
+					</svg>
+				</div>
+				<h3 class="service-name">Rehabilitación oral</h3>
+				<div class="service-divider"></div>
+				<p class="service-description">Recuperación integral de la función y armonía dental</p>
+			</div>
+
+			<!-- Card 3 -->
+			<div class="service-card">
+				<div class="service-icon-wrapper">
+					<svg
+						class="service-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+					</svg>
+				</div>
+				<h3 class="service-name">Cirugía oral</h3>
+				<div class="service-divider"></div>
+				<p class="service-description">
+					Procedimientos quirúrgicos seguros con técnica de precisión
+				</p>
+			</div>
+
+			<!-- Card 4 -->
+			<div class="service-card">
+				<div class="service-icon-wrapper">
+					<svg
+						class="service-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+						></path>
+						<rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+						<path d="M9 14l2 2 4-4"></path>
+					</svg>
+				</div>
+				<h3 class="service-name">Evaluación integral</h3>
+				<div class="service-divider"></div>
+				<p class="service-description">
+					Diagnóstico completo para un plan de tratamiento personalizado
+				</p>
+			</div>
+		</div>
+
+		<!-- CTA -->
+		<div class="services-cta" id="servicesCta">
+			<a href="/servicios" class="services-btn">
+				Ver todos los servicios
+				<svg
+					class="btn-arrow"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M5 12h14M12 5l7 7-7 7"></path>
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>
+
+<script>
+	function initServicesReveal() {
+		const cards = document.querySelectorAll(".service-card");
+		const cta = document.getElementById("servicesCta");
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("revealed");
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 },
+		);
+
+		cards.forEach((card) => observer.observe(card));
+		if (cta) observer.observe(cta);
+	}
+
+	function revealAllInstantly() {
+		const cards = document.querySelectorAll<HTMLElement>(".service-card");
+		const cta = document.getElementById("servicesCta");
+
+		cards.forEach((card) => {
+			card.style.transition = "none";
+			card.classList.add("revealed");
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					card.style.transition = "";
+				});
+			});
+		});
+
+		if (cta) {
+			cta.style.transition = "none";
+			cta.classList.add("revealed");
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					cta.style.transition = "";
+				});
+			});
+		}
+	}
+
+	// Initial page load
+	document.addEventListener("DOMContentLoaded", initServicesReveal);
+
+	// Back/forward navigation (bfcache restore)
+	window.addEventListener("pageshow", (event) => {
+		if (event.persisted) {
+			revealAllInstantly();
+		}
+	});
+
+	// Astro View Transitions (client-side navigation)
+	document.addEventListener("astro:page-load", initServicesReveal);
+</script>
+
+```
+# src\components\Hero\Testimonials.astro
+```astro
+---
+import casoUno from "@images/casos/caso1.png";
+import casoDos from "@images/casos/caso2.png";
+import casoTres from "@images/casos/caso1.png";
+---
+
+<style>
+	/* FIX responsive: faltaba padding horizontal → contenido pegado a los bordes */
+	.section {
+		padding: clamp(3.5rem, 8vw, 100px) clamp(1.25rem, 8vw, 6rem);
+	}
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	h2.section-title {
+		font-family: "Playfair Display", serif;
+		font-size: clamp(1.7rem, 5vw, 2.2rem); /* fluido */
+		color: var(--heading);
+		margin-bottom: 1.5rem;
+	}
+	.grid-3 {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+
+	.card img {
+		width: 100%;
+		height: 220px;
+		object-fit: cover;
+		border-radius: 8px;
+		display: block;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 14px 38px;
+		background: var(--primary);
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.9rem;
+		letter-spacing: 0.08em;
+		border-radius: 3px;
+		transition: background 0.2s ease;
+	}
+
+	.btn:hover {
+		background: #3f6668;
+	}
+
+	@media (max-width: 900px) {
+		.grid-2,
+		.grid-3,
+		.grid-4 {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<section id="cases" class="section" style="background:#ffffff;">
+	<div class="container">
+		<h2 class="section-title">Casos clínicos destacados</h2>
+		<div class="grid-3">
+			<div class="card">
+				<img src={casoUno.src} alt="Implantes en zona estética" /><div class="card-body">
+					Implantes en zona estética
+				</div>
+			</div>
+			<div class="card">
+				<img src={casoDos.src} alt="Rehabilitación oral completa" /><div class="card-body">
+					Rehabilitación oral completa
+				</div>
+			</div>
+			<div class="card">
+				<img src={casoTres.src} alt="Cirugía oral" /><div class="card-body">Cirugía oral</div>
+			</div>
+		</div>
+		<div style="margin-top:3rem;">
+			<a href="/casos-clinicos" class="btn">Ver todos los casos clínicos</a>
+		</div>
+	</div>
+</section>
+```
+# src\components\Hero\Welcome.astro
+```astro
+---
+
+---
+
+<style>
+	:root {
+		--primary: #4f7a7c;
+		--heading: #2f3e46;
+		--text: #4a4a4a;
+		--bg-light: #f6f7f7;
+		--accent-soft: #9fb6b8;
+		--white: #ffffff;
+	}
+
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		font-family: "Montserrat", sans-serif;
+		color: var(--text);
+		background: var(--bg-light);
+	}
+
+	/* ===== HEADER / BARRA SUPERIOR ===== */
+	header {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 1000;
+		background: rgba(255, 255, 255, 0.96);
+		border-bottom: 1px solid #e6e6e6;
+	}
+
+	.nav-container {
+		max-width: 1300px;
+		margin: 0 auto;
+		padding: 1.1rem 6vw;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.logo {
+		font-family: "Playfair Display", serif;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: var(--heading);
+		white-space: nowrap; /* todo en una sola línea */
+	}
+
+	nav ul {
+		list-style: none;
+		display: flex;
+		gap: 2.2rem;
+	}
+
+	nav a {
+		text-decoration: none;
+		font-size: 0.85rem;
+		letter-spacing: 0.08em;
+		color: var(--text);
+		font-weight: 400;
+	}
+
+	nav a:hover {
+		color: var(--primary);
+	}
+
+	/* ===== HERO ===== */
+	.hero {
+		height: 100vh;
+		width: 100%;
+		background-image: url("Firefly 20260107131824.png");
+		background-size: cover;
+		background-position: right center;
+		display: flex;
+		align-items: center;
+		padding-left: 8vw;
+		padding-top: 90px; /* espacio para la barra superior */
+	}
+
+	.hero-content {
+		max-width: 540px;
+	}
+
+	.hero-content h1 {
+		font-family: "Playfair Display", serif;
+		font-size: 3.6rem;
+		font-weight: 600;
+		color: var(--heading);
+		margin-bottom: 0.8rem;
+	}
+
+	.hero-content h2 {
+		font-size: 1.3rem;
+		font-weight: 400;
+		letter-spacing: 0.04em;
+		color: var(--primary);
+		margin-bottom: 1.4rem;
+	}
+
+	.divider {
+		width: 52px;
+		height: 1px;
+		background: var(--primary);
+		margin-bottom: 2.2rem;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 14px 38px;
+		background: var(--primary);
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.9rem;
+		letter-spacing: 0.08em;
+		border-radius: 3px;
+		transition: background 0.2s ease;
+	}
+
+	.btn:hover {
+		background: #3f6668;
+	}
+
+	section {
+		padding: 6rem 8vw;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	h2.section-title {
+		font-family: "Playfair Display", serif;
+		font-size: 2.2rem;
+		color: var(--heading);
+		margin-bottom: 1.5rem;
+	}
+
+	.grid-2 {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 4rem;
+		align-items: center;
+	}
+	.grid-3 {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+	.grid-4 {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 2rem;
+	}
+
+	.card {
+		background: #fff;
+		border: 1px solid #e6e6e6;
+	}
+	.card-body {
+		padding: 1.5rem;
+	}
+
+	@media (max-width: 900px) {
+		nav ul {
+			display: none;
+		}
+		.hero {
+			background-position: center top;
+			padding: 120px 7vw;
+			align-items: flex-end;
+		}
+		.hero-content h1 {
+			font-size: 2.6rem;
+		}
+		.hero-content h2 {
+			font-size: 1.15rem;
+		}
+		.grid-2,
+		.grid-3,
+		.grid-4 {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<section style="background:var(--white);" class="section">
+	<div class="container" style="font-size:1.05rem; line-height:1.8;">
+		<p class="text">
+			Esta página fue creada para compartir mi visión de la odontología, mostrar el trabajo que
+			realizo y ofrecer información clara y confiable sobre salud oral.
+		</p>
+		<p style="margin-top:1.5rem;">
+			Aquí podrás encontrar casos clínicos reales, contenidos educativos y conocer cómo abordo cada
+			tratamiento, siempre desde un enfoque cercano, profesional y personalizado.
+		</p>
+		<p style="margin-top:1.5rem;">
+			Te invito a recorrer este espacio, pensado para quienes valoran una atención consciente,
+			basada en la confianza y en la evidencia clínica.
+		</p>
+		<div style="margin-top:2.5rem;"><a href="/conoceme-mas" class="btn">Conóceme más</a></div>
+	</div>
+</section>
+
+```
+# src\components\Nav\MobileNav\MobileNav.astro
+```astro
+---
+import Button from "@components/Button/Button.astro";
+import MobileNavDropdown from "@components/Nav/MobileNav/MobileNavDropdown.astro";
+import NavLink from "@components/Nav/NavLink.astro";
+import navData from "@config/navData.json";
+import { Icon } from "astro-icon/components";
+---
+
+<div id="mobile-nav__container">
+	<button
+		id="mobile-nav__burger"
+		aria-label="open navigation menu"
+		aria-haspopup="true"
+		aria-expanded="false"
+		class="primary-focus h-12 w-12 rounded-none"
+	>
+		<!-- hamburger icon to open menu -->
+		<Icon
+			name="tabler:menu-2"
+			class="m-auto inline-block h-10 w-10 stroke-current"
+			aria-hidden="true"
+		/>
+	</button>
+	<div
+		id="mobile-nav__content"
+		class="whitespace-nowrap bg-base-50 text-base-900 fixed top-0 -right-72 z-20 hidden h-dvh w-72 items-center overflow-x-hidden text-lg font-normal transition-all duration-300"
+	>
+		<div class="w-full px-2">
+			<div class="mx-1 my-2 flex w-full justify-end pr-4 pl-6">
+				<button id="mobile-nav__close" class="primary-focus p-2" aria-label="close navigation menu">
+					<!-- "X" icon to close menu -->
+					<Icon name="tabler:x" class="h-8 w-8" />
+				</button>
+			</div>
+
+			<!-- nav items -->
+			<hr class="border-base-200 mx-1" />
+			<nav>
+				<ul class="mx-1 mt-2 text-xl">
+					{
+						navData.map((navItem) =>
+							"dropdown" in navItem ? (
+								<MobileNavDropdown navItem={navItem} />
+							) : (
+								<NavLink {navItem} />
+							),
+						)
+					}
+				</ul>
+			</nav>
+			<div class="mx-1 mt-2 w-full px-4">
+				<div class="mt-12 flex justify-center">
+					<a href="#about-me" class="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-sky-500 px-6 py-2.5 text-base font-semibold text-white shadow-[0_8px_18px_-12px_rgba(14,165,233,0.35)] transition-all duration-300 hover:from-cyan-400 hover:via-sky-500 hover:to-sky-600 hover:-translate-y-[1px] hover:shadow-[0_14px_28px_-14px_rgba(14,165,233,0.35)] active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-sky-300/50">
+						<span>Agenda una cita</span>
+						<span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- backdrop button to also close menu -->
+	<button
+		id="mobile-nav__backdrop"
+		class="mobile-nav__backdrop--fade-out fixed top-0 left-0 z-10 h-dvh bg-black"
+		aria-label="close navigation menu"></button>
+</div>
+
+<script>
+	let mobileNavContainer: HTMLElement | null;
+	let mobileNavBurger: HTMLElement | null;
+	let mobileNavContent: HTMLElement | null;
+	let mobileNavCloseBtn: HTMLElement | null;
+	let mobileNavBackdrop: HTMLElement | null;
+
+	function toggleMobileNav(event: Event) {
+		if (mobileNavBurger && mobileNavContent && mobileNavContainer && mobileNavBackdrop)
+			if (!mobileNavContainer.classList.contains("open")) {
+				mobileNavContainer.classList.add("open");
+				mobileNavBurger.setAttribute("aria-expanded", "true");
+
+				mobileNavContent.classList.remove("hidden");
+				mobileNavContent.classList.remove("mobile-nav--slide-out");
+				mobileNavContent.classList.add("mobile-nav--slide-in");
+
+				mobileNavBackdrop.classList.remove("hidden");
+				mobileNavBackdrop.classList.remove("mobile-nav__backdrop--fade-out");
+				mobileNavBackdrop.classList.add("mobile-nav__backdrop--fade-in");
+			} else {
+				mobileNavContainer.classList.remove("open");
+				mobileNavBurger.setAttribute("aria-expanded", "false");
+
+				mobileNavContent.classList.remove("mobile-nav--slide-in");
+				mobileNavContent.classList.add("mobile-nav--slide-out");
+				setTimeout(() => {
+					mobileNavContent?.classList.add("hidden");
+				}, 300);
+
+				mobileNavBackdrop.classList.remove("mobile-nav__backdrop--fade-in");
+				mobileNavBackdrop.classList.add("mobile-nav__backdrop--fade-out");
+			}
+		event.preventDefault();
+		return false;
+	}
+
+	function initMobileNav() {
+		mobileNavContainer = document.getElementById("mobile-nav__container");
+		mobileNavBurger = document.getElementById("mobile-nav__burger");
+		mobileNavContent = document.getElementById("mobile-nav__content");
+		mobileNavCloseBtn = document.getElementById("mobile-nav__close");
+		mobileNavBackdrop = document.getElementById("mobile-nav__backdrop");
+
+		if (mobileNavBurger && mobileNavCloseBtn && mobileNavBackdrop) {
+			mobileNavBurger.addEventListener("click", toggleMobileNav);
+			mobileNavCloseBtn.addEventListener("click", toggleMobileNav);
+			mobileNavBackdrop.addEventListener("click", toggleMobileNav);
+		}
+	}
+
+	initMobileNav();
+
+	document.addEventListener("astro:after-swap", initMobileNav);
+</script>
+
+<style>
+	.mobile-nav__backdrop--fade-in {
+		animation: MobileNavFadeInAnimation ease-in-out 0.3s forwards;
+		display: block;
+		width: 100vw;
+	}
+
+	.mobile-nav__backdrop--fade-out {
+		display: none;
+		width: 0;
+		opacity: 0;
+	}
+
+	@keyframes MobileNavFadeInAnimation {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 0.4;
+		}
+	}
+
+	.mobile-nav--slide-in {
+		animation: mobileNavSlideInAnimation ease-in-out 0.3s forwards;
+	}
+
+	.mobile-nav--slide-out {
+		animation: mobileNavSlideOutAnimation ease-in-out 0.3s forwards;
+	}
+
+	@keyframes mobileNavSlideInAnimation {
+		0% {
+			right: calc(var(--spacing) * -72);
+		}
+		100% {
+			right: 0;
+		}
+	}
+
+	@keyframes mobileNavSlideOutAnimation {
+		0% {
+			right: 0;
+		}
+		100% {
+			right: calc(var(--spacing) * -72);
+		}
+	}
+</style>
+```
+# src\components\Nav\MobileNav\MobileNavDropdown.astro
+```astro
+---
+import NavLink from "@components/Nav/NavLink.astro";
+import { type navDropdownItem } from "@config/navData.json";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	navItem: navDropdownItem;
+}
+
+const { navItem } = Astro.props as Props;
+---
+
+<li class="mobile-nav__dropdown group relative">
+	<button
+		class:list={[
+			"nav__link--base mobile-nav__dropdown-button flex w-full flex-1 items-center justify-between",
+		]}
+		type="button"
+		aria-label={`${navItem.text} dropdown menu`}
+		aria-expanded="false"
+		aria-haspopup="true"
+	>
+		{navItem.text}
+		<Icon
+			name="tabler:chevron-down"
+			aria-hidden="true"
+			class="mobile-nav__dropdown-chevron size-6 transition-transform"
+		/>
+	</button>
+
+	<div
+		class="mobile-nav__dropdown-content hidden max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
+	>
+		<ul class="mb-2 transition-[height]">
+			{navItem.dropdown.map((dropdownItem) => <NavLink navItem={dropdownItem} class="ml-2" />)}
+		</ul>
+	</div>
+</li>
+
+<script>
+	function mobileNavDropdownSetup() {
+		const dropdownMenus = document.querySelectorAll(
+			".mobile-nav__dropdown",
+		) as NodeListOf<HTMLElement>;
+		dropdownMenus.forEach((dropdownMenu) => {
+			const dropdownButton = dropdownMenu.querySelector(
+				".mobile-nav__dropdown-button",
+			) as HTMLElement;
+			const dropdownChevron = dropdownMenu.querySelector(
+				".mobile-nav__dropdown-chevron",
+			) as HTMLElement;
+			const dropdownContent = dropdownMenu.querySelector(
+				".mobile-nav__dropdown-content",
+			) as HTMLElement;
+
+			if (dropdownButton && dropdownContent && dropdownChevron) {
+				dropdownButton.addEventListener("click", (event) => {
+					if (!dropdownMenu.classList.contains("active")) {
+						// if dropdown is currently closed, so open it
+						dropdownMenu.classList.add("active");
+						dropdownButton.setAttribute("aria-expanded", "true");
+
+						// set max-height to the height of the dropdown content
+						// this makes it animate properly
+						dropdownContent.classList.remove("hidden");
+						dropdownContent.style.maxHeight = dropdownContent.scrollHeight + "px";
+						dropdownChevron.classList.add("rotate-180");
+					} else {
+						// dropdown is currently open, so close it
+						dropdownMenu.classList.remove("active");
+						dropdownButton.setAttribute("aria-expanded", "false");
+
+						// set max-height to the height of the dropdown content
+						// this makes it animate properly
+						dropdownContent.style.maxHeight = "0px";
+						dropdownChevron.classList.remove("rotate-180");
+						// delay to allow close animation
+						setTimeout(() => {
+							dropdownContent.classList.add("hidden");
+						}, 300);
+					}
+					event.preventDefault();
+					return false;
+				});
+			}
+		});
+	}
+
+	// runs on initial page load
+	mobileNavDropdownSetup();
+
+	// runs on view transitions navigation
+	document.addEventListener("astro:after-swap", mobileNavDropdownSetup);
+</script>
+
+```
+# src\components\Nav\NavDropdown\NavDropdown.astro
+```astro
+---
+import NavLink from "@components/Nav/NavLink.astro";
+import { type navDropdownItem } from "@config/navData.json";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	navItem: navDropdownItem;
+	class?: string;
+}
+
+const { navItem, class: className } = Astro.props as Props;
+---
+
+<!-- non-mobile dropdown menu -->
+<li class="dropdown group relative">
+	<button
+		class="nav__link--base flex h-10 items-center gap-1"
+		type="button"
+		aria-label={`${navItem.text} dropdown menu`}
+	>
+		{navItem.text}
+		<Icon name="tabler:chevron-down" aria-hidden="true" class="size-4" />
+	</button>
+	<div
+		class={`dropdown-content absolute transition-all top-[90%] invisible opacity-0 z-10 ${className}`}
+	>
+		<ul
+			class="font-open-sans border-primary-200 bg-base-50 mt-4 -ml-2 w-fit max-w-[18rem] min-w-[9rem] rounded-none border-2 border-solid p-2 drop-shadow-md"
+		>
+			{navItem.dropdown.map((dropdownItem) => <NavLink navItem={dropdownItem} />)}
+		</ul>
+	</div>
+</li>
+
+<style>
+	.dropdown {
+		/* when dropdown is hovered over (mouse) or focused (keyboard tabbing), open it with animation */
+		&:hover > .dropdown-content,
+		&:focus-within > .dropdown-content {
+			transition:
+				opacity 0.15s ease-out,
+				visibility 0.15s ease-out,
+				top 0.15s ease-out;
+			visibility: visible;
+			top: 100%;
+			opacity: 100%;
+		}
+	}
+</style>
+
+```
+# src\components\Nav\Nav.astro
+```astro
+---
+// src/components/Nav/Nav.astro
+
+import MobileNav from "@components/Nav/MobileNav/MobileNav.astro";
+import NavDropdown from "@components/Nav/NavDropdown/NavDropdown.astro";
+import NavLink from "@components/Nav/NavLink.astro";
+import navData from "@config/navData.json";
+import logo from "@images/logo/logojo.png";
+
+// 1. DEFINIMOS LA PROP FORMALMENTE
+interface Props {
+  startStyle?: "initial" | "scrolled"; // Los valores que corresponden a tus clases CSS
+}
+
+const { startStyle = "initial" } = Astro.props;
+---
+
+<div
+  id="nav__container"
+  class:list={[
+    "fixed top-0 left-0 z-30 w-full px-4 py-0.5 transition-all duration-300 sm:px-6 lg:px-8",
+    startStyle, // Añade 'initial' o 'scrolled' al cargar
+  ]}
+  data-start-style={startStyle} >
+  <div class="mx-auto flex h-14 w-full max-w-7xl items-center justify-between">
+    <a href="/" class="logo-container">
+      <img src={logo.src} alt="Logo Dr. José Tomás Rojas" class="logo-img" />
+      <div class="logo-text">
+        <div class="logo-name">Dr. José Tomás Rojas V.</div>
+        <div class="logo-subtitle">Implantología Buco Maxilofacial</div>
+      </div>
+    </a>
+
+    <div class="ml-6 flex items-center">
+      <nav class="hidden lg:block">
+        <ul class="flex gap-4 md:gap-6 text-sm">
+          {navData.map((navItem) =>
+            "dropdown" in navItem ? (
+              <NavDropdown navItem={navItem} class={startStyle === "initial" ? "text-white" : "text-base-900"} />
+            ) : (
+              <NavLink navItem={navItem} class={startStyle === "initial" ? "text-white" : "text-base-900"} />
+            )
+          )}
+        </ul>
+      </nav>
+      <div class="lg:hidden">
+        <MobileNav />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let navbar: HTMLElement | null;
+
+  function scrollHandler() {
+    if (!navbar) return;
+
+    if (window.scrollY > 800) {
+      // Primero removemos la clase initial
+      navbar.classList.remove('initial');
+      // Luego añadimos scrolled
+      navbar.classList.add('scrolled');
+    } else {
+      // Primero removemos scrolled
+      navbar.classList.remove('scrolled');
+      // Luego añadimos initial
+      navbar.classList.add('initial');
+    }
+  }
+
+  function initNav() {
+    navbar = document.getElementById("nav__container");
+    if (navbar) {
+      // Aseguramos que tenga la clase initial al inicio
+      navbar.classList.add('initial');
+      window.addEventListener("scroll", scrollHandler, { passive: true });
+      // Ejecutamos scrollHandler inmediatamente para establecer el estado correcto
+      scrollHandler();
+    }
+  }
+
+  // Ejecutar al cargar la página
+  initNav();
+  // Ejecutar después de la navegación
+  document.addEventListener("astro:after-swap", initNav);
+</script>
+
+<style>
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .logo-container:hover {
+    opacity: 0.8;
+  }
+
+  .logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: width 0.3s ease, height 0.3s ease;
+  }
+
+  :global(#nav__container.initial .logo-img) {
+    width:50px !important;
+    height: 50px !important;
+  }
+
+  :global(#nav__container.scrolled .logo-img) {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.4px;
+    opacity: 0.85;
+  }
+
+  /* Hacer los selectores más específicos y usar !important para el estado inicial */
+  :global(#nav__container.initial) {
+    color: var(--primary);
+    background-color: rgba(0, 0, 0, 0) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  :global(#nav__container.initial *) {
+    color: var(--primary);
+  }
+
+  :global(#nav__container.initial .logo-text) {
+    opacity: 0 !important;
+  }
+
+  /* Resto de estilos para scrolled */
+  :global(#nav__container.scrolled) {
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(200, 200, 200, 0.2);
+  }
+
+  :global(#nav__container.scrolled .logo-text) {
+    opacity: 1 !important;
+  }
+</style>
+```
+# src\components\Nav\NavLink.astro
+```astro
+---
+import { type navLinkItem } from "@config/navData.json";
+
+interface Props {
+	navItem: navLinkItem;
+	class?: string;
+}
+
+const { navItem, class: className } = Astro.props as Props;
+const { text, link, newTab = false } = navItem;
+
+// if the current page is the same as the link, we can change the styling
+---
+
+<li>
+	<a
+		class:list={[
+			`nav__link--base flex w-full items-center nav_link ${className}`,
+			{
+				// styling for current active page link
+				"": Astro.url.pathname === link,
+			},
+		]}
+		href={link}
+		target={newTab ? "_blank" : ""}
+		rel={newTab ? "noopener noreferrer" : ""}
+	>
+		{text}
+	</a>
+</li>
+
+<style>
+	.nav_link {
+		color: #4A4A4A;
+	}
+</style>
+
+
+```
+# src\components\Pagination\Pagination.astro
+```astro
+---
+import Button from "@components/Button/Button.astro";
+
+interface Props {
+	prevUrl: string | undefined;
+	currPage: number;
+	nextUrl: string | undefined;
+	lastPage: number;
+}
+
+const { prevUrl, currPage, nextUrl, lastPage } = Astro.props as Props;
+---
+
+{
+	(prevUrl || nextUrl) && (
+		<nav aria-label="Blog pages navigation" class="w-full">
+			<div class="text-center">
+				<div class="btn-group flex w-full justify-between py-3 md:py-4">
+					{prevUrl && (
+						<Button variant="outline" arrow="left" href={prevUrl}>
+							Prev
+						</Button>
+					)}
+					{!prevUrl && (
+						<Button variant="outline" arrow="left" href={prevUrl} class="opacity-50" disabled>
+							Prev
+						</Button>
+					)}
+
+					<Button variant="primary" href="" disabled>
+						{currPage.toString()}
+					</Button>
+					{nextUrl && (
+						<Button variant="outline" arrow="right" href={nextUrl}>
+							Next
+						</Button>
+					)}
+
+					{!nextUrl && (
+						<Button variant="outline" arrow="right" href={nextUrl} class="opacity-50" disabled>
+							Next
+						</Button>
+					)}
+				</div>
+			</div>
+		</nav>
+	)
+}
+
+```
+# src\components\Philosophy\Philosophy.astro
+```astro
+---
+// This component displays a simple, centered philosophy statement.
+---
+
+<section id="philosophy" class="bg-white py-16 md:py-24">
+  <div class="mx-auto max-w-3xl px-4 text-center">
+    <h2 class="font-heading-1 text-3xl font-bold text-gray-800 md:text-4xl">
+      “Confianza, ciencia y cercanía en cada tratamiento.”
+    </h2>
+  </div>
+</section>
+
+```
+# src\components\PorfolioImage\PortfolioImage.astro
+```astro
+---
+import { Image } from "astro:assets";
+
+interface Props {
+	image: ImageMetadata;
+	numCols: number;
+}
+
+const { image, numCols } = Astro.props as Props;
+
+const maxWidth = 1120;
+const width = maxWidth / numCols;
+---
+
+<div class="h-full w-full max-w-6xl">
+	<Image
+		src={image}
+		alt="portfolio image"
+		width={width}
+		quality="high"
+		densities={[1.5, 2]}
+		class="h-auto min-h-full w-full min-w-full object-cover"
+	/>
+</div>
+
+```
+# src\components\Portfolio\PortfolioGrid.astro
+```astro
+---
+import PortfolioCard from "@components/PortfolioCard/PortfolioCard.astro";
+import { type CollectionEntry, getCollection, render } from "astro:content";
+
+interface Props {
+	portfolios: CollectionEntry<"portfolios">[];
+	noTransitions?: boolean;
+}
+
+const { portfolios, noTransitions = false } = Astro.props as Props;
+---
+
+<div class="grid gap-x-4 gap-y-10 pt-8 md:grid-cols-3 md:pt-12">
+	{portfolios.map((portfolio) => <PortfolioCard portfolio={portfolio} direction="vertical" />)}
+</div>
+
+```
+# src\components\Portfolio\PortfolioThreeCards.astro
+```astro
+---
+/**
+ * * This is a component that displays a services grid
+ * Larger on the left, smaller two on the right
+ */
+
+ import implantImage from "@images/portfolio/Implantologia.jpg";
+ import rehabilitacionImage from "@images/portfolio/rehabilitacion.png";
+ import cirugiaImage from "@images/portfolio/cirugia.png";
+ import generalImage from "@images/portfolio/general.jpg";
+ import { Image } from "astro:assets";
+
+const services = [
+  {
+    title: "Implantología Buco Maxilofacial",
+    description: "Restauraciones fijas y funcionales sobre implantes dentales.",
+    image: implantImage,
+  },
+  {
+    title: "Rehabilitación oral",
+    description: "Soluciones integrales para recuperar estética y función.",
+    image: rehabilitacionImage,
+  },
+  {
+    title: "Cirugía oral",
+    description: "Extracciones simples, complejas y otros procedimientos quirúrgicos.",
+    image: cirugiaImage,
+  },
+  {
+    title: "Odontología general",
+    description: "Diagnóstico, prevención y tratamientos básicos.",
+    image: generalImage,
+  },
+];
+
+---
+
+<section id="portfolio-three-cards" class="bg-gray-100 scroll-mt-10 py-16 md:py-24">
+	<div class="mx-auto max-w-7xl px-4">
+		<div class="text-center">
+			<p class="font-heading-1 text-base font-semibold uppercase tracking-wider text-primary-500">
+				Servicios Destacados
+			</p>
+			<h2 class="h2 mt-3 font-roboto font-bold">
+				CONOCE MIS PRINCIPALES SERVICIOS
+			</h2>
+		</div>
+	</div>
+	<div class="mx-auto mt-12 grid max-w-7xl grid-cols-1 gap-8 px-4 md:grid-cols-2 lg:grid-cols-4">
+		{services.map((service) => (
+			<div class="group flex h-full min-h-[360px] transform flex-col rounded-xl border-t-4 border-transparent bg-white p-6 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-2 hover:border-primary-500 hover:shadow-2xl">
+				<h3 class="h4 text-center font-heading-2 font-bold text-primary-700">{service.title}</h3>
+				{service.image && (
+					<Image src={service.image} alt={service.title} class:list="mx-auto my-4 h-40 w-full max-w-sm rounded-lg object-cover" loading="lazy" />
+				)}
+				<p class="mt-2 text-base text-base-700">
+					{service.description}
+				</p>
+			</div>
+		))}
+	</div>
+  <!-- CTA bajo el texto -->
+  <div class="mt-4 flex justify-center">
+			<a 
+				href="/services" 
+				class="mt-6 group relative inline-flex items-center gap-2 rounded-full 
+					bg-gradient-to-r from-primary-600 to-primary-800 
+					px-6 py-2.5 text-base font-semibold text-white 
+					shadow-lg shadow-primary-500/30 
+					transition-all duration-300 
+					hover:from-primary-700 hover:to-primary-900 
+					hover:-translate-y-[1px] hover:shadow-xl hover:shadow-primary-500/40 
+					active:translate-y-0 
+					focus:outline-none focus:ring-4 focus:ring-primary-400/50"
+			>
+				<span>Todos mis servicios</span>
+				<span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+			</a>
+		</div>
+</section>
+
+```
+# src\components\PortfolioCard\PortfolioCard.astro
+```astro
+---
+/**
+ * * These are small cards that are used in the portfolio section
+ */
+import Button from "@components/Button/Button.astro";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	portfolio: CollectionEntry<"portfolios">;
+	direction: "horizontal" | "vertical";
+	noTransitions?: boolean;
+}
+
+const { portfolio, direction, noTransitions = false } = Astro.props as Props;
+const { title, description, heroImage } = portfolio.data;
+---
+
+<div
+	class:list={[
+		"grid gap-4",
+		{
+			"md:grid-cols-2": direction === "horizontal",
+		},
+	]}
+>
+	<a href={`/portfolio/${portfolio.id}`} class="aspect-square overflow-hidden">
+		{
+			noTransitions && (
+				<Image
+					src={heroImage}
+					alt={title}
+					width={450}
+					densities={[1.5, 2, 3]}
+					class="h-auto min-h-full w-full min-w-full object-cover"
+				/>
+			)
+		}
+		{
+			!noTransitions && (
+				<Image
+					src={heroImage}
+					alt={title}
+					width={450}
+					densities={[1.5, 2, 3]}
+					class="h-auto min-h-full w-full min-w-full object-cover"
+					transition:name={`portfolio-image-${portfolio.id}`}
+				/>
+			)
+		}
+	</a>
+	<div class="flex flex-col justify-between gap-2">
+		<div>
+			<h3 class="h3 text-primary-500 tracking-widest">{title}</h3>
+			<p class="mt-4 lg:text-lg">{description}</p>
+		</div>
+		<div class="flex">
+			<Button variant="ghost" arrow="right" href={`/portfolio/${portfolio.id}`} class="pl-0">
+				Ver más
+			</Button>
+		</div>
+	</div>
+</div>
+
+```
+# src\components\Pricing\PricingThreeCards.astro
+```astro
+---
+/**
+ * * Casos Clínicos
+ */
+
+import Button from "@components/Button/Button.astro";
+import { Image } from "astro:assets";
+import caso1 from "@images/casos/caso1.png";
+import caso2 from "@images/casos/caso2.png";
+
+const cases = [
+  {
+    preTitle: "Seguridad y naturalidad",
+    title: "Rehabilitación completa superior",
+    description: "Planificación digital, preparación mínimamente invasiva y coronas cerámicas.",
+    image: caso1,
+  },
+  {
+    preTitle: "¡Implante dental en tiempo récord!",
+    title: "Implantes y prótesis fija",
+    description: "Colocación guiada de implantes y rehabilitación fija para función y estética.",
+    image: caso2,
+  },
+];
+
+---
+
+<section id="casos-clinicos" class="bg-base-100 scroll-mt-10 py-16 md:py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="text-center">
+      <h2 class="h2 text-pretty">Casos Clínicos</h2>
+    </div>
+
+    <div class="mt-16 flex flex-col gap-y-16 md:gap-y-24">
+      {cases.map((item, index) => {
+        const isReversed = index % 2 !== 0;
+        return (
+          <div class="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
+            <div class:list={["flex flex-col justify-center", { "md:order-last": isReversed }]}>
+              <p class="font-heading-1 text-base font-semibold uppercase tracking-wider text-primary-500">
+                {item.preTitle}
+              </p>
+              <h3 class="h3 mt-2 font-bold text-gray-800">{item.title}</h3>
+              <p class="mt-4 text-lg text-gray-600">{item.description}</p>
+            </div>
+            <div class:list={[{ "md:order-first": isReversed }]}>
+              <Image
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+                class:list="w-full rounded-2xl object-cover shadow-lg aspect-video md:aspect-[4/3]"
+              />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- CTA bajo el texto -->
+    <div class="mt-4 flex justify-center">
+			<a 
+				href="#about-me" 
+				class="mt-6 group relative inline-flex items-center gap-2 rounded-full 
+					bg-gradient-to-r from-primary-600 to-primary-800 
+					px-6 py-2.5 text-base font-semibold text-white 
+					shadow-lg shadow-primary-500/30 
+					transition-all duration-300 
+					hover:from-primary-700 hover:to-primary-900 
+					hover:-translate-y-[1px] hover:shadow-xl hover:shadow-primary-500/40 
+					active:translate-y-0 
+					focus:outline-none focus:ring-4 focus:ring-primary-400/50"
+			>
+				<span>Todos los casos</span>
+				<span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+			</a>
+		</div>
+  </div>
+</section>
+
+```
+# src\components\Seo\Seo.astro
+```astro
+---
+import siteData from "@config/siteData.json";
+import { getImage } from "astro:assets";
+import { SEO } from "astro-seo";
+
+interface BaseProps {
+	title: string;
+	description: string;
+	noindex?: boolean;
+}
+
+interface GenProps extends BaseProps {
+	type: "general" | undefined;
+	image?: ImageMetadata;
+}
+
+const { title = "general", description, image, noindex = false } = Astro.props as GenProps;
+
+let optimizedImage;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+
+// if this is a blog page we do things differently
+if (image) {
+	optimizedImage = await getImage({
+		src: image,
+		format: "webp",
+		quality: "high",
+		width: 1200,
+	});
+}
+
+function trimEndSlash(str: string) {
+	if (str[str.length - 1] === "/") {
+		return str.slice(0, -1);
+	} else {
+		return str;
+	}
+}
+
+// put together the image URL
+const imageUrl =
+	trimEndSlash(Astro.site?.toString() || "") + (optimizedImage?.src || siteData.defaultImage.src);
+---
+
+<SEO
+	title={title}
+	description={description}
+	canonical={canonicalUrl.toString()}
+	openGraph={{
+		basic: {
+			title: title,
+			type: "website",
+			image: imageUrl,
+			url: canonicalUrl.toString(),
+		},
+		optional: {
+			description: description,
+			siteName: siteData.title,
+		},
+		image: {
+			type: "image/webp",
+			width: optimizedImage?.attributes.width || "1200",
+			height: optimizedImage?.attributes.height || "800",
+			alt: title,
+		},
+	}}
+	twitter={{
+		site: "@" + siteData.author.twitter,
+		creator: "@" + siteData.author.twitter,
+		card: "summary_large_image",
+		title: title,
+		description: description,
+		image: imageUrl,
+	}}
+	noindex={noindex}
+	nofollow={noindex}
+/>
+
+```
+# src\components\SiteLogo\SiteLogo.astro
+```astro
+---
+import siteData from "@config/siteData.json";
+import logo from "@images/logo/logojo.png";
+import { Image } from "astro:assets";
+---
+
+<a class="primary-focus flex items-center align-middle" href="/" aria-label="Home" class="">
+	 <Image
+    src={logo}
+    alt="Cosmic Themes logo"
+    loading="eager"
+    width={100}
+    height={100}
+    class="h-22 w-22"
+  />
+</a>
+
+```
+# src\components\TestimonialCard\TestimonialCard.astro
+```astro
+---
+/**
+ * * Testimonial cards where the image can be either on top or bottom
+ */
+
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	testimonial: CollectionEntry<"testimonials">;
+	imagePosition?: "top" | "bottom";
+}
+
+const { testimonial, imagePosition = "top" } = Astro.props as Props;
+const { title, testimonial: testimonialText, image } = testimonial.data;
+---
+
+<div class="grid gap-1 lg:auto-rows-fr">
+	<div
+		class:list={[
+			"aspect-[3/4] overflow-hidden",
+			{
+				"lg:order-2": imagePosition === "bottom",
+			},
+		]}
+	>
+		<Image
+			src={image}
+			alt={title}
+			width={450}
+			densities={[1.5, 2]}
+			class="h-auto min-h-full w-full min-w-full object-cover"
+		/>
+	</div>
+	<div
+		class=""
+		class:list={[
+			"mt-4 text-center",
+			{
+				"lg:mt-0": imagePosition === "bottom",
+			},
+			{
+				"lg:mt-10": imagePosition === "top",
+			},
+		]}
+	>
+		<div class="flex flex-col items-center">
+			<Icon name="gridicons/quote" class="text-primary-200 size-14" aria-hidden="true" />
+			<hr class="border-primary-400 mt-4 mb-6 w-1/2 border-1" />
+		</div>
+
+		<h3 class="h3 tracking-widest">{title}</h3>
+		<p class="mt-6 text-pretty lg:text-lg">{testimonialText}</p>
+	</div>
+</div>
+
+```
+# src\components\Testimonials\TestimonialQuote.astro
+```astro
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="bg-base-100 mt-12 py-10 md:mt-16 md:py-16">
+	<div class="mx-auto flex max-w-6xl items-start gap-2 px-4">
+		<div>
+			<Icon
+				name="gridicons/quote"
+				class="text-primary-200 size-8 -translate-y-4 md:size-20"
+				aria-hidden="true"
+			/>
+		</div>
+		<p class="h2 text-primary-600 text-center uppercase">
+			Atenderme con el dr Jose Tomás fue la mejor decisión que he podido tomar.
+		</p>
+		<div>
+			<Icon
+				name="gridicons/quote"
+				class="text-primary-200 size-8 -translate-y-4 -scale-x-100 md:size-20"
+				aria-hidden="true"
+			/>
+		</div>
+	</div>
+
+	<div class="xs:grid-cols-2 mt-6 grid">
+		<div class="col-start-2">
+			<p class="h3 text-primary-600">- Vanessa Riquelme</p>
+		</div>
+	</div>
+</div>
+
+```
+# src\config\navData.json.ts
+```ts
+export interface navLinkItem {
+	text: string;
+	link: string;
+	newTab?: boolean; // adds target="_blank" rel="noopener noreferrer" to link
+}
+
+export interface navDropdownItem {
+	text: string;
+	dropdown: navLinkItem[];
+}
+
+export type navItem = navLinkItem | navDropdownItem;
+
+// note: 1 level of dropdown is supported
+const navConfig: navItem[] = [
+	{
+		text: "Inicio",
+		link: "/",
+	},
+	{
+		text: "Sobre Mí",
+		link: "#about-me",
+	},
+	{
+		text: "Servicios",
+		link: "#services",
+	},
+	{
+		text: "Casos Clínicos",
+		link: "#cases",
+	},
+	{
+		text: "Blog",
+		link: "#blog",
+	},
+	{
+		text: "Contacto",
+		link: "/#pricing",
+	},
+	/*
+	{
+		text: "PAGINAS",
+		dropdown: [
+			{
+				text: "Landing One (Home)",
+				link: "/landing-1/",
+			},
+			{
+				text: "Landing Two",
+				link: "/landing-2/",
+			},
+			{
+				text: "Contact",
+				link: "/contact/",
+			},
+			{
+				text: "Blog",
+				link: "/blog/",
+			},
+			{
+				text: "Style Guide",
+				link: "/style-guide/",
+			},
+		],
+	},
+	*/
+];
+
+export default navConfig;
+
+```
+# src\config\siteData.json.ts
+```ts
+export interface SiteDataProps {
+	name: string;
+	title: string;
+	description: string;
+	useViewTransitions?: boolean; // defaults to false. Set to true to enable some Astro 3.0 view transitions
+	author: {
+		name: string;
+		email: string;
+		site: string; // used for twitter cards when sharing a blog post on twitter
+	};
+	contact: {
+		email: string;
+		address: string;
+	};
+	defaultImage: {
+		src: string;
+		alt: string;
+	};
+	mainNavLinks: {
+		name: string;
+		href: string;
+		subMenu?: {
+			name: string;
+			href: string;
+		}[];
+	}[];
+}
+
+// Update this file with your site specific information
+const siteData: SiteDataProps = {
+	name: "Dr. Jose Tomás Rojas Vera",
+	// Your website's title and description (meta fields)
+	title: "Dr. José Tomás Rojas Vera - Implantología y Odontología en Providencia",
+	description:
+		"Especialista en implantología y odontología general. Recupera tu sonrisa con la mejor atención en Providencia, Santiago de Chile.",
+	useViewTransitions: true,
+	// Your information!
+	author: {
+		name: "Ignacio Álvarez",
+		email: "ignacioaalvarezc@gmail.com",
+		site: "https://isoft.cl", // used for twitter cards when sharing a blog post on twitter
+	},
+
+	// Contact information
+	contact: {
+		email: "joseto.rojas@gmail.com",
+		address: "Hernando de Aguirre 162, of 1302, Providencia, Santiago",
+	},
+
+	// default image for meta tags if the page doesn't have an image already
+	defaultImage: {
+		src: "@assets/images/hero-bg-min.jpg", // SOLUCIÓN TEMPORAL
+		alt: "Clínica Dental Dr. José Tomás Rojas Vera en Providencia, Santiago",
+	},
+
+	// Main navigation links
+	mainNavLinks: [
+		{ name: "INICIO", href: "/" },
+		{ name: "TRABAJOS", href: "/portfolios/" },
+		{ name: "VALORES", href: "/#pricing" },
+		{
+			name: "PAGINAS",
+			href: "#",
+			// sub-menu items
+			subMenu: [
+			],
+		},
+	],
+};
+
+export default siteData;
+
+```
+# src\data\otherPages\elements.mdx
+```mdx
+---
+title: "Elements"
+description: Elements page for Blogsmith
+draft: false
+---
+
+#### Heading example
+
+Here is an example of headings. You can use this heading by the following markdown rules. For example: use `#` for heading 1 and use `######` for heading 6.
+
+# Heading 1
+
+## Heading 2
+
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5
+
+###### Heading 6
+
+---
+
+### Admonition
+
+This is my own component which is auto-imported in all mdx files. You can use it like:
+
+```jsx
+<Admonition variant="info">Your text here</Admonition>
+```
+
+<Admonition variant="tip">Admonition `type="tip"`</Admonition>
+
+<Admonition variant="caution">Admonition `type="caution"`</Admonition>
+
+<Admonition variant="danger">Admonition `type="danger"`</Admonition>
+
+<Admonition variant="info">Admonition `type="info"`</Admonition>
+
+### Emphasis
+
+The emphasis, aka italics, with _asterisks_ or _underscores_.
+
+Strong emphasis, aka bold, with **asterisks** or **underscores**.
+
+The combined emphasis with **asterisks and _underscores_**.
+
+Strikethrough uses two tildes. ~~Scratch this.~~
+
+---
+
+### Link
+
+[I'm an inline-style link](https://www.google.com)
+
+[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
+
+[I'm a reference-style link][arbitrary case-insensitive reference text]
+
+[You can use numbers for reference-style link definitions][1]
+
+Or leave it empty and use the [link text itself].
+
+example.com (but not on Github, for example).
+
+Some text to show that the reference links can follow later.
+
+[arbitrary case-insensitive reference text]: https://www.cosmicthemes.com
+[1]: https://cosmicthemes.com
+[link text itself]: https://www.webreaper.dev
+
+---
+
+### Paragraph
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam nihil enim maxime corporis cumque totam aliquid nam sint inventore optio modi neque laborum officiis necessitatibus, facilis placeat pariatur! Voluptatem, sed harum pariatur adipisci voluptates voluptatum cumque, porro sint minima similique magni perferendis fuga! Optio vel ipsum excepturi tempore reiciendis id quidem? Vel in, doloribus debitis nesciunt fugit sequi magnam accusantium modi neque quis, vitae velit, pariatur harum autem a! Velit impedit atque maiores animi possimus asperiores natus repellendus excepturi sint architecto eligendi non, omnis nihil. Facilis, doloremque illum. Fugit optio laborum minus debitis natus illo perspiciatis corporis voluptatum rerum laboriosam.
+
+---
+
+### Ordered List
+
+1. List item
+2. List item
+3. List item
+4. List item
+5. List item
+
+---
+
+### Unordered List
+
+- List item
+- List item
+- List item
+- List item
+- List item
+
+---
+
+### Code and Syntax Highlighting
+
+This is an `Inline code` sample.
+
+```javascript
+var s = "JavaScript syntax highlighting";
+alert(s);
+```
+
+```python
+s = "Python syntax highlighting"
+print s
+```
+
+---
+
+### Blockquote
+
+> This is a blockquote example.
+
+---
+
+### Tables
+
+| Tables        |      Are      |  Cool |
+| ------------- | :-----------: | ----: |
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      |   centered    |   $12 |
+| zebra stripes |   are neat    |    $1 |
+
+There must be at least 3 dashes separating each header cell.
+The outer pipes (|) are optional, and you don't need to make the
+raw Markdown line up prettily. You can also use inline Markdown.
+
+| Markdown | Less      | Pretty     |
+| -------- | --------- | ---------- |
+| _Still_  | `renders` | **nicely** |
+| 1        | 2         | 3          |
+
+```
+# src\data\otherPages\privacy-policy.md
+```md
+---
+title: Privacy Policy
+description: Example privacy policy for Blogsmith! The best starter blog template for Astro.
+---
+
+_Last updated on Sep 9, 2023_
+
+This privacy policy sets out how Example LLC collects, processes, and uses your Personal Information through your use of our Services.
+
+**This is purely for example. Please consult a lawyer for your own privacy policy.**
+
+## Personal Information Collection
+
+We only collect and use Personal Information to the extent necessary to provide you with the Services. We collect Personal Information for the Website to provide you with a better online experience.
+
+## Personal Information Retention
+
+We keep Personal Information for the shortest time necessary to provide you with Services and to meet all our legal and compliance obligations. To determine this retention period, we take into account (i) the nature of the Personal Information gathered; and (ii) the nature of our legal and compliance obligations. All Personal Information no longer required by us is destroyed and/or erased.
+
+## Personal Data from Third Parties
+
+We may, from time to time, obtain Personal Information from third parties to enable us to better tailor our Services to you (Third Party Personal Information). When we obtain Third Party Personal Information, we will notify you within one month. If we use or share Third Party Personal Information, we will notify you immediately.
+
+## Your Rights
+
+With respect to Personal Information we hold, you have the following rights:
+
+- Access: You may request from us access to your data that we hold on you.
+- Rectification: If the data we hold on you is inaccurate, you may request that we correct it. If the data we hold is incomplete, you may request that we complete it.
+- Erasure: Subject to certain conditions, you may request that we erase all of the data we hold on you.
+- Restrictions: Subject to certain conditions, you may request that we restrict the processing of data we hold on you.
+- Portability: Subject to certain conditions, you may request that we transfer all the data we hold on you to a third party (including yourself).
+- Objection: Subject to certain conditions, you may object to our processing of your data.
+
+## Minors
+
+We do not knowingly collect information on children under the age of 16 (“Child”). If you become aware that a Child has provided us with Personal Information, please contact us. If we become aware that we have collected Personal Information from a Child without their parent's verifiable authorization to access our Services, we will take steps to remove that information from our servers.
+
+## Third Party Links
+
+Our website contains links to other third-party websites not owned or managed by Example LLC. This privacy policy applies to this website only. If you click a link to a third-party website, the privacy policy of that website will apply. We highly recommend that you read the privacy policies of other websites as they may be different from ours.
+
+## Merger, acquisition, or asset sale
+
+If Example LLC is involved in a merger, acquisition, or asset sale, your Personal Information may be transferred.
+
+## Contact us
+
+If you have any questions or suggestions about our privacy policy or want to know more information about Personal Information we hold, please contact us at support@example.com.
+
+```
+# src\data\portfolios\couple-1\index.md
+```md
+---
+title: Implantología Dental
+description: Recupera la función y estética de tu sonrisa con implantes de titanio de última generación.
+heroImage: ./couple-9-square.jpg # SOLUCIÓN TEMPORAL: Reemplazar por foto de implante
+date: "Jun 2 2024"
+location: "Providencia, Santiago"
+clients: [] # Campo no relevante, se deja vacío
+images:
+  [
+    [./couple-9-square.jpg, ./rings-wood-min-1.jpg], # SOLUCIÓN TEMPORAL
+    [./cake-min-1.jpg, ./dress-min-1.jpg, ./seals-min-1.jpg], # SOLUCIÓN TEMPORAL
+    [./couple-2-min-1.jpg], # SOLUCIÓN TEMPORAL
+  ]
+order: 1
+---
+
+Los implantes dentales son la mejor opción para reemplazar dientes perdidos. Consisten en un tornillo de titanio que se une al hueso, actuando como una raíz artificial sobre la cual se coloca una corona dental. El resultado es una sonrisa completa, funcional y de apariencia completamente natural.
+
+```
+# src\data\portfolios\couple-2\index.md
+```md
+---
+title: Diseño de Sonrisa
+description: Renueva tu sonrisa con carillas, blanqueamiento y más. Un tratamiento personalizado para un resultado armónico y natural.
+heroImage: ./couple-3-square.jpg # SOLUCIÓN TEMPORAL: Reemplazar por foto de sonrisa
+date: "May 15 2024"
+location: "Providencia, Santiago"
+clients: [] # Campo no relevante, se deja vacío
+images:
+  [
+    [./couple-3-square.jpg, ./rings-wood-min-2.jpg], # SOLUCIÓN TEMPORAL
+    [./cake-min-2.jpg, ./dress-min-2.jpg, ./seals-min-2.jpg], # SOLUCIÓN TEMPORAL
+    [./couple-2-min-2.jpg], # SOLUCIÓN TEMPORAL
+  ]
+order: 2
+---
+
+El diseño de sonrisa es un conjunto de procedimientos odontológicos que tienen como objetivo mejorar la estética de tu sonrisa. A través de un análisis detallado de tu rostro y dientes, creamos un plan personalizado que puede incluir blanqueamiento, carillas de porcelana, ortodoncia invisible y más, para lograr una sonrisa perfecta y en armonía con tus rasgos.
+
+```
+# src\data\portfolios\couple-3\index.md
+```md
+---
+title: Odontología General
+description: Cuidamos tu salud bucal con limpiezas, empastes y tratamientos preventivos. La base para una sonrisa sana y duradera.
+heroImage: ./couple-4-square.jpeg # SOLUCIÓN TEMPORAL: Reemplazar por foto de consulta
+date: "Apr 28 2024"
+location: "Providencia, Santiago"
+clients: [] # Campo no relevante, se deja vacío
+images:
+  [
+    [./couple-4-square.jpeg, ./rings-wood-min-3.jpg], # SOLUCIÓN TEMPORAL
+    [./cake-min-3.jpg, ./dress-min-3.jpg, ./seals-min-3.jpg], # SOLUCIÓN TEMPORAL
+    [./couple-2-min-3.jpg], # SOLUCIÓN TEMPORAL
+  ]
+order: 3
+---
+
+La base de una sonrisa saludable es la prevención y el cuidado constante. Nuestros servicios de odontología general incluyen revisiones completas, limpiezas profundas, tratamiento de caries (tapaduras), y educación para el cuidado en casa. Agenda tu chequeo regular y mantén tu salud bucal en óptimas condiciones.
+
+```
+# src\data\testimonials\testimonial-1\index.md
+```md
+---
+title: Javiera Riquelme.
+testimonial: "Llegué con mucho temor por un implante y el Dr. Rojas y su equipo me dieron una tranquilidad increíble. El proceso fue sin dolor y el resultado es perfecto, parece mi propio diente. ¡Totalmente recomendado!"
+image: ./couple-8-crop.jpg # SOLUCIÓN TEMPORAL
+order: 1
+---
+
+```
+# src\data\testimonials\testimonial-2\index.md
+```md
+---
+title: Carlos SANDOVAL.
+testimonial: "El trabajo del Dr. Rojas es de otro nivel. Se tomó todo el tiempo para explicarme el proceso de diseño de sonrisa y el resultado superó mis expectativas. Me siento mucho más seguro al sonreír. ¡Un profesional de primera!"
+image: ./couple-2-crop.jpg # SOLUCIÓN TEMPORAL
+order: 2
+---
+
+```
+# src\data\testimonials\testimonial-3\index.md
+```md
+---
+title: Valentina Morales.
+testimonial: "Por años le tuve pánico al dentista, pero el Dr. Rojas y su equipo son diferentes. La atención es súper cercana y profesional. Me hice una limpieza y una revisión general, y todo fue muy tranquilo. Ahora vengo a mis controles sin ningún miedo."
+image: ./couple-7-crop.jpg # SOLUCIÓN TEMPORAL
+order: 3
+---
+
+```
+# src\js\textUtils.ts
+```ts
+// --------------------------------------------------------
+/**
+ * * returns "slugified" text.
+ * @param text: string - text to slugify
+ */
+export function slugify(text: string): string {
+	return text
+		.toString()
+		.toLowerCase() // convert to lowercase
+		.replace(/\s+/g, "-") // replace spaces with -
+		.replace(/[^\w-]+/g, "") // remove all non-word chars
+		.replace(/--+/g, "-") // replace multiple dashes with single dash
+		.replace(/^-+/, "") // trim dash from start of text
+		.replace(/-+$/, ""); // trim dash from end of text
+}
+
+/**
+ * * returns "humanized" text. runs slugify() and then replaces - with space and upper case first letter of every word, and lower case the rest
+ * @param text: string - text to humanize
+ */
+export function humanize(text: string): string {
+	const slugifiedText = slugify(text);
+	return (
+		slugifiedText
+			.replace(/-/g, " ") // replace "-" with space
+			// .toLowerCase();
+			.replace(
+				// upper case first letter of every word, and lower case the rest
+				/\w\S*/g,
+				(w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase(),
+			)
+	);
+}
+
+// --------------------------------------------------------
+/**
+ * * returns a nicely formatted string of the date passed
+ * @param date: string | number | Date - date to format
+ */
+export function formatDate(date: string | number | Date): string {
+	return new Date(date).toLocaleDateString("en-US", {
+		timeZone: "UTC",
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+	});
+}
+
+```
+# src\layouts\AboutMeLayout.astro
+```astro
+
+```
+# src\layouts\BaseHead.astro
+```astro
+---
+// src/layouts/BaseHead.astro
+import Seo from "@components/Seo/Seo.astro";
+import siteData from "@config/siteData.json";
+import { type CollectionEntry } from "astro:content";
+import { ClientRouter } from "astro:transitions";
+
+export interface Props {
+	type?: "general" | undefined;
+	title: string;
+	description: string;
+	image?: ImageMetadata;
+	noindex?: boolean;
+}
+
+const { type = "general", title, description, image, noindex = false } = Astro.props as Props;
+
+// Solo precargamos las fuentes above-the-fold para no competir con el LCP.
+import PlayfairDisplayVariable from "@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2";
+import WorkSansVariable from "@fontsource-variable/work-sans/files/work-sans-latin-wght-normal.woff2";
+---
+
+<meta charset="utf-8" />
+<!-- FIX M2: initial-scale ahora SÍ está dentro de content -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Preload solo de fuentes críticas (cuerpo + títulos principales).
+     Raleway/Cinzel cargan vía @font-face con font-display: swap. -->
+<link rel="preload" href={WorkSansVariable} as="font" type="font/woff2" crossorigin="anonymous" />
+<link
+	rel="preload"
+	href={PlayfairDisplayVariable}
+	as="font"
+	type="font/woff2"
+	crossorigin="anonymous"
+/>
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+<link rel="shortcut icon" href="/favicons/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+<link rel="manifest" href="/favicons/site.webmanifest" />
+
+<!-- other -->
+<meta name="generator" content={Astro.generator} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<Seo type={type} title={title} description={description} image={image} noindex={noindex} />
+
+{siteData.useViewTransitions && <ClientRouter fallback="none" />}
+```
+# src\layouts\BaseLayout.astro
+```astro
+---
+// src/layouts/BaseLayout.astro
+import "@/styles/global.css";
+import Footer from "@components/Footer/Footer.astro";
+import Nav from "@components/Nav/Nav.astro";
+import BaseHead from "@layouts/BaseHead.astro";
+
+interface Props {
+	type?: "general";
+	navStartStyle?: "initial" | "scrolled";
+	title: string;
+	description: string;
+	heroImage?: ImageMetadata;
+	noindex?: boolean; // opt-in para ocultar de buscadores
+}
+
+const {
+	type = "general",
+	navStartStyle = "initial",
+	title,
+	description,
+	heroImage,
+	noindex = false,
+} = Astro.props as Props;
+---
+
+<!doctype html>
+<!-- FIX C2: idioma correcto para SEO local + a11y -->
+<html lang="es" transition:animate="fade">
+	<head>
+		<!-- FIX C2: BaseHead es el ÚNICO dueño del <head>.
+		     Se eliminaron charset/viewport duplicados y el <link> a Google Fonts
+		     (las fuentes ya están self-hosted y precargadas en BaseHead). -->
+		<BaseHead
+			type={type}
+			title={title}
+			description={description}
+			image={heroImage ? heroImage : undefined}
+			noindex={noindex}
+		/>
+	</head>
+	<body id="body" class="bg-base-50 text-base-900">
+		<div class="min-h-[100lvh]">
+			<Nav startStyle={navStartStyle} />
+			<main id="main-content">
+				<slot />
+			</main>
+		</div>
+		<Footer />
+	</body>
+</html>
+```
+# src\layouts\PortfolioLayout.astro
+```astro
+---
+import Contact from "@components/Contact/Contact.astro";
+import PortfolioImage from "@components/PorfolioImage/PortfolioImage.astro";
+import PortfolioGrid from "@components/Portfolio/PortfolioGrid.astro";
+import TestimonialQuote from "@components/Testimonials/TestimonialQuote.astro";
+import { Image } from "astro:assets";
+import { type CollectionEntry, getCollection } from "astro:content";
+
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+	portfolio: CollectionEntry<"portfolios">;
+}
+
+import headerImage from "@images/portfolio-header-crop-min.jpg";
+
+const { portfolio } = Astro.props as Props;
+const { title, description, date, images, clients, location, heroImage } = portfolio.data;
+
+// find other portfolios to show later down the page
+const otherPortfolios = await getCollection("portfolios", (otherPortfolio) => {
+	// filter out draft pages
+	return otherPortfolio.data.draft !== true && otherPortfolio.id !== portfolio.id;
+});
+---
+
+<BaseLayout
+	type="general"
+	title={title}
+	description={description}
+	heroImage={heroImage}
+	navStartStyle="white"
+>
+	<div class="relative h-[40svh] w-full overflow-hidden md:h-[60svh]">
+		<div class="absolute inset-0 z-10 bg-black/30"></div>
+		<Image
+			src={headerImage}
+			alt="Portfolio header"
+			class="absolute inset-0 h-auto min-h-full w-full min-w-full object-cover md:hidden"
+			width={600}
+			densities={[1.5, 2]}
+			loading="eager"
+		/>
+		<Image
+			src={headerImage}
+			alt="Portfolio header"
+			class="absolute inset-0 hidden h-auto min-h-full w-full min-w-full object-cover md:block"
+			width={1920}
+			densities={[1.5, 2]}
+			loading="eager"
+		/>
+	</div>
+
+	<article class="mx-auto mt-12 px-4 md:mt-20 md:max-w-6xl">
+		<h1 class="h1 description mt-4 text-center uppercase">
+			{title}
+		</h1>
+
+		<!-- hero image -->
+		<div class="mt-6 h-auto max-h-[50vh] w-full overflow-hidden md:max-h-[80vh]">
+			<Image
+				src={heroImage}
+				alt={`cover for ${title}`}
+				width={1120}
+				quality="high"
+				densities={[1.5, 2]}
+				class="h-auto min-h-full w-full min-w-full object-cover"
+				transition:name={`portfolio-image-${portfolio.id}`}
+			/>
+		</div>
+
+		<!-- people and location -->
+		<h2
+			class="h3 text-primary-500 mt-10 flex flex-col items-center justify-center gap-x-3 gap-y-1 tracking-widest md:flex-row"
+		>
+			<div>
+				{clients.join(" & ")}
+			</div>
+			<span class="hidden md:inline">|</span>
+			<hr class="border-primary-400 w-1/3 md:hidden" />
+			<span>{location}</span>
+		</h2>
+
+		<!-- slot really only fuctions as a longer description -->
+		<div class="description mt-6 text-center text-pretty md:text-lg">
+			<slot />
+		</div>
+
+		<!-- portfolio images -->
+		<div class="mx-auto mt-12 max-w-5xl space-y-6 md:mt-20 md:space-y-16">
+			{
+				images.map((imageGroup) => (
+					<div
+						class:list={[
+							"mb-6 grid gap-6 md:gap-16",
+							{
+								"grid-cols-1": imageGroup.length === 1,
+								"grid-cols-2": imageGroup.length === 2,
+								"grid-cols-3": imageGroup.length === 3,
+							},
+						]}
+					>
+						{imageGroup.map((image) => (
+							<PortfolioImage image={image} numCols={imageGroup.length} />
+						))}
+					</div>
+				))
+			}
+		</div>
+	</article>
+
+	<TestimonialQuote />
+
+	<section class="mx-auto mt-12 px-4 md:mt-16 md:max-w-5xl">
+		<h3 class="h2 text-center">Más trabajos</h3>
+		<PortfolioGrid portfolios={otherPortfolios} noTransitions />
+	</section>
+	<Contact class="mt-12" />
+</BaseLayout>
+
+```
+# src\pages\portfolio\index.astro
+```astro
+---
+// components
+import Contact from "@components/Contact/Contact.astro";
+import PortfolioGrid from "@components/Portfolio/PortfolioGrid.astro";
+import TestimonialQuote from "@components/Testimonials/TestimonialQuote.astro";
+// layout
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+const portfolios = await getCollection("portfolios", ({ data }) => {
+	// filter out draft pages
+	return data.draft !== true;
+});
+---
+
+<BaseLayout title="Portfolios" description="Portfolio page for my projects and work.">
+	<div class="site-container pt-24 md:pt-36">
+		<div class="mx-auto max-w-6xl text-center">
+			<h1 class="h2 text-pretty uppercase">
+				Este es el momento de tomar el fúturo en tus manos y conquistar con tu sonrisa.
+			</h1>
+		</div>
+		<PortfolioGrid portfolios={portfolios} />
+	</div>
+
+	<TestimonialQuote />
+
+	<Contact class="mt-12" />
+</BaseLayout>
+
+```
+# src\pages\portfolio\[...slug].astro
+```astro
+---
+// layout
+import PortfolioLayout from "@layouts/PortfolioLayout.astro";
+import { type InferGetStaticPropsType } from "astro";
+import { type CollectionEntry, getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+	const portfolios = await getCollection("portfolios", ({ data }) => {
+		// filter out draft pages
+		return data.draft !== true;
+	});
+
+	return portfolios.map((portfolio) => ({
+		params: { slug: portfolio.id },
+		props: portfolio,
+	}));
+}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const portfolio = Astro.props as Props;
+const { Content } = await render(portfolio);
+---
+
+<PortfolioLayout portfolio={portfolio}>
+	<Content />
+</PortfolioLayout>
+
+```
+# src\pages\404.astro
+```astro
+---
+// main layout
+// components
+import Button from "@components/Button/Button.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404" description="Error 404 page not found." noindex={true}>
+	<section class="site-container pt-36 text-center md:pt-44">
+		<div class="mx-auto max-w-xl px-4 text-center">
+			<h1 class="h1">Page not found!</h1>
+			<p class="description mt-4">
+				Apologies, one of our links must have broken. Please try again or go back to the homepage.
+			</p>
+			<div class="mt-8 flex justify-center">
+				<Button variant="primary" href="/">Go to homepage</Button>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+```
+# src\pages\agendar.astro
+```astro
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="Contacto y Agenda | Dr. José Tomás Rojas"
+	description="Agenda tu evaluación o contáctate directamente para resolver dudas sobre tus tratamientos dentales."
+	navStartStyle="scrolled"
+>
+	<div class="bg-[#F6F7F7] pt-28 pb-20 lg:pt-32">
+		<div class="mx-auto max-w-6xl px-6 lg:px-8">
+			<!-- HERO -->
+			<section class="mb-16 md:mb-24">
+				<h1
+					class="font-heading-1 mb-6 text-4xl font-bold text-[#2F3E46] md:text-5xl lg:text-[2.6rem]"
+				>
+					Contacto y agenda
+				</h1>
+				<p class="max-w-[700px] text-lg leading-relaxed font-light text-[#4A4A4A]">
+					La evaluación clínica es el primer paso para definir un tratamiento adecuado. Puedes
+					agendar una consulta o comunicarte directamente a través de los siguientes medios.
+				</p>
+			</section>
+
+			<section class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+				<!-- AGENDA -->
+				<div class="rounded-[28px] border border-[#E0E5E5] bg-white p-10 shadow-xl md:p-14">
+					<h2 class="font-heading-1 mb-6 text-3xl font-bold text-[#4F7A7C]">
+						Agenda tu evaluación
+					</h2>
+					<p class="mb-8 text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+						La agenda se gestiona mediante plataforma clínica, permitiendo coordinar evaluaciones de
+						forma ordenada y segura.
+					</p>
+					<a
+						href="#"
+						class="mr-4 mb-4 inline-block rounded-full bg-[#4F7A7C] px-8 py-4 text-[0.95rem] font-medium text-white shadow-md shadow-[#4F7A7C]/30 transition-all duration-300 hover:-translate-y-1 hover:bg-[#3f6668] hover:shadow-[#3f6668]/40"
+					>
+						Agendar evaluación
+					</a>
+					<p class="mt-3 text-sm text-[#7b8a91] italic">
+						Agenda gestionada mediante plataforma clínica Dentalink.
+					</p>
+
+					<div class="mt-10 mb-6 h-px w-full bg-[#E0E5E5]"></div>
+
+					<p class="mb-6 text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+						También puedes contactarte directamente si tienes dudas previas a la evaluación.
+					</p>
+					<div class="flex flex-wrap gap-4">
+						<a
+							href="#"
+							class="inline-block rounded-full border-2 border-[#4F7A7C] bg-transparent px-8 py-3 text-[0.95rem] font-medium text-[#4F7A7C] transition-all duration-300 hover:-translate-y-1 hover:bg-[#4F7A7C] hover:text-white"
+						>
+							WhatsApp
+						</a>
+						<a
+							href="mailto:contacto@docjosetomasrojas.cl"
+							class="inline-block rounded-full border-2 border-[#4F7A7C] bg-transparent px-8 py-3 text-[0.95rem] font-medium text-[#4F7A7C] transition-all duration-300 hover:-translate-y-1 hover:bg-[#4F7A7C] hover:text-white"
+						>
+							Enviar correo
+						</a>
+					</div>
+				</div>
+
+				<!-- INFORMACIÓN -->
+				<div class="rounded-[28px] border border-[#E0E5E5] bg-white p-10 shadow-xl md:p-14">
+					<h2 class="font-heading-1 mb-8 text-3xl font-bold text-[#4F7A7C]">
+						Información de contacto
+					</h2>
+
+					<ul class="space-y-6 text-[1.05rem] font-light text-[#4A4A4A]">
+						<li class="flex items-start gap-3">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="mt-1 h-6 w-6 shrink-0 text-[#4F7A7C]"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+								></path>
+							</svg>
+							<div>
+								<strong class="font-semibold text-[#2F3E46]">Especialidad:</strong><br />
+								Implantología Buco Maxilofacial y Odontología Integral
+							</div>
+						</li>
+						<li class="flex items-start gap-3">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="mt-1 h-6 w-6 shrink-0 text-[#4F7A7C]"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+							</svg>
+							<div>
+								<strong class="font-semibold text-[#2F3E46]">Atención:</strong><br />
+								Previa evaluación y coordinación
+							</div>
+						</li>
+						<li class="flex items-start gap-3">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="mt-1 h-6 w-6 shrink-0 text-[#4F7A7C]"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+								></path>
+							</svg>
+							<div>
+								<strong class="font-semibold text-[#2F3E46]">Correo:</strong><br />
+								<a
+									href="mailto:contacto@docjosetomasrojas.cl"
+									class="hover:text-[#4F7A7C] hover:underline">contacto@docjosetomasrojas.cl</a
+								>
+							</div>
+						</li>
+					</ul>
+
+					<div
+						class="mt-12 flex h-[260px] w-full items-center justify-center rounded-[24px] bg-[#E0E5E5] text-sm text-[#4A4A4A] shadow-inner"
+					>
+						Mapa / ubicación de la consulta
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</BaseLayout>
+
+```
+# src\pages\casos-clinicos.astro
+```astro
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usando la foto para el cierre temporalmente
+---
+
+<BaseLayout
+	title="Casos Clínicos | Dr. José Tomás Rojas"
+	description="Explora los casos clínicos del Dr. José Tomás Rojas, abordados con una perspectiva integral."
+	navStartStyle="scrolled"
+>
+	<div class="bg-white pt-28 pb-20 lg:pt-32">
+		<!-- HERO -->
+		<section class="bg-gradient-to-b from-[#F9FAFB] to-white py-24 pb-20">
+			<div class="mx-auto max-w-6xl px-6 lg:px-8">
+				<h1
+					class="font-heading-1 mb-6 text-4xl font-bold text-[#2F3E46] md:text-5xl lg:text-[2.8rem]"
+				>
+					Casos clínicos
+				</h1>
+				<p class="max-w-[760px] text-lg leading-relaxed font-light text-[#4A4A4A]">
+					Casos clínicos abordados desde una perspectiva integral, considerando diagnóstico,
+					planificación quirúrgica y rehabilitación, con el objetivo de lograr resultados
+					funcionales y estéticos predecibles a largo plazo.
+				</p>
+			</div>
+		</section>
+
+		<!-- CASOS -->
+		<section class="py-24">
+			<div class="mx-auto max-w-6xl px-6 lg:px-8">
+				<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+					<article
+						class="group overflow-hidden rounded-[20px] border border-[#E0E5E5] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+					>
+						<div
+							class="flex h-[240px] items-center justify-center bg-[#E0E5E5] text-sm text-[#4A4A4A]"
+						>
+							Imagen caso clínico
+						</div>
+						<div class="p-8">
+							<h3 class="font-heading-1 mb-3 text-xl font-bold text-[#2F3E46]">
+								Rehabilitación implantosoportada en sector posterior
+							</h3>
+							<p class="text-[0.95rem] leading-relaxed font-light text-[#4A4A4A]">
+								Reposición dentaria mediante implantes, integrando planificación digital y
+								rehabilitación protésica funcional.
+							</p>
+						</div>
+					</article>
+
+					<article
+						class="group overflow-hidden rounded-[20px] border border-[#E0E5E5] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+					>
+						<div
+							class="flex h-[240px] items-center justify-center bg-[#E0E5E5] text-sm text-[#4A4A4A]"
+						>
+							Imagen caso clínico
+						</div>
+						<div class="p-8">
+							<h3 class="font-heading-1 mb-3 text-xl font-bold text-[#2F3E46]">
+								Manejo quirúrgico previo a implantes
+							</h3>
+							<p class="text-[0.95rem] leading-relaxed font-light text-[#4A4A4A]">
+								Abordaje quirúrgico para optimizar las condiciones óseas antes de la instalación de
+								implantes dentales.
+							</p>
+						</div>
+					</article>
+
+					<article
+						class="group overflow-hidden rounded-[20px] border border-[#E0E5E5] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+					>
+						<div
+							class="flex h-[240px] items-center justify-center bg-[#E0E5E5] text-sm text-[#4A4A4A]"
+						>
+							Imagen caso clínico
+						</div>
+						<div class="p-8">
+							<h3 class="font-heading-1 mb-3 text-xl font-bold text-[#2F3E46]">
+								Implantes en zona estética
+							</h3>
+							<p class="text-[0.95rem] leading-relaxed font-light text-[#4A4A4A]">
+								Tratamiento implantológico en sector anterior con énfasis en función, estabilidad y
+								armonía estética.
+							</p>
+						</div>
+					</article>
+				</div>
+
+				<p class="mx-auto mt-16 max-w-[900px] text-sm text-[#6b7280] italic">
+					*Los casos presentados tienen fines informativos y educativos. Los resultados pueden
+					variar según las condiciones clínicas individuales de cada paciente y no constituyen una
+					garantía de resultados.*
+				</p>
+			</div>
+		</section>
+
+		<!-- CIERRE -->
+		<section class="bg-[#F6F7F7] py-24">
+			<div
+				class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 px-6 text-center lg:grid-cols-2 lg:px-8 lg:text-left"
+			>
+				<div class="order-2 lg:order-1">
+					<h2
+						class="font-heading-1 mb-6 text-3xl leading-tight font-bold text-[#2F3E46] md:text-4xl"
+					>
+						Evaluación individual y enfoque clínico responsable
+					</h2>
+					<p
+						class="mx-auto mb-8 max-w-[520px] text-lg leading-relaxed font-light text-[#4A4A4A] lg:mx-0"
+					>
+						Cada caso requiere un análisis personalizado. La evaluación clínica es fundamental para
+						definir el plan de tratamiento más adecuado según las necesidades de cada paciente.
+					</p>
+					<a
+						href="/contact-me"
+						class="inline-block rounded-full bg-[#4F7A7C] px-10 py-[16px] text-[1rem] font-medium text-white shadow-xl shadow-[#4F7A7C]/30 transition-all duration-300 hover:-translate-y-1 hover:bg-[#3F6668] hover:shadow-[#3F6668]/40"
+					>
+						Agendar evaluación
+					</a>
+				</div>
+				<div
+					class="group relative order-1 flex h-[350px] items-center justify-center overflow-hidden rounded-[24px] bg-[#E0E5E5] text-sm text-[#4A4A4A] shadow-inner md:h-[420px] lg:order-2"
+				>
+					<Image
+						src={profileImage}
+						alt="Dr. José Tomás Rojas de brazos cruzados"
+						class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+					/>
+					<div
+						class="absolute inset-0 bg-[#2F3E46]/10 opacity-0 transition duration-500 group-hover:opacity-100"
+					>
+					</div>
+					<div
+						class="absolute bottom-6 mx-auto w-auto translate-y-4 transform rounded-full border border-[#E0E5E5] bg-white/90 px-6 py-2 text-sm font-medium text-[#4A4A4A] opacity-0 shadow-lg backdrop-blur-sm transition duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+					>
+						Foto Dr. Rojas - brazos cruzados
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+```
+# src\pages\contacto.astro
+```astro
+---
+// src/pages/contacto.astro
+import BaseLayout from "@layouts/BaseLayout.astro";
+import ContactForm from "@components/Forms/ContactForm.astro";
+import siteData from "@config/siteData.json";
+
+const address = siteData.contact.address;
+// Embed de Google Maps SIN API key (modo "output=embed")
+const gmapsUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&z=16&output=embed`;
+---
+
+<BaseLayout
+	title="Contacto | Dr. José Tomás Rojas Vera"
+	description="Agenda tu evaluación con el Dr. José Tomás Rojas Vera. Implantología buco maxilofacial y odontología integral en Providencia, Santiago."
+	navStartStyle="scrolled"
+>
+	<section id="contacto" class="scroll-mt-10 bg-white pt-28 pb-20 lg:pt-32">
+		<div class="mx-auto max-w-6xl px-4 py-16 md:py-24">
+			<div class="mb-12 text-center">
+				<h1 class="h2">Agenda tu Evaluación</h1>
+				<p class="mx-auto mt-4 max-w-2xl text-lg text-base-600">
+					¿Listo para comenzar tu tratamiento o tienes alguna pregunta? Completa el
+					formulario y te contactaremos a la brevedad.
+				</p>
+			</div>
+
+			<div class="grid gap-12 md:grid-cols-2">
+				<div class="flex items-center">
+					<ContactForm />
+				</div>
+				<div class="flex flex-col justify-center space-y-8">
+					<div class="text-lg">
+						<p><strong>Email:</strong> {siteData.contact.email}</p>
+						<p><strong>Dirección:</strong> {address}</p>
+					</div>
+					<div class="h-72 w-full overflow-hidden rounded-3xl shadow-lg">
+						<iframe
+							src={gmapsUrl}
+							width="100%"
+							height="100%"
+							style="border:0;"
+							loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade"
+							title="Ubicación de la consulta del Dr. José Tomás Rojas Vera"
+						></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+```
+# src\pages\index.astro
+```astro
+---
+import Button from "@components/Button/Button.astro";
+import Contact from "@components/Contact/Contact.astro";
+
+// HERO COMPONENTS
+import Hero from "@components/Hero/Hero.astro";
+import Welcome from "@components/Hero/Welcome.astro";
+import AboutMe from "@components/Hero/About-me.astro";
+import Testimonials from "@components/Hero/Testimonials.astro";
+import Services from "@components/Hero/Services.astro";
+import Blog from "@components/Hero/Blog.astro";
+import Reels from "@components/Hero/Reels.astro";
+import Phrase from "@components/Hero/Phrase.astro";
+import Cta from "@components/Hero/Cta.astro";
+
+
+
+import PortfolioThreeCards from "@components/Portfolio/PortfolioThreeCards.astro";
+import PricingThreeCards from "@components/Pricing/PricingThreeCards.astro";
+
+import Philosophy from "@components/Philosophy/Philosophy.astro";
+// data
+import siteData from "@config/siteData.json";
+// layout
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+
+---
+
+<BaseLayout title={siteData.title} description={siteData.description} navStartStyle="initial">
+	<Hero />
+	<Welcome />
+	<AboutMe />
+	<Testimonials />
+	<Services />
+	<Blog />
+	<Reels />
+	<Phrase />
+	<Cta />
+    <!--	
+	<PortfolioThreeCards />
+	<PricingThreeCards />
+	<Philosophy />
+	<Contact />
+     -->
+</BaseLayout>
+
+
+```
+# src\pages\servicios.astro
+```astro
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="Servicios | Dr. José Tomás Rojas"
+	description="Conoce en detalle todos los servicios disponibles en implantología, rehabilitación oral y tratamientos odontológicos integrales."
+	navStartStyle="scrolled"
+>
+	<div class="bg-[#F6F7F7] pt-28 pb-20 lg:pt-32">
+		<!-- HERO -->
+		<section class="bg-white pt-12 pb-16">
+			<div class="mx-auto max-w-6xl px-6 lg:px-8">
+				<h1
+					class="font-heading-1 mb-6 text-4xl font-bold text-[#2F3E46] md:text-5xl lg:text-[2.8rem]"
+				>
+					Servicios
+				</h1>
+				<p class="max-w-[780px] text-lg leading-relaxed font-light text-[#4A4A4A]">
+					Mi práctica clínica se orienta a la implantología buco maxilofacial como parte de un
+					enfoque de odontología integral. Cada tratamiento se indica tras una evaluación clínica
+					completa, integrando diagnóstico, planificación y ejecución responsable.
+				</p>
+			</div>
+		</section>
+
+		<!-- IMPLANTOLOGÍA (EJE) -->
+		<section class="border-y border-[#e6e6e6] bg-white py-16 lg:py-24">
+			<div
+				class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 lg:px-8"
+			>
+				<div>
+					<h2 class="font-heading-1 mb-6 text-3xl font-bold text-[#2F3E46] md:text-[2.2rem]">
+						Implantología Buco Maxilofacial
+					</h2>
+					<div class="space-y-6 text-lg leading-relaxed font-light text-[#4A4A4A]">
+						<p>
+							Reposición de dientes mediante implantes dentales, indicada en casos de pérdida
+							dentaria unitaria, múltiple o edentulismo total. El tratamiento se basa en una
+							planificación cuidadosa que considera las condiciones óseas, funcionales y estéticas
+							de cada paciente.
+						</p>
+						<p>
+							Se realizan rehabilitaciones sobre implantes unitarios, múltiples y prótesis
+							implantosoportadas (incluyendo prótesis híbridas), siempre integradas dentro de un
+							plan de rehabilitación global definido de forma individual para cada caso clínico.
+						</p>
+					</div>
+				</div>
+				<div
+					class="flex h-[300px] w-full items-center justify-center rounded-2xl bg-[#E0E5E5] text-sm text-[#4A4A4A] md:h-[420px]"
+				>
+					Imagen clínica / pabellón
+				</div>
+			</div>
+		</section>
+
+		<!-- SERVICIOS COMPLEMENTARIOS -->
+		<section class="py-16 lg:py-24">
+			<div class="mx-auto max-w-6xl px-6 lg:px-8">
+				<h2 class="font-heading-1 mb-12 text-3xl font-bold text-[#2F3E46] md:text-[2.2rem]">
+					Tratamientos dentro del enfoque integral
+				</h2>
+
+				<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+					<!-- Servicio 1 -->
+					<div
+						class="border border-[#e6e6e6] bg-white p-10 transition-shadow duration-300 hover:shadow-lg"
+					>
+						<h3 class="font-heading-1 mb-4 text-xl font-bold text-[#2F3E46]">
+							Rehabilitación oral
+						</h3>
+						<p class="text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+							Tratamientos orientados a recuperar función, estética y estabilidad oclusal,
+							incluyendo prótesis fijas (coronas) y prótesis removibles, indicadas según las
+							necesidades clínicas y funcionales de cada paciente.
+						</p>
+					</div>
+
+					<!-- Servicio 2 -->
+					<div
+						class="border border-[#e6e6e6] bg-white p-10 transition-shadow duration-300 hover:shadow-lg"
+					>
+						<h3 class="font-heading-1 mb-4 text-xl font-bold text-[#2F3E46]">Cirugía oral</h3>
+						<p class="text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+							Procedimientos quirúrgicos ambulatorios como exodoncias complejas y cirugías asociadas
+							a tratamientos implantológicos, realizados con planificación y foco en la seguridad
+							del paciente.
+						</p>
+					</div>
+
+					<!-- Servicio 3 -->
+					<div
+						class="border border-[#e6e6e6] bg-white p-10 transition-shadow duration-300 hover:shadow-lg"
+					>
+						<h3 class="font-heading-1 mb-4 text-xl font-bold text-[#2F3E46]">
+							Tratamiento integral
+						</h3>
+						<p class="text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+							Abordaje global de la salud oral que incluye tratamientos de odontología integral como
+							manejo de caries, tratamientos periodontales (encías), controles y mantención, siempre
+							como base para un diagnóstico claro y una planificación adecuada del tratamiento.
+						</p>
+					</div>
+				</div>
+
+				<!-- NOTA CLÍNICA -->
+				<div class="mt-20 max-w-[900px] border-l-4 border-[#4F7A7C] bg-white p-10 shadow-sm">
+					<p class="text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+						<strong class="font-semibold text-[#2F3E46]">Nota clínica:</strong> Los procedimientos específicos
+						no se indican de forma aislada. Cada intervención forma parte de un plan de tratamiento integral,
+						definido tras un diagnóstico completo y una evaluación personalizada del paciente.
+					</p>
+				</div>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+```
+# src\pages\sobre-mi.astro
+```astro
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usando la imagen del Dr. Rojas
+---
+
+<BaseLayout
+	title="Sobre mí | Dr. José Tomás Rojas"
+	description="Conoce más sobre la trayectoria y enfoque del Dr. José Tomás Rojas."
+	navStartStyle="scrolled"
+>
+	<div class="bg-[#F6F7F7] pt-28 pb-20 lg:pt-32">
+		<div class="mx-auto max-w-6xl px-6 lg:px-8">
+			<!-- HERO -->
+			<section class="mb-24 grid grid-cols-1 items-center gap-12 lg:mb-32 lg:grid-cols-2 lg:gap-16">
+				<div>
+					<h1
+						class="font-heading-1 mb-6 text-4xl leading-tight font-semibold text-[#2F3E46] md:text-5xl lg:text-6xl"
+					>
+						Dr. José Tomás Rojas
+					</h1>
+					<p class="text-lg leading-relaxed font-light text-[#4A4A4A] md:text-xl">
+						Cirujano dentista con una práctica orientada a la odontología integral y especial
+						dedicación a la implantología buco maxilofacial.<br /><br />
+						Mi enfoque se basa en el diagnóstico preciso, la planificación responsable y tratamientos
+						orientados a resultados funcionales y duraderos.
+					</p>
+				</div>
+				<div
+					class="relative flex h-[400px] items-center justify-center overflow-hidden rounded-3xl border border-[#E0E5E5] bg-gradient-to-br from-[#E0E5E5] to-[#F6F7F7] shadow-2xl md:h-[500px] lg:h-[600px]"
+				>
+					<Image
+						src={profileImage}
+						alt="Dr. José Tomás Rojas en su consulta"
+						class="h-full w-full object-cover"
+					/>
+					<div
+						class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#2F3E46]/80 to-transparent p-6 text-sm text-white opacity-0 transition duration-300 hover:opacity-100 md:text-base"
+					>
+						Foto profesional en consulta
+					</div>
+				</div>
+			</section>
+
+			<!-- TRAYECTORIA PROFESIONAL -->
+			<section class="relative mb-24 lg:mb-32">
+				<div
+					class="absolute inset-0 -z-10 hidden -rotate-1 transform rounded-[2rem] border border-[#EBF1F1] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] md:rounded-[3rem] lg:block"
+				>
+				</div>
+				<div
+					class="relative z-10 rounded-[2rem] border border-[#E0E5E5] bg-white p-8 shadow-xl md:rounded-[3rem] md:p-16 lg:p-20"
+				>
+					<h2 class="font-heading-1 mb-10 mb-12 text-3xl font-bold text-[#4F7A7C] md:text-4xl">
+						Trayectoria profesional
+					</h2>
+
+					<div
+						class="space-y-6 text-base leading-relaxed font-light text-[#4A4A4A] md:space-y-8 md:text-lg"
+					>
+						<p>
+							Soy cirujano dentista con una práctica orientada a la odontología integral, con
+							especial dedicación a la implantología buco maxilofacial. Mi interés por esta área
+							surge tempranamente durante mi formación, motivado por la posibilidad de devolver
+							función, estética y calidad de vida a pacientes con pérdida dentaria, siempre desde
+							una mirada global de su salud oral.
+						</p>
+						<p>
+							A lo largo de mi desarrollo profesional he enfocado mi ejercicio clínico en el
+							diagnóstico preciso, la planificación detallada y la ejecución cuidadosa de los
+							tratamientos, abordando tanto procedimientos implantológicos como tratamientos propios
+							de la odontología general, periodoncia y rehabilitación.
+						</p>
+						<p>
+							Creo firmemente que la implantología forma parte de un plan de tratamiento más amplio,
+							donde es fundamental comprender al paciente en su contexto clínico completo. Por ello,
+							dedico tiempo a la evaluación, a la explicación clara de las alternativas terapéuticas
+							y al acompañamiento durante todo el proceso.
+						</p>
+						<p>
+							Mi ejercicio profesional se sustenta en la formación continua y la actualización
+							constante, participando de manera regular en cursos, programas de perfeccionamiento y
+							actividades académicas, con el objetivo de integrar protocolos actuales y basados en
+							evidencia a la práctica clínica diaria.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- ENFOQUE PROFESIONAL -->
+			<section class="mb-24 lg:mb-32">
+				<div class="mx-auto mb-16 max-w-2xl text-center">
+					<h2 class="font-heading-1 mb-4 text-4xl font-bold text-[#2F3E46]">Enfoque profesional</h2>
+					<div class="mx-auto h-1 w-20 rounded-full bg-[#4F7A7C]"></div>
+				</div>
+
+				<div class="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-10">
+					<div
+						class="group relative overflow-hidden rounded-[2rem] border border-[#E0E5E5] bg-gradient-to-br from-white to-[#F6F7F7] p-10 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+					>
+						<div
+							class="absolute top-0 right-0 -z-10 h-32 w-32 rounded-bl-full bg-[#EBF1F1] transition duration-300 group-hover:bg-[#D7E3E3]"
+						>
+						</div>
+						<div
+							class="mb-8 flex h-16 w-16 items-center justify-center rounded-full bg-[#EBF1F1] text-2xl text-[#4F7A7C] shadow-inner transition duration-300 group-hover:bg-[#4F7A7C] group-hover:text-white"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="28"
+								height="28"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+								></path><polyline points="14 2 14 8 20 8"></polyline><path d="M16 13H8"></path><path
+									d="M16 17H8"></path><path d="M10 9H8"></path></svg
+							>
+						</div>
+						<h3 class="font-heading-1 mb-4 text-2xl font-bold text-[#2F3E46]">
+							Diagnóstico integral
+						</h3>
+						<p class="leading-relaxed font-light text-[#4A4A4A]">
+							Cada caso comienza con una evaluación clínica y radiográfica exhaustiva, orientada a
+							comprender la condición global del paciente.
+						</p>
+					</div>
+
+					<div
+						class="group relative overflow-hidden rounded-[2rem] border border-[#E0E5E5] bg-gradient-to-br from-white to-[#F6F7F7] p-10 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+					>
+						<div
+							class="absolute top-0 right-0 -z-10 h-32 w-32 rounded-bl-full bg-[#EBF1F1] transition duration-300 group-hover:bg-[#D7E3E3]"
+						>
+						</div>
+						<div
+							class="mb-8 flex h-16 w-16 items-center justify-center rounded-full bg-[#EBF1F1] text-2xl text-[#4F7A7C] shadow-inner transition duration-300 group-hover:bg-[#4F7A7C] group-hover:text-white"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="28"
+								height="28"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"></path><path
+									d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path><path d="M12 2v2"></path><path
+									d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path
+									d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"
+								></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"
+								></path></svg
+							>
+						</div>
+						<h3 class="font-heading-1 mb-4 text-2xl font-bold text-[#2F3E46]">
+							Planificación personalizada
+						</h3>
+						<p class="leading-relaxed font-light text-[#4A4A4A]">
+							Los tratamientos se diseñan de forma individual, integrando criterios biológicos,
+							funcionales y estéticos.
+						</p>
+					</div>
+
+					<div
+						class="group relative overflow-hidden rounded-[2rem] border border-[#E0E5E5] bg-gradient-to-br from-white to-[#F6F7F7] p-10 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+					>
+						<div
+							class="absolute top-0 right-0 -z-10 h-32 w-32 rounded-bl-full bg-[#EBF1F1] transition duration-300 group-hover:bg-[#D7E3E3]"
+						>
+						</div>
+						<div
+							class="mb-8 flex h-16 w-16 items-center justify-center rounded-full bg-[#EBF1F1] text-2xl text-[#4F7A7C] shadow-inner transition duration-300 group-hover:bg-[#4F7A7C] group-hover:text-white"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="28"
+								height="28"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"
+								></path></svg
+							>
+						</div>
+						<h3 class="font-heading-1 mb-4 text-2xl font-bold text-[#2F3E46]">
+							Ejecución clínica responsable
+						</h3>
+						<p class="leading-relaxed font-light text-[#4A4A4A]">
+							Los procedimientos se realizan bajo protocolos actuales, priorizando seguridad,
+							precisión y estabilidad a largo plazo.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- CIERRE -->
+			<section
+				class="relative mb-12 overflow-hidden rounded-[3rem] border border-[#D7E3E3]/50 bg-gradient-to-br from-white via-[#EBF1F1]/50 to-white p-10 shadow-2xl md:p-16 lg:p-24"
+			>
+				<div
+					class="absolute -top-40 -right-40 -z-10 h-[400px] w-[400px] rounded-full bg-[#9FB6B8]/20 blur-3xl"
+				>
+				</div>
+				<div
+					class="absolute -bottom-40 -left-40 -z-10 h-[400px] w-[400px] rounded-full bg-[#E0E5E5]/50 blur-3xl"
+				>
+				</div>
+
+				<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-20">
+					<div class="order-2 space-y-8 lg:order-1 lg:col-span-7">
+						<h3 class="font-heading-1 text-4xl leading-tight font-bold text-[#2F3E46] md:text-5xl">
+							Atención personalizada y responsable
+						</h3>
+						<p class="text-xl leading-relaxed font-light text-[#4A4A4A]">
+							Cada paciente es evaluado de forma individual, con el objetivo de definir el plan de
+							tratamiento más adecuado según sus necesidades clínicas.
+						</p>
+						<div class="pt-4">
+							<a
+								href="/contact-me"
+								class="inline-block rounded-[3px] bg-[#4F7A7C] px-[38px] py-[14px] text-[0.9rem] font-normal tracking-[0.08em] text-white no-underline transition-colors duration-200 ease-in hover:bg-[#3f6668]"
+							>
+								Agendar evaluación
+							</a>
+						</div>
+					</div>
+					<div
+						class="group relative order-1 flex h-[400px] items-center justify-center overflow-hidden rounded-[2rem] border border-[#E0E5E5] bg-gradient-to-tr from-[#E0E5E5] to-[#F6F7F7] text-[#9FB6B8] shadow-inner lg:order-2 lg:col-span-5 lg:h-[500px]"
+					>
+						<Image
+							src={profileImage}
+							alt="Dr. José Tomás Rojas de brazos cruzados"
+							class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+						/>
+						<div
+							class="absolute inset-0 bg-[#2F3E46]/10 transition duration-500 group-hover:opacity-0"
+						>
+						</div>
+
+
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</BaseLayout>
+
+```
+# src\pages\[page].astro
+```astro
+---
+// layout
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { type InferGetStaticPropsType } from "astro";
+import { type CollectionEntry, getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+	const otherPages: CollectionEntry<"otherPages">[] = await getCollection(
+		"otherPages",
+		({ data }) => {
+			// filter out draft pages
+			return data.draft !== true;
+		},
+	);
+	return otherPages.map((page) => ({
+		params: { page: page.id },
+		props: page,
+	}));
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const page = Astro.props as Props;
+
+// convert markdown to html
+let Content: any = () => null;
+let title = "";
+let description = "";
+
+if (page) {
+  const rendered = await render(page as any);
+  Content = rendered.Content;
+  title = page.data?.title ?? page.id ?? "";
+  description = page.data?.description ?? "";
+}
+
+---
+
+<BaseLayout title={title} description={description}>
+	<section class="mx-auto max-w-3xl px-4 pt-24 md:pt-36">
+		<h1 class="h1 description text-center">
+			{title}
+		</h1>
+		<div
+			class="text-base-content markdown-content mt-8 max-w-none text-sm md:mt-12 md:px-8 md:text-base"
+		>
+			<Content />
+		</div>
+	</section>
+</BaseLayout>
+
+```
+# src\styles\buttons.css
+```css
+/* buttons, 4 types "primary", "secondary", "outline", "ghost" */
+.button {
+	@apply font-heading-1 flex items-center justify-center rounded-none px-4 py-2 text-lg tracking-wide uppercase transition duration-200;
+	@apply active:opacity-80;
+	@apply disabled:pointer-events-none;
+}
+
+.button--primary {
+	@apply bg-primary-200 text-base-900;
+	@apply hover:bg-primary-200/80;
+	@apply focus-visible:ring-primary-300;
+}
+
+.button--secondary {
+	@apply border-2;
+	/* @apply hover:border-opacity-80; */
+	@apply focus-visible:ring-primary-200;
+}
+
+.button--outline {
+	@apply border-primary-200 text-base-900 border-2;
+	@apply hover:border-primary-200/80;
+	@apply focus-visible:ring-primary-200;
+}
+
+.button--ghost {
+	@apply text-base-800;
+	@apply hover:opacity-80;
+}
+
+```
+# src\styles\fonts.css
+```css
+/* fontsource fonts */
+/* @use "@fontsource-variable/work-sans";
+@use "@fontsource-variable/raleway";
+@use "@fontsource-variable/playfair-display";
+@use "@fontsource/cinzel-decorative";
+@use "@fontsource-variable/open-sans";
+@use "@fontsource-variable/roboto"; */
+
+/* work-sans-latin-wght-normal */
+@font-face {
+	font-family: "Work Sans Variable";
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url(@fontsource-variable/work-sans/files/work-sans-latin-wght-normal.woff2)
+		format("woff2-variations");
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* raleway-latin-wght-normal */
+@font-face {
+	font-family: "Raleway Variable";
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url(@fontsource-variable/raleway/files/raleway-latin-wght-normal.woff2)
+		format("woff2-variations");
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* playfair-display-latin-wght-normal */
+@font-face {
+	font-family: "Playfair Display Variable";
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400 900;
+	src: url(@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2)
+		format("woff2-variations");
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* open-sans-latin-wght-normal */
+@font-face {
+	font-family: "Open Sans Variable";
+	font-style: normal;
+	font-display: swap;
+	font-weight: 300 800;
+	src: url(@fontsource-variable/open-sans/files/open-sans-latin-wght-normal.woff2)
+		format("woff2-variations");
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* roboto-latin-wght-normal */
+@font-face {
+	font-family: "Roboto Variable";
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url(@fontsource-variable/roboto/files/roboto-latin-wght-normal.woff2)
+		format("woff2-variations");
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* cinzel-decorative-latin-400-normal */
+@font-face {
+	font-family: "Cinzel Decorative";
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400;
+	src:
+		url(@fontsource/cinzel-decorative/files/cinzel-decorative-latin-400-normal.woff2)
+			format("woff2"),
+		url(@fontsource/cinzel-decorative/files/cinzel-decorative-latin-400-normal.woff) format("woff");
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+```
+# src\styles\global.css
+```css
+@import url("./fonts.css");
+
+@import "tailwindcss";
+
+/* tailwind plugins */
+@plugin "@tailwindcss/forms";
+
+/* theme definition import */
+@import "./tailwind-theme.css";
+
+/* other imports into specific layers */
+@import "./markdown-content.css" layer(components);
+@import "./buttons.css" layer(components);
+
+/* https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer */
+@layer base {
+	:root {
+		/* default font */
+		font-family: var(--font-sans);
+	}
+
+	/* starwind preflight merged with Cosmic Themes */
+	* {
+		@apply border-base-200 outline-none;
+	}
+	*:focus-visible {
+		@apply ring-primary-300 rounded-none ring-2 transition-none outline-none;
+	}
+	html {
+		@apply bg-base-100 text-base-900 leading-[1.6rem] scheme-light;
+		scroll-behavior: smooth;
+		overflow-x: hidden; /* ← AÑADIR: evita scroll horizontal por cualquier overflow */
+		-moz-text-size-adjust: none;
+		-webkit-text-size-adjust: none;
+		text-size-adjust: none;
+	}
+	button {
+		@apply cursor-pointer;
+	}
+}
+
+@layer components {
+	.h1 {
+		@apply font-heading-1 text-4xl font-semibold lg:text-5xl;
+	}
+
+	.h2 {
+		@apply font-heading-1 text-2xl leading-tight tracking-wide uppercase md:text-[2.5rem] md:leading-tight;
+	}
+
+	.h3 {
+		@apply font-heading-2 text-lg leading-tight font-medium tracking-widest uppercase md:text-2xl md:leading-tight;
+	}
+
+	.description {
+		@apply text-base-700;
+	}
+
+	.site-container {
+		@apply mx-auto max-w-[74rem] px-4;
+	}
+
+	/* used for various form inputs */
+	.form__label {
+		@apply text-base-800 dark:text-base-200;
+	}
+
+	.form__input {
+		@apply border-primary-300 text-base-900 placeholder-base-500 w-full rounded-none border bg-transparent px-4 py-2 transition duration-200 outline-none;
+		@apply focus:border-primary-400 focus-visible:border-primary-400 focus:ring-0 focus:outline-none focus-visible:outline-none;
+	}
+
+	
+}
+
+@layer utilities {
+	/* main gradient. Used for categories and some headings */
+	.main-text-gradient {
+		@apply bg-gradient-to-r from-indigo-600 to-sky-600 bg-clip-text text-transparent;
+	}
+
+	.rotate-180 {
+		@apply rotate-180;
+	}
+}
+
+```
+# src\styles\markdown-content.css
+```css
+/**
+ * * general styling for any markdown rendered content
+ * 
+ * Apply styling with the "markdown-content" class
+ * Cancel out the styling with the "not-content" class
+ */
+
+.markdown-content :not(:where(.not-content *)) {
+	line-height: 1.65;
+}
+
+/* text coloring for most items */
+.markdown-content
+	:not(pre *, .admonition *, details *, blockquote *, span, a, h1, h2, h3, h4, h5, h6):not(
+		:where(.not-content *)
+	) {
+	@apply text-base-900/85;
+}
+
+/* paragraph spacing except for paragraphs inside list items */
+.markdown-content p:not(li p):not(:where(.not-content *)) {
+	@apply mt-3;
+}
+
+/* Headings after non-headings have more spacing. */
+.markdown-content
+	:not(h1, h2, h3, h4, h5, h6)
+	+ :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
+	@apply mt-10 mb-4;
+}
+
+.markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
+	@apply text-base-900 font-heading-1 mt-2 mb-4 font-medium;
+}
+
+.markdown-content h1:not(:where(.not-content *)) {
+	@apply text-3xl font-medium md:text-4xl;
+}
+.markdown-content h2:not(:where(.not-content *)) {
+	@apply text-2xl font-medium md:text-3xl;
+}
+.markdown-content h3:not(:where(.not-content *)) {
+	@apply text-xl font-medium md:text-2xl;
+}
+.markdown-content h4:not(:where(.not-content *)) {
+	@apply text-lg font-medium md:text-xl;
+}
+.markdown-content h5:not(:where(.not-content *)) {
+	@apply text-base-900/80 font-medium md:text-lg;
+}
+.markdown-content h6:not(:where(.not-content *)) {
+	@apply text-base-900/80 font-medium md:text-lg;
+}
+
+/* anchor tags */
+.markdown-content a:not(:where(.not-content *)) {
+	@apply text-primary-700 hover:text-primary-800 underline transition-colors;
+}
+
+/* code */
+.markdown-content code:not(:where(.not-content *)) {
+	@apply bg-base-100 border-base-200 rounded-md border-2 border-solid px-0.5 py-0 font-mono;
+}
+.markdown-content :is(h1, h2, h3, h4, h5, h6) code {
+	@apply text-inherit;
+}
+
+/* code block styling */
+.markdown-content .expressive-code:not(:where(.not-content *)) {
+	@apply mt-4;
+}
+
+.markdown-content pre:not(:where(.not-content *)) {
+	@apply my-4 rounded-md border px-4 py-3;
+	tab-size: 2;
+	&::-webkit-scrollbar {
+		@apply h-1.5;
+	}
+	&::-webkit-scrollbar-track {
+		@apply mx-1.5 bg-transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		@apply bg-base-600 rounded-full;
+	}
+	&::-webkit-scrollbar-thumb:hover {
+		@apply bg-base-500;
+	}
+}
+
+/* reset styling for code blocks */
+.markdown-content pre code:not(:where(.not-content *)) {
+	all: unset;
+	@apply font-mono;
+}
+
+/* blockquotes */
+.markdown-content blockquote:not(:where(.not-content *)) {
+	@apply border-primary-700 border-l-4 pl-4 font-medium italic;
+}
+
+/* images, videos, etc */
+.markdown-content :is(img, picture, video, canvas, svg, iframe):not(:where(.not-content *)) {
+	@apply my-4 block h-auto w-full rounded-md;
+}
+
+/* italics */
+.markdown-content em:not(:where(.not-content *)) {
+	@apply text-base-900 italic;
+}
+
+/* bold */
+.markdown-content strong:not(:where(.not-content *)) {
+	@apply text-base-900 font-bold;
+}
+
+/* lists */
+.markdown-content li + li:not(:where(.not-content *)),
+.markdown-content dt + dt:not(:where(.not-content *)),
+.markdown-content dt + dd:not(:where(.not-content *)),
+.markdown-content dd + dd:not(:where(.not-content *)) {
+	@apply mt-0.5;
+}
+
+.markdown-content li:not(:where(.not-content *)) {
+	@apply pl-2;
+	overflow-wrap: anywhere;
+}
+
+.markdown-content :is(ul, ol):not(:where(.not-content *)) {
+	@apply my-4 mb-8 ml-6 list-outside space-y-2;
+}
+
+.markdown-content :is(ul):not(:where(.not-content *)) {
+	@apply list-disc;
+}
+
+.markdown-content :is(ol):not(:where(.not-content *)) {
+	@apply list-decimal;
+	::marker {
+		@apply text-base-900/60;
+	}
+}
+
+.markdown-content dt:not(:where(.not-content *)) {
+	@apply font-bold;
+}
+.markdown-content dd:not(:where(.not-content *)) {
+	@apply ps-4;
+}
+
+/* Table styling */
+.markdown-content table:not(:where(.not-content *)) {
+	@apply mb-4 overflow-auto;
+}
+.markdown-content :where(table):not(:where(.not-content *)) {
+	@apply w-full table-auto border-spacing-0 text-sm;
+}
+.markdown-content :is(th, td):not(:where(.not-content *)) {
+	@apply border-base-200 table-cell border-b px-4 py-2;
+	/* Align text to the top of the row in multiline tables. */
+	vertical-align: baseline;
+}
+.markdown-content :is(th:first-child, td:first-child):not(:where(.not-content *)) {
+	padding-inline-start: 0;
+}
+.markdown-content :is(th:last-child, td:last-child):not(:where(.not-content *)) {
+	padding-inline-end: 0;
+}
+.markdown-content th:not(:where(.not-content *)) {
+	@apply text-base-900 font-heading-1 font-medium;
+}
+/* Align headings to the start of the line unless set by the `align` attribute. */
+.markdown-content th:not([align]):not(:where(.not-content *)) {
+	text-align: start;
+}
+
+/* <table>s, and <hr>s inside admonitions */
+.markdown-content .admonition :is(th, td, hr):not(:where(.not-content *)) {
+	@apply border-base-200;
+}
+
+.markdown-content hr:not(:where(.not-content *)) {
+	@apply border-b-base-300 my-8 border-0 border-b-1;
+}
+
+```
+# src\styles\tailwind-theme.css
+```css
+/**
+ * * Tailwind theme settings
+ * 
+ * These are in a separate file so it can be imported into <style> tags in .astro components
+ */
+@theme {
+	/* primary colors */
+	--color-primary-50: #E8F5FF;
+    --color-primary-100: #D1EBFF;
+    --color-primary-200: #A3D7FF;
+    --color-primary-300: #75C3FF;
+    --color-primary-400: #47AFFF;
+    --color-primary-500: #36B3E8;
+    --color-primary-600: #1E90D2;
+    --color-primary-700: #1976D2;
+    --color-primary-800: #145B9E;
+    --color-primary-900: #0F416A;
+    --color-primary-950: #0A2B47;
+
+    /* base colors - escala de grises profesionales */
+    --color-base-50: #F9FAFB;
+    --color-base-100: #E3F6FC;  /* celeste muy claro para fondos */
+    --color-base-200: #F6F8FA;  /* gris muy claro */
+    --color-base-300: #E0E5EB;  /* gris claro */
+    --color-base-400: #B0BEC5;  /* gris medio */
+    --color-base-500: #90A4AE;  /* gris intermedio */
+    --color-base-600: #607D8B;  /* gris medio-oscuro */
+    --color-base-700: #455A64;  /* gris oscuro */
+    --color-base-800: #263238;  /* gris muy oscuro para texto */
+    --color-base-900: #1A2327;  /* casi negro */
+    --color-base-950: #0D1114;
+
+    /* colores de acento y utilidades */
+    --color-accent-500: #4FC3F7;  /* celeste brillante */
+    --color-accent-600: #29B6F6;  /* celeste más saturado */
+    --color-accent-700: #039BE5;  /* azul celeste */
+    
+    /* colores neutros */
+    --color-neutral-50: #FFFFFF;  /* blanco puro */
+    --color-neutral-100: #F5F7FA; /* gris muy claro */
+    --color-neutral-200: #E9ECEF;
+    --color-neutral-300: #B0BEC5; /* gris medio */
+    --color-neutral-400: #90A4AE;
+    --color-neutral-500: #607D8B;
+    --color-neutral-600: #546E7A;
+    --color-neutral-700: #455A64;
+    --color-neutral-800: #263238; /* gris oscuro */
+    --color-neutral-900: #1A2327;
+
+    /* colores de estado */
+    --color-success: #4CAF50;
+    --color-warning: #FFC107;
+    --color-error: #F44336;
+    --color-info: #36B3E8;
+
+    /* colores de fondo */
+    --color-background: #FFFFFF;  /* fondo principal */
+    --color-background-alt: #F8F9FA;  /* fondo alternativo */
+    --color-surface: #FFFFFF;  /* superficie de tarjetas */
+    --color-surface-hover: #F5F7FA;  /* hover sobre tarjetas */
+
+    /* colores de texto */
+    --color-text-primary: #263238;  /* texto principal */
+    --color-text-secondary: #455A64;  /* texto secundario */
+    --color-text-muted: #90A4AE;  /* texto atenuado */
+    --color-text-on-primary: #FFFFFF;  /* texto sobre fondo primario */
+    --color-text-on-accent: #FFFFFF;  /* texto sobre acento */
+
+    /* breakpoints */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+
+    /* fuentes */
+    --font-fallback: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-sans: "Work Sans Variable", var(--font-fallback);
+    --font-heading-1: "Playfair Display Variable", var(--font-fallback);
+    --font-heading-2: "Raleway Variable", var(--font-fallback);
+    --font-decorative: "Cinzel Decorative", "Playfair Display Variable", var(--font-fallback);
+    --font-mono: "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+}
+
+```
+# src\content.config.ts
+```ts
+import { glob } from "astro/loaders";
+import { defineCollection, reference, z } from "astro:content";
+
+// Type-check frontmatter using a schema
+// portfolios
+const portfolios = defineCollection({
+	// type: "content",
+	loader: glob({
+		pattern: "**/[^_]*.{md,mdx}",
+		base: "./src/data/portfolios",
+	}),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			heroImage: image(),
+			clients: z.array(z.string()),
+			location: z.string(),
+			images: z.array(
+				z.array(image()).refine((arr) => [1, 2, 3].includes(arr.length), {
+					message: "Each sub-array must contain 1, 2, or 3 items",
+				}),
+			),
+			// Transform string to Date object
+			date: z.coerce.date(),
+			order: z.number(),
+			// will be excluded from build if draft is "true"
+			draft: z.boolean().optional(),
+		}),
+});
+
+// testimonials
+const testimonials = defineCollection({
+	// type: "content",
+	loader: glob({
+		pattern: "**/[^_]*.{md,mdx}",
+		base: "./src/data/testimonials",
+	}),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			testimonial: z.string(),
+			image: image(),
+			order: z.number(),
+			// will be excluded from build if draft is "true"
+			draft: z.boolean().optional(),
+		}),
+});
+
+// other pages
+const otherPages = defineCollection({
+	// type: "content",
+	loader: glob({
+		pattern: "**/[^_]*.{md,mdx}",
+		base: "./src/data/otherPages",
+	}),
+	schema: () =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			draft: z.boolean().optional(),
+		}),
+});
+
+export const collections = {
+	portfolios,
+	testimonials,
+	otherPages,
+};
+
+```
+# src\env.d.ts
+```ts
+/// <reference path="../.astro/types.d.ts" />
+/// <reference types="astro/client" />
+
+```
+# .prettierrc.mjs
+```mjs
+/** @type {import("prettier").Config} */
+export default {
+  printWidth: 100,
+  semi: true,
+  singleQuote: false,
+  tabWidth: 2,
+  trailingComma: "all",
+  useTabs: true,
+  plugins: ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+  overrides: [
+    {
+      files: [".*", "*.md", "*.toml", "*.yml"],
+      options: {
+        useTabs: false,
+      },
+    },
+    {
+      files: ["**/*.astro"],
+      options: {
+        parser: "astro",
+      },
+    },
+  ],
+};
+
+```
+# astro.config.mjs
+```mjs
+// astro.config.mjs
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import compress from "@playform/compress";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "astro/config";
+import AutoImport from "astro-auto-import";
+import icon from "astro-icon"; // https://www.astroicon.dev/guides/upgrade/v1/
+import vercel from "@astrojs/vercel";
+
+// https://astro.build/config
+export default defineConfig({
+	// CAMBIO 2: estático por defecto (CDN, óptimo para CWV).
+	// El adaptador Vercel se mantiene para habilitar rutas serverless
+	// puntuales (Dentalink) con `export const prerender = false`.
+	output: "static",
+	adapter: vercel({
+		// Descarga la optimización de imágenes al CDN de Vercel.
+		// Mejora LCP y reduce el tiempo de build. (Opcional, recomendado)
+		imageService: true,
+	}),
+
+	// CAMBIO 1: dominio real de producción.
+	// Base de canonical, sitemap y Open Graph.
+	site: "https://docjosetomasrojas.cl",
+
+	integrations: [
+		AutoImport({
+			imports: ["@components/Admonition/Admonition.astro"],
+		}),
+		mdx(),
+		icon({
+			include: {
+				tabler: [
+					"bulb",
+					"alert-triangle",
+					"flame",
+					"info-circle",
+					"arrow-narrow-left",
+					"arrow-narrow-right",
+					"menu-2",
+					"x",
+					"chevron-down",
+					"category",
+					"calendar-event",
+				],
+			},
+		}),
+
+		// CAMBIO 3: sitemap con metadatos y filtro de utilitarios.
+		sitemap({
+			changefreq: "weekly",
+			priority: 0.7,
+			lastmod: new Date(),
+			filter: (page) =>
+				!page.includes("/404") &&
+				!page.includes("/_") , // excluye utilitarios/borradores
+		}),
+
+		compress({
+			HTML: true,
+			JavaScript: true,
+			CSS: false,
+			Image: false, // astro:assets / Vercel se encargan
+			SVG: false, // astro-icon se encarga
+		}),
+	],
+	vite: {
+		plugins: [tailwindcss()],
+		build: {
+			assetsInlineLimit: 0,
+		},
+	},
+});
+```
+# eslint.config.mjs
+```mjs
+import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import astro from "eslint-plugin-astro";
+import prettier from "eslint-plugin-prettier";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+
+// parsers
+const tsParser = tseslint.parser;
+const astroParser = astro.parser;
+
+export default defineConfig([
+	{
+		languageOptions: {
+			globals: {
+				...globals.browser,
+				...globals.node,
+			},
+		},
+	},
+
+	js.configs.recommended,
+	tseslint.configs.recommended,
+
+	{
+		plugins: {
+			prettier: prettier,
+			"simple-import-sort": simpleImportSort,
+		},
+		rules: {
+			"prettier/prettier": "off",
+			"simple-import-sort/imports": "warn",
+			"simple-import-sort/exports": "warn",
+			"@typescript-eslint/no-explicit-any": "off",
+			"@typescript-eslint/no-unused-vars": "off",
+			"@typescript-eslint/ban-ts-comment": "off",
+		},
+	},
+
+	astro.configs.recommended,
+	astro.configs["jsx-a11y-recommended"],
+	{
+		files: ["**/*.astro"],
+		languageOptions: {
+			parser: astroParser,
+			parserOptions: {
+				parser: tsParser,
+				extraFileExtensions: [".astro"],
+				sourceType: "module",
+				ecmaVersion: "latest",
+			},
+		},
+		rules: {
+			"no-undef": "off",
+			"@typescript-eslint/no-explicit-any": "off",
+			"@typescript-eslint/no-unused-vars": "off",
+			"astro/jsx-a11y/anchor-is-valid": "off",
+			"@typescript-eslint/no-unused-expressions": "off",
+		},
+	},
+
+	{
+		ignores: [
+			"dist/**",
+			"**/*.d.ts",
+			".tours/",
+			"src/docs/scripts/**",
+			"scripts/",
+			"public/pagefind/",
+			".github/",
+			".netlify/",
+			".changeset/",
+		],
+	},
+]);
+```
+# package.json
+```json
+{
+	"name": "horizon",
+	"type": "module",
+	"version": "2.1.0",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"format": "eslint . --fix && prettier -w \"**/*\" --ignore-unknown --cache",
+		"lint": "eslint ."
+	},
+	"dependencies": {
+		"@astrojs/mdx": "^4.0.0",
+		"@astrojs/rss": "^4.0.0",
+		"@astrojs/sitemap": "^3.0.0",
+		"@astrojs/vercel": "^8.0.0",
+		"@fontsource-variable/playfair-display": "5.2.5",
+		"@fontsource-variable/raleway": "5.2.5",
+		"@fontsource-variable/work-sans": "5.2.5",
+		"@fontsource/cinzel-decorative": "5.2.5",
+		"@iconify-json/mdi": "^1.2.3",
+		"@iconify-json/tabler": "1.2.17",
+		"@tailwindcss/forms": "0.5.10",
+		"@tailwindcss/vite": "4.1.5",
+		"astro": "5.7.12",
+		"astro-auto-import": "0.4.4",
+		"astro-icon": "^1.0.0",
+		"astro-seo": "0.8.4",
+		"tailwindcss": "4.1.5"
+	},
+	"devDependencies": {
+		"@eslint/js": "9.26.0",
+		"@playform/compress": "0.1.9",
+		"eslint": "9.26.0",
+		"eslint-plugin-astro": "1.3.1",
+		"eslint-plugin-jsx-a11y": "6.10.2",
+		"eslint-plugin-prettier": "5.4.0",
+		"eslint-plugin-simple-import-sort": "12.1.1",
+		"globals": "16.1.0",
+		"prettier-plugin-astro": "0.14.1",
+		"prettier-plugin-tailwindcss": "0.6.11",
+		"typescript-eslint": "8.32.0"
+	},
+	"overrides": {
+		"sharp": "^0.33.0"
+	}
+}
+
+```
+# README.md
+```md
+# Welcome to Horizon!
+
+This is a free photography theme for Astro created by [Cosmic Themes](https://cosmicthemes.com/).
+
+[website demo](https://horizon.cosmicthemes.com/)
+
+## Quickstart
+
+1. Fork this project to your own repository, and clone it to your local machine
+2. Install all necessary packages with `npm install`
+3. Run `npm run dev` to start the dev server
+4. Now you can setup the site to your liking!
+   - [Style customization](https://cosmicthemes.com/docs/styles/)
+   - [Content editing](https://cosmicthemes.com/docs/content/)
+   - [Forms](https://cosmicthemes.com/docs/contact-form/)
+5. Update the site URL in `astro.config.mjs` and `/public/robots.txt` to match your domain
+6. After you're happy, update your changes to your repo and [deploy to Netlify, Vercel, Cloudflare](https://cosmicthemes.com/deployment/), or other provider of your choice
+
+## Code Intro
+
+The source files have the following setup. Note that not all files are listed here.
+
+```
+.
+├── .tours/
+│   └── code-intro.tour
+├── public/
+│   ├── favicons/
+│   │   └── favicon.ico
+│   ├── images/
+│   └── robots.txt
+├── src/
+│   ├── assets/
+│   │   └── images/
+│   │       └── site-logo.png
+│   ├── components/
+│   │   └── Hero/
+│   │       └── Hero.astro
+│   ├── config/
+│   │   └── navData.json.ts
+│   ├── data/
+│   │   ├── portfolios/
+│   │   ├── testimonials/
+│   │   └──otherPages/
+│   │    config.ts
+│   ├── js/
+│   │   └── textUtils.ts
+│   ├── layouts/
+│   │   └── BaseLayout.astro
+│   ├── pages/
+│   │   ├── index.astro
+│   │   ├── portfolio/
+│   │   │   ├── [...slug].astro
+│   │   │   └── index.astro
+│   │   ├── [page].astro
+│   │   ├── 404.astro
+│   │   └── index.astro
+│   ├── styles/
+│   │   └── global.css
+│   └── content.config.ts
+├── .gitignore
+├── .prettierrc.mjs
+├── astro.config.mjs
+├── netlify.toml
+├── package.json
+├── package-lock.json
+├── README.md
+└── tsconfig.json
+```
+
+For robots like Google to see the correct sitemap, you will want to edit the `public/robots.txt` file to use your website domain.
+
+## Other Resources
+
+- See my blog post on [recommended Astro web development setup](https://cosmicthemes.com/blog/astro-web-development-setup/).
+- You can learn more information from the [theme docs](https://cosmicthemes.com/docs/) page on the [Cosmic Themes Website](https://cosmicthemes.com/).
+
+## License
+
+This project is open source and available under the [GPL-3.0 License](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+However, If you have purchased [All Access](https://cosmicthemes.com/all-access/) from Cosmic Themes, there is a no attribution required license you can view at [License details](https://cosmicthemes.com/license/).
+
+## General Astro Info
+
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+
+Any static assets, like images, can be placed in the `public/` directory. I also frequently use `src/assets` for images when using Astro asssets for image optimization.
+
+### Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:3000`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+### Want to learn more?
+
+Feel free to check out the [Astro documentation](https://docs.astro.build).
+
+```
+# tsconfig.json
+```json
+{
+	"extends": "astro/tsconfigs/base",
+	"include": [".astro/types.d.ts", "**/*"],
+	"exclude": ["dist"],
+	"compilerOptions": {
+		"strictNullChecks": true,
+		"allowJs": true,
+		"forceConsistentCasingInFileNames": true,
+		"jsx": "preserve",
+		"baseUrl": ".",
+		"paths": {
+			"@config/*": ["src/config/*"],
+			"@icons/*": ["src/icons/*"],
+			"@js/*": ["src/js/*"],
+			"@layouts/*": ["src/layouts/*"],
+			"@components/*": ["src/components/*"],
+			"@assets/*": ["src/assets/*"],
+			"@images/*": ["src/assets/images/*"],
+			"@videos/*": ["src/assets/videos/*"],
+			"@/*": ["src/*"]
+		}
+	}
+}
+
+```
+# __azurite_db_blob_extent__.json
+```json
+{"filename":"c:\\Users\\PC_EMETEL\\Proyectos\\DocJoseTomasRojas\\docjosetomasrojas\\__azurite_db_blob_extent__.json","collections":[{"name":"$EXTENTS_COLLECTION$","data":[],"idIndex":null,"binaryIndices":{"id":{"name":"id","dirty":false,"values":[]}},"constraints":null,"uniqueNames":[],"transforms":{},"objType":"$EXTENTS_COLLECTION$","dirty":false,"cachedIndex":null,"cachedBinaryIndex":null,"cachedData":null,"adaptiveBinaryIndices":true,"transactional":false,"cloneObjects":false,"cloneMethod":"parse-stringify","asyncListeners":false,"disableMeta":false,"disableChangesApi":true,"disableDeltaChangesApi":true,"autoupdate":false,"serializableIndices":true,"disableFreeze":true,"ttl":null,"maxId":0,"DynamicViews":[],"events":{"insert":[],"update":[],"pre-insert":[],"pre-update":[],"close":[],"flushbuffer":[],"error":[],"delete":[null],"warning":[null]},"changes":[],"dirtyIds":[]}],"databaseVersion":1.5,"engineVersion":1.5,"autosave":true,"autosaveInterval":5000,"autosaveHandle":null,"throttledSaves":true,"options":{"persistenceMethod":"fs","autosave":true,"autosaveInterval":5000,"serializationMethod":"normal","destructureDelimiter":"$<\n"},"persistenceMethod":"fs","persistenceAdapter":null,"verbose":false,"events":{"init":[null],"loaded":[],"flushChanges":[],"close":[],"changes":[],"warning":[]},"ENV":"NODEJS"}
+```
+# __azurite_db_blob__.json
+```json
+{"filename":"c:\\Users\\PC_EMETEL\\Proyectos\\DocJoseTomasRojas\\docjosetomasrojas\\__azurite_db_blob__.json","collections":[{"name":"$SERVICES_COLLECTION$","data":[],"idIndex":null,"binaryIndices":{},"constraints":null,"uniqueNames":["accountName"],"transforms":{},"objType":"$SERVICES_COLLECTION$","dirty":false,"cachedIndex":null,"cachedBinaryIndex":null,"cachedData":null,"adaptiveBinaryIndices":true,"transactional":false,"cloneObjects":false,"cloneMethod":"parse-stringify","asyncListeners":false,"disableMeta":false,"disableChangesApi":true,"disableDeltaChangesApi":true,"autoupdate":false,"serializableIndices":true,"disableFreeze":true,"ttl":null,"maxId":0,"DynamicViews":[],"events":{"insert":[],"update":[],"pre-insert":[],"pre-update":[],"close":[],"flushbuffer":[],"error":[],"delete":[null],"warning":[null]},"changes":[],"dirtyIds":[]},{"name":"$CONTAINERS_COLLECTION$","data":[],"idIndex":null,"binaryIndices":{"accountName":{"name":"accountName","dirty":false,"values":[]},"name":{"name":"name","dirty":false,"values":[]}},"constraints":null,"uniqueNames":[],"transforms":{},"objType":"$CONTAINERS_COLLECTION$","dirty":false,"cachedIndex":null,"cachedBinaryIndex":null,"cachedData":null,"adaptiveBinaryIndices":true,"transactional":false,"cloneObjects":false,"cloneMethod":"parse-stringify","asyncListeners":false,"disableMeta":false,"disableChangesApi":true,"disableDeltaChangesApi":true,"autoupdate":false,"serializableIndices":true,"disableFreeze":true,"ttl":null,"maxId":0,"DynamicViews":[],"events":{"insert":[],"update":[],"pre-insert":[],"pre-update":[],"close":[],"flushbuffer":[],"error":[],"delete":[null],"warning":[null]},"changes":[],"dirtyIds":[]},{"name":"$BLOBS_COLLECTION$","data":[],"idIndex":null,"binaryIndices":{"accountName":{"name":"accountName","dirty":false,"values":[]},"containerName":{"name":"containerName","dirty":false,"values":[]},"name":{"name":"name","dirty":false,"values":[]},"snapshot":{"name":"snapshot","dirty":false,"values":[]}},"constraints":null,"uniqueNames":[],"transforms":{},"objType":"$BLOBS_COLLECTION$","dirty":false,"cachedIndex":null,"cachedBinaryIndex":null,"cachedData":null,"adaptiveBinaryIndices":true,"transactional":false,"cloneObjects":false,"cloneMethod":"parse-stringify","asyncListeners":false,"disableMeta":false,"disableChangesApi":true,"disableDeltaChangesApi":true,"autoupdate":false,"serializableIndices":true,"disableFreeze":true,"ttl":null,"maxId":0,"DynamicViews":[],"events":{"insert":[],"update":[],"pre-insert":[],"pre-update":[],"close":[],"flushbuffer":[],"error":[],"delete":[null],"warning":[null]},"changes":[],"dirtyIds":[]},{"name":"$BLOCKS_COLLECTION$","data":[],"idIndex":null,"binaryIndices":{"accountName":{"name":"accountName","dirty":false,"values":[]},"containerName":{"name":"containerName","dirty":false,"values":[]},"blobName":{"name":"blobName","dirty":false,"values":[]},"name":{"name":"name","dirty":false,"values":[]}},"constraints":null,"uniqueNames":[],"transforms":{},"objType":"$BLOCKS_COLLECTION$","dirty":false,"cachedIndex":null,"cachedBinaryIndex":null,"cachedData":null,"adaptiveBinaryIndices":true,"transactional":false,"cloneObjects":false,"cloneMethod":"parse-stringify","asyncListeners":false,"disableMeta":false,"disableChangesApi":true,"disableDeltaChangesApi":true,"autoupdate":false,"serializableIndices":true,"disableFreeze":true,"ttl":null,"maxId":0,"DynamicViews":[],"events":{"insert":[],"update":[],"pre-insert":[],"pre-update":[],"close":[],"flushbuffer":[],"error":[],"delete":[null],"warning":[null]},"changes":[],"dirtyIds":[]}],"databaseVersion":1.5,"engineVersion":1.5,"autosave":true,"autosaveInterval":5000,"autosaveHandle":null,"throttledSaves":true,"options":{"persistenceMethod":"fs","autosave":true,"autosaveInterval":5000,"serializationMethod":"normal","destructureDelimiter":"$<\n"},"persistenceMethod":"fs","persistenceAdapter":null,"verbose":false,"events":{"init":[null],"loaded":[],"flushChanges":[],"close":[],"changes":[],"warning":[]},"ENV":"NODEJS"}
+```

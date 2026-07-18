@@ -1,1 +1,8 @@
-Sitemap: https://horizon.cosmicthemes.com/sitemap-index.xml
+# public/robots.txt
+User-agent: *
+Allow: /
+
+# Bloquea utilitarios que no aportan a SEO
+Disallow: /404
+
+Sitemap: https://docjosetomasrojas.cl/sitemap-index.xml

@@ -1,3 +1,4 @@
+// astro.config.mjs
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import compress from "@playform/compress";
@@ -9,21 +10,26 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-	output: "server",
-	adapter: vercel(),
-	site: "https://horizon.cosmicthemes.com",
+	// CAMBIO 2: estático por defecto (CDN, óptimo para CWV).
+	// El adaptador Vercel se mantiene para habilitar rutas serverless
+	// puntuales (Dentalink) con `export const prerender = false`.
+	output: "static",
+	adapter: vercel({
+		// Descarga la optimización de imágenes al CDN de Vercel.
+		// Mejora LCP y reduce el tiempo de build. (Opcional, recomendado)
+		imageService: true,
+	}),
+
+	// CAMBIO 1: dominio real de producción.
+	// Base de canonical, sitemap y Open Graph.
+	site: "https://docjosetomasrojas.cl",
+
 	integrations: [
-		// example auto import component into blog post mdx files
 		AutoImport({
-			imports: [
-				// https://github.com/delucis/astro-auto-import
-				"@components/Admonition/Admonition.astro",
-			],
+			imports: ["@components/Admonition/Admonition.astro"],
 		}),
 		mdx(),
 		icon({
-			// I include only the icons I use. This is because if you use SSR, ALL icons will be included (no bueno)
-			// https://www.astroicon.dev/reference/configuration#include
 			include: {
 				tabler: [
 					"bulb",
@@ -40,18 +46,27 @@ export default defineConfig({
 				],
 			},
 		}),
-		sitemap(),
+
+		// CAMBIO 3: sitemap con metadatos y filtro de utilitarios.
+		sitemap({
+			changefreq: "weekly",
+			priority: 0.7,
+			lastmod: new Date(),
+			filter: (page) =>
+				!page.includes("/404") &&
+				!page.includes("/_") , // excluye utilitarios/borradores
+		}),
+
 		compress({
 			HTML: true,
 			JavaScript: true,
 			CSS: false,
-			Image: false, // astro:assets handles this. Enabling this can dramatically increase build times
-			SVG: false, // astro-icon handles this
+			Image: false, // astro:assets / Vercel se encargan
+			SVG: false, // astro-icon se encarga
 		}),
 	],
 	vite: {
 		plugins: [tailwindcss()],
-		// stop inlining short scripts to fix issues with ClientRouter: https://github.com/withastro/astro/issues/12804
 		build: {
 			assetsInlineLimit: 0,
 		},

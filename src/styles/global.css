@@ -29,6 +29,7 @@
 	html {
 		@apply bg-base-100 text-base-900 leading-[1.6rem] scheme-light;
 		scroll-behavior: smooth;
+		overflow-x: hidden; /* ← AÑADIR: evita scroll horizontal por cualquier overflow */
 		-moz-text-size-adjust: none;
 		-webkit-text-size-adjust: none;
 		text-size-adjust: none;

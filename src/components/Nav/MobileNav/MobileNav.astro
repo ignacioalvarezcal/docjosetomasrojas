@@ -3,7 +3,10 @@ import Button from "@components/Button/Button.astro";
 import MobileNavDropdown from "@components/Nav/MobileNav/MobileNavDropdown.astro";
 import NavLink from "@components/Nav/NavLink.astro";
 import navData from "@config/navData.json";
+import siteData from "@config/siteData.json";
 import { Icon } from "astro-icon/components";
+
+const { dentalinkUrl } = siteData.booking;
 ---
 
 <div id="mobile-nav__container">
@@ -23,7 +26,7 @@ import { Icon } from "astro-icon/components";
 	</button>
 	<div
 		id="mobile-nav__content"
-		class="whitepace-nowrap bg-base-50 text-base-900 fixed top-0 -right-72 z-20 hidden h-screen w-72 items-center overflow-x-hidden text-lg font-normal transition-all duration-300"
+		class="whitespace-nowrap bg-base-50 text-base-900 fixed top-0 -right-72 z-20 hidden h-dvh w-72 items-center overflow-x-hidden text-lg font-normal transition-all duration-300"
 	>
 		<div class="w-full px-2">
 			<div class="mx-1 my-2 flex w-full justify-end pr-4 pl-6">
@@ -38,13 +41,10 @@ import { Icon } from "astro-icon/components";
 			<nav>
 				<ul class="mx-1 mt-2 text-xl">
 					{
-						// if dropdown exists, setup the dropdown, otherwise it is just a link
 						navData.map((navItem) =>
 							"dropdown" in navItem ? (
-								// non-mobile dropdown menu
 								<MobileNavDropdown navItem={navItem} />
 							) : (
-								// normal nav link
 								<NavLink {navItem} />
 							),
 						)
@@ -53,11 +53,16 @@ import { Icon } from "astro-icon/components";
 			</nav>
 			<div class="mx-1 mt-2 w-full px-4">
 				<div class="mt-12 flex justify-center">
-					<a href="#about-me" class="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-sky-500 px-6 py-2.5 text-base font-semibold text-white shadow-[0_8px_18px_-12px_rgba(14,165,233,0.35)] transition-all duration-300 hover:from-cyan-400 hover:via-sky-500 hover:to-sky-600 hover:-translate-y-[1px] hover:shadow-[0_14px_28px_-14px_rgba(14,165,233,0.35)] active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-sky-300/50">
-					  <span>Agenda una cita</span>
-					  <span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+					<a
+						href={dentalinkUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="group relative inline-flex items-center gap-2 rounded-full bg-[#4F7A7C] px-6 py-2.5 text-base font-semibold text-white shadow-[0_8px_18px_-12px_rgba(79,122,124,0.5)] transition-all duration-300 hover:bg-[#3f6668] hover:-translate-y-[1px] hover:shadow-[0_14px_28px_-14px_rgba(79,122,124,0.5)] active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-[#4F7A7C]/40"
+					>
+						<span>Agendar hora</span>
+						<span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
 					</a>
-				  </div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -65,7 +70,7 @@ import { Icon } from "astro-icon/components";
 	<!-- backdrop button to also close menu -->
 	<button
 		id="mobile-nav__backdrop"
-		class="mobile-nav__backdrop--fade-out fixed top-0 left-0 z-10 h-screen bg-black"
+		class="mobile-nav__backdrop--fade-out fixed top-0 left-0 z-10 h-dvh bg-black"
 		aria-label="close navigation menu"></button>
 </div>
 
@@ -79,43 +84,34 @@ import { Icon } from "astro-icon/components";
 	function toggleMobileNav(event: Event) {
 		if (mobileNavBurger && mobileNavContent && mobileNavContainer && mobileNavBackdrop)
 			if (!mobileNavContainer.classList.contains("open")) {
-				// mobile nav is currently closed, so open it
 				mobileNavContainer.classList.add("open");
 				mobileNavBurger.setAttribute("aria-expanded", "true");
 
-				// mobile nav content drawer
 				mobileNavContent.classList.remove("hidden");
 				mobileNavContent.classList.remove("mobile-nav--slide-out");
 				mobileNavContent.classList.add("mobile-nav--slide-in");
 
-				// backdrop button
 				mobileNavBackdrop.classList.remove("hidden");
 				mobileNavBackdrop.classList.remove("mobile-nav__backdrop--fade-out");
 				mobileNavBackdrop.classList.add("mobile-nav__backdrop--fade-in");
 			} else {
-				// dropdown is currently open, so close it
 				mobileNavContainer.classList.remove("open");
 				mobileNavBurger.setAttribute("aria-expanded", "false");
 
-				// mobile nav content drawer
 				mobileNavContent.classList.remove("mobile-nav--slide-in");
 				mobileNavContent.classList.add("mobile-nav--slide-out");
-				// make hidden after the slide out effect is done
 				setTimeout(() => {
 					mobileNavContent?.classList.add("hidden");
 				}, 300);
 
-				// backdrop button
 				mobileNavBackdrop.classList.remove("mobile-nav__backdrop--fade-in");
 				mobileNavBackdrop.classList.add("mobile-nav__backdrop--fade-out");
-				// set a timeout
 			}
 		event.preventDefault();
 		return false;
 	}
 
 	function initMobileNav() {
-		// every time a view transition or page load occurs, we need to init these variables
 		mobileNavContainer = document.getElementById("mobile-nav__container");
 		mobileNavBurger = document.getElementById("mobile-nav__burger");
 		mobileNavContent = document.getElementById("mobile-nav__content");
@@ -129,10 +125,8 @@ import { Icon } from "astro-icon/components";
 		}
 	}
 
-	// runs on initial page load
 	initMobileNav();
 
-	// runs on view transitions navigation
 	document.addEventListener("astro:after-swap", initMobileNav);
 </script>
 
@@ -158,7 +152,6 @@ import { Icon } from "astro-icon/components";
 		}
 	}
 
-	/* mobile nav content drawer */
 	.mobile-nav--slide-in {
 		animation: mobileNavSlideInAnimation ease-in-out 0.3s forwards;
 	}

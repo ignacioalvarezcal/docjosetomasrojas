@@ -5,9 +5,9 @@ import casoTres from "@images/casos/caso1.png";
 ---
 
 <style>
+	/* FIX responsive: faltaba padding horizontal → contenido pegado a los bordes */
 	.section {
-		padding-top: 100px;
-		padding-bottom: 100px;
+		padding: clamp(3.5rem, 8vw, 100px) clamp(1.25rem, 8vw, 6rem);
 	}
 	.container {
 		max-width: 1200px;
@@ -15,7 +15,7 @@ import casoTres from "@images/casos/caso1.png";
 	}
 	h2.section-title {
 		font-family: "Playfair Display", serif;
-		font-size: 2.2rem;
+		font-size: clamp(1.7rem, 5vw, 2.2rem); /* fluido */
 		color: var(--heading);
 		margin-bottom: 1.5rem;
 	}
@@ -50,20 +50,6 @@ import casoTres from "@images/casos/caso1.png";
 	}
 
 	@media (max-width: 900px) {
-		nav ul {
-			display: none;
-		}
-		.hero {
-			background-position: center top;
-			padding: 120px 7vw;
-			align-items: flex-end;
-		}
-		.hero-content h1 {
-			font-size: 2.6rem;
-		}
-		.hero-content h2 {
-			font-size: 1.15rem;
-		}
 		.grid-2,
 		.grid-3,
 		.grid-4 {

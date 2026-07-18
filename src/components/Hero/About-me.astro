@@ -10,6 +10,12 @@ import heroImageOne from "@images/hero-slide/cortada.jpg";
 		--bg-light: #f6f7f7;
 		--accent-soft: #9fb6b8;
 	}
+
+	/* FIX responsive: la sección no tenía padding → texto pegado a los bordes en móvil */
+	.section {
+		padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 8vw, 6rem);
+	}
+
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
@@ -22,7 +28,7 @@ import heroImageOne from "@images/hero-slide/cortada.jpg";
 	}
 	h2.section-title {
 		font-family: "Playfair Display", serif;
-		font-size: 2.2rem;
+		font-size: clamp(1.7rem, 5vw, 2.2rem); /* fluido */
 		color: var(--bg-light);
 		margin-bottom: 1.5rem;
 	}
@@ -45,24 +51,11 @@ import heroImageOne from "@images/hero-slide/cortada.jpg";
 	}
 
 	@media (max-width: 900px) {
-		nav ul {
-			display: none;
-		}
-		.hero {
-			background-position: center top;
-			padding: 120px 7vw;
-			align-items: flex-end;
-		}
-		.hero-content h1 {
-			font-size: 2.6rem;
-		}
-		.hero-content h2 {
-			font-size: 1.15rem;
-		}
 		.grid-2,
 		.grid-3,
 		.grid-4 {
 			grid-template-columns: 1fr;
+			gap: 2rem; /* menos espacio vertical al apilarse */
 		}
 	}
 </style>
@@ -81,14 +74,13 @@ import heroImageOne from "@images/hero-slide/cortada.jpg";
 				plazo, integrando ciencia, experiencia y criterio profesional.
 			</p>
 			<div style="margin-top:2rem;">
-				<a
-					href="/conoceme-mas"
-					style="color:var(--bg-light); text-decoration:none; font-weight:500;">Ver más →</a
-				>
+				
+					href="/sobre-mi"
+					style="color:var(--bg-light); text-decoration:none; font-weight:500;"<a>Ver más →</a>
 			</div>
 		</div>
 		<div class="foto-container">
-			<img src={heroImageOne.src} alt="Foto del Dr. José Tomás Rojas" />
+			<img src={heroImageOne.src} alt="Foto del Dr. José Tomás Rojas Vera" />
 		</div>
 	</div>
 </section>

@@ -1,9 +1,12 @@
 ---
 /**
- * * Hero simplificado con una sola imagen de fondo y efecto parallax
+ * * Hero responsive: fondo en desktop, apilado (texto + foto) en móvil
  */
 import heroImageOne from "@images/hero-slide/JoSlide1.png";
 import heroImageMobileOne from "@images/front-real.png";
+import siteData from "@config/siteData.json";
+
+const { dentalinkUrl } = siteData.booking;
 ---
 
 <style>
@@ -21,68 +24,18 @@ import heroImageMobileOne from "@images/front-real.png";
 		padding: 0;
 	}
 
-	body {
-		font-family: "Montserrat", sans-serif;
-		color: var(--text);
-	}
-
-	/* ===== HEADER / BARRA SUPERIOR ===== */
-	header {
-		position: fixed;
-		top: 0;
-		width: 100%;
-		z-index: 1000;
-		background: rgba(255, 255, 255, 0.96);
-		border-bottom: 1px solid #e6e6e6;
-	}
-
-	.nav-container {
-		max-width: 1300px;
-		margin: 0 auto;
-		padding: 1.1rem 6vw;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.logo {
-		font-family: "Playfair Display", serif;
-		font-size: 1.25rem;
-		font-weight: 600;
-		color: var(--heading);
-		white-space: nowrap; /* todo en una sola línea */
-	}
-
-	nav ul {
-		list-style: none;
-		display: flex;
-		gap: 2.2rem;
-	}
-
-	nav a {
-		text-decoration: none;
-		font-size: 0.85rem;
-		letter-spacing: 0.08em;
-		color: var(--text);
-		font-weight: 400;
-	}
-
-	nav a:hover {
-		color: var(--primary);
-	}
-
 	/* ===== HERO ===== */
 	.hero {
-		height: 100vh;
+		min-height: 100vh; /* fallback */
+		min-height: 100svh; /* móvil: altura real visible */
 		width: 100%;
 		background: var(--bg-light);
 		background-size: cover;
 		background-position: right center;
-		background-attachment: fixed;
 		display: flex;
 		align-items: center;
 		padding-left: 8vw;
-		padding-top: 90px; /* espacio para la barra superior */
+		padding-top: 90px;
 	}
 
 	.hero-content {
@@ -91,14 +44,14 @@ import heroImageMobileOne from "@images/front-real.png";
 
 	.hero-content h1 {
 		font-family: "Playfair Display", serif;
-		font-size: 3.6rem;
+		font-size: clamp(2.1rem, 7vw, 3.6rem);
 		font-weight: 600;
 		color: var(--heading);
 		margin-bottom: 1.8rem;
 	}
 
 	.hero-content h2 {
-		font-size: 1.3rem;
+		font-size: clamp(1.05rem, 3.2vw, 1.3rem);
 		font-weight: 400;
 		letter-spacing: 0.04em;
 		color: var(--primary);
@@ -112,61 +65,42 @@ import heroImageMobileOne from "@images/front-real.png";
 		margin-bottom: 2.2rem;
 	}
 
-	.btn {
-		display: inline-block;
-		padding: 14px 38px;
-		background: var(--primary);
-		color: var(--bg-light);
-		text-decoration: none;
-		font-size: 0.9rem;
-		letter-spacing: 0.08em;
-		border-radius: 3px;
-		transition: background 0.2s ease;
-	}
-
-	.btn:hover {
-		background: var(--accent-soft);
-		color: #ffffff;
-	}
-
-	section {
-		padding: 6rem 8vw;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-
-	h2.section-title {
-		font-family: "Playfair Display", serif;
-		font-size: 2.2rem;
-		margin-bottom: 1.5rem;
-	}
-
-	.grid-2 {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 4rem;
+	/* ===== CTA PRINCIPAL ===== */
+	.hero-cta {
+		display: inline-flex;
 		align-items: center;
-	}
-	.grid-3 {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 2rem;
-	}
-	.grid-4 {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 2rem;
+		gap: 0.6rem;
+		padding: 14px 34px;
+		background: var(--primary);
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.95rem;
+		font-weight: 500;
+		letter-spacing: 0.04em;
+		border-radius: 999px;
+		box-shadow: 0 6px 18px rgba(79, 122, 124, 0.3);
+		transition:
+			transform 0.25s ease,
+			background 0.25s ease,
+			box-shadow 0.25s ease;
 	}
 
-	.card {
-		background: #fff;
-		border: 1px solid #e6e6e6;
+	.hero-cta:hover,
+	.hero-cta:focus-visible {
+		background: #3f6668;
+		transform: translateY(-3px);
+		box-shadow: 0 10px 24px rgba(63, 102, 104, 0.4);
+		outline: none;
 	}
-	.card-body {
-		padding: 1.5rem;
+
+	.hero-cta svg {
+		width: 18px;
+		height: 18px;
+	}
+
+	/* Foto del doctor: SOLO visible en móvil (oculta en desktop) */
+	.hero-mobile-photo {
+		display: none;
 	}
 
 	/* ===== ANIMACIONES DE ENTRADA ===== */
@@ -195,70 +129,109 @@ import heroImageMobileOne from "@images/front-real.png";
 	.hero-content.visible h1,
 	.hero-content.visible h2,
 	.hero-content.visible .divider,
-	.hero-content.visible .btn {
+	.hero-content.visible .hero-cta {
 		animation: fadeInUp 0.8s ease-out forwards;
 	}
 
 	.hero-content.visible h1 {
 		animation-delay: 0.1s;
 	}
-
 	.hero-content.visible h2 {
 		animation-delay: 0.2s;
 	}
-
 	.hero-content.visible .divider {
 		animation-delay: 0.3s;
 	}
-
-	.hero-content.visible .btn {
+	.hero-content.visible .hero-cta {
 		animation-delay: 0.4s;
+		opacity: 0;
 	}
 
 	.hero-content.hidden h1,
 	.hero-content.hidden h2,
 	.hero-content.hidden .divider,
-	.hero-content.hidden .btn {
+	.hero-content.hidden .hero-cta {
 		animation: fadeOutUp 0.5s ease-in forwards;
 	}
 
+	/* ===== MÓVIL / TABLET: apilar texto + foto completa ===== */
 	@media (max-width: 900px) {
-		nav ul {
-			display: none;
-		}
 		.hero {
-			background-position: center top;
-			padding: 120px 7vw;
-			align-items: flex-end;
+			background-image: none !important; /* quitamos el fondo recortado */
+			min-height: auto;
+			flex-direction: column;
+			align-items: stretch;
+			justify-content: flex-start;
+			padding: 110px 7vw 0; /* deja espacio bajo el nav fijo */
+			gap: 1.5rem;
 		}
+
+		.hero-content {
+			max-width: none;
+		}
+
 		.hero-content h1 {
-			font-size: 2.6rem;
+			margin-bottom: 1rem;
 		}
-		.hero-content h2 {
-			font-size: 1.15rem;
+
+		.divider {
+			margin-bottom: 1.6rem;
 		}
-		.grid-2,
-		.grid-3,
-		.grid-4 {
-			grid-template-columns: 1fr;
+
+		.hero-cta {
+			width: 100%;
+			justify-content: center;
+		}
+
+		/* La foto del doctor, completa y centrada */
+		.hero-mobile-photo {
+			display: block;
+			width: 100%;
+			max-width: 460px;
+			height: auto;
+			margin: 0 auto;
+			object-fit: contain;
+			object-position: bottom center;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-content.visible .hero-cta {
+			opacity: 1;
+			animation: none;
 		}
 	}
 </style>
 
-<section
-	class="hero"
-	style={`
-    background-image: url(${heroImageOne.src});
-    @media (min-width: 640px) {
-      background-image: url(${heroImageOne.src});
-    }
-  `}
->
+<section class="hero" style={`background-image: url(${heroImageOne.src});`}>
 	<div class="hero-content" id="heroContent">
 		<h1>Dr. José Tomás Rojas V.</h1>
 		<h2>Implantología Buco Maxilofacial</h2>
 		<div class="divider"></div>
+		<a
+			href={dentalinkUrl}
+			class="hero-cta"
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Agendar hora online"
+		>
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+				></path>
+			</svg>
+			Agendar hora
+		</a>
 	</div>
+
+	<img
+		class="hero-mobile-photo"
+		src={heroImageMobileOne.src}
+		alt="Dr. José Tomás Rojas Vera, implantólogo buco maxilofacial en Providencia"
+		loading="eager"
+	/>
 </section>
 
 <script>
@@ -268,86 +241,21 @@ import heroImageMobileOne from "@images/front-real.png";
 
 		if (!heroContent || !heroSection) return;
 
-		// Crear Intersection Observer
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						// El hero está visible en el viewport
 						heroContent.classList.remove("hidden");
 						heroContent.classList.add("visible");
 					} else {
-						// El hero salió del viewport
 						heroContent.classList.remove("visible");
 						heroContent.classList.add("hidden");
 					}
 				});
 			},
-			{
-				threshold: 0.3, // Se activa cuando 30% del hero es visible
-			},
+			{ threshold: 0.3 },
 		);
 
-		// Observar el hero section
 		observer.observe(heroSection);
 	});
 </script>
-
-<!--
-<!DOCTYPE html >
-
-<section
-  id="hero"
-  class="relative z-10 flex min-h-[100svh] w-full items-center bg-cover bg-center bg-fixed"
-  style={`
-    background-image: url(${heroImageMobileOne.src});
-    @media (min-width: 640px) {
-      background-image: url(${heroImageOne.src});
-    }
-  `}
->
-  <div class="absolute inset-0 bg-black/40"></div>
-
-  <div class="site-container relative w-full text-center"> {/* Quitado md:text-left para mantener centrado en todos los tamaños */}
-    <div class="text-base-50 flex-col mx-auto"> {/* Cambiado mr-auto por mx-auto para centrar */}
-      <h3 class="font-open-sans text-2xl font-semibold tracking-tight drop-shadow-[0_3px_3px_rgba(0,0,0,0.6)] sm:text-4xl md:text-6xl md:leading-tight md:whitespace-nowrap will-reveal">
-        Implantología Buco Maxilofacial
-      </h3>
-    </div>
-  </div>
-</section>
-
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Animaciones de revelado al cargar
-    const revealables = document.querySelectorAll('#hero .will-reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-
-    revealables.forEach((el) => {
-      el.classList.add('reveal');
-      io.observe(el);
-    });
-  });
-</script>
-
-<style>
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px) scale(0.995);
-    transition: opacity 600ms ease, transform 700ms ease;
-    will-change: opacity, transform;
-  }
-  .in-view {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-</style>
-
--->
