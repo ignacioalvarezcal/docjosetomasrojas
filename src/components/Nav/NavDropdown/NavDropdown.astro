@@ -8,7 +8,7 @@ interface Props {
 	class?: string;
 }
 
-const { navItem, class: className } = Astro.props as Props;
+const { navItem, class: className = "" } = Astro.props as Props;
 ---
 
 <!-- non-mobile dropdown menu -->

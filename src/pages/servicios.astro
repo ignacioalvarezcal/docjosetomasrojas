@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import serviceImplImage from "@assets/images/hero-slide/service_impl.png";
 ---
 
 <BaseLayout
@@ -7,16 +9,19 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 	description="Conoce en detalle todos los servicios disponibles en implantología, rehabilitación oral y tratamientos odontológicos integrales."
 	navStartStyle="scrolled"
 >
-	<div class="bg-[#F6F7F7] pt-28 pb-20 lg:pt-32">
+	<div class="bg-white pt-28 pb-16 lg:pt-32">
 		<!-- HERO -->
-		<section class="bg-white pt-12 pb-16">
-			<div class="mx-auto max-w-6xl px-6 lg:px-8">
+		<section class="bg-white pt-20 pb-20">
+			<div class="mx-auto max-w-5xl px-6 lg:px-8">
+				<p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#4F7A7C]">
+					Dr. José Tomás Rojas V.
+				</p>
 				<h1
-					class="font-heading-1 mb-6 text-4xl font-bold text-[#2F3E46] md:text-5xl lg:text-[2.8rem]"
+					class="font-heading-1 mb-4 text-3xl font-bold text-[#2F3E46] md:text-[2.1rem]"
 				>
 					Servicios
 				</h1>
-				<p class="max-w-[780px] text-lg leading-relaxed font-light text-[#4A4A4A]">
+				<p class="max-w-[640px] text-[0.95rem] leading-relaxed font-light text-[#6b7b82]">
 					Mi práctica clínica se orienta a la implantología buco maxilofacial como parte de un
 					enfoque de odontología integral. Cada tratamiento se indica tras una evaluación clínica
 					completa, integrando diagnóstico, planificación y ejecución responsable.
@@ -25,15 +30,15 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 		</section>
 
 		<!-- IMPLANTOLOGÍA (EJE) -->
-		<section class="border-y border-[#e6e6e6] bg-white py-16 lg:py-24">
+		<section class="border-y border-[#e6e6e6] bg-white py-10 lg:py-14">
 			<div
-				class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 lg:px-8"
+				class="mx-auto grid max-w-5xl grid-cols-1 items-center gap-10 px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14 lg:px-8"
 			>
 				<div>
-					<h2 class="font-heading-1 mb-6 text-3xl font-bold text-[#2F3E46] md:text-[2.2rem]">
+					<h2 class="font-heading-1 mb-4 text-xl font-bold text-[#2F3E46] md:text-[1.6rem]">
 						Implantología Buco Maxilofacial
 					</h2>
-					<div class="space-y-6 text-lg leading-relaxed font-light text-[#4A4A4A]">
+					<div class="space-y-4 text-[0.93rem] leading-relaxed font-light text-[#4A4A4A]">
 						<p>
 							Reposición de dientes mediante implantes dentales, indicada en casos de pérdida
 							dentaria unitaria, múltiple o edentulismo total. El tratamiento se basa en una
@@ -47,30 +52,33 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 						</p>
 					</div>
 				</div>
-				<div
-					class="flex h-[300px] w-full items-center justify-center rounded-2xl bg-[#E0E5E5] text-sm text-[#4A4A4A] md:h-[420px]"
-				>
-					Imagen clínica / pabellón
+				<div class="overflow-hidden rounded-xl md:h-[520px] h-[380px]">
+					<Image
+						src={serviceImplImage}
+						alt="Pabellón clínico de implantología del Dr. José Tomás Rojas"
+						class="h-full w-full object-cover object-center"
+						loading="eager"
+					/>
 				</div>
 			</div>
 		</section>
 
 		<!-- SERVICIOS COMPLEMENTARIOS -->
-		<section class="py-16 lg:py-24">
-			<div class="mx-auto max-w-6xl px-6 lg:px-8">
-				<h2 class="font-heading-1 mb-12 text-3xl font-bold text-[#2F3E46] md:text-[2.2rem]">
+		<section class="py-10 lg:py-14">
+			<div class="mx-auto max-w-5xl px-6 lg:px-8">
+				<h2 class="font-heading-1 mb-8 text-xl font-bold text-[#2F3E46] md:text-[1.6rem]">
 					Tratamientos dentro del enfoque integral
 				</h2>
 
-				<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+				<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 					<!-- Servicio 1 -->
 					<div
-						class="border border-[#e6e6e6] bg-white p-10 transition-shadow duration-300 hover:shadow-lg"
+						class="border border-[#e6e6e6] bg-white p-6 transition-shadow duration-300 hover:shadow-md rounded-lg"
 					>
-						<h3 class="font-heading-1 mb-4 text-xl font-bold text-[#2F3E46]">
+						<h3 class="font-heading-1 mb-2 text-[0.95rem] font-bold text-[#2F3E46]">
 							Rehabilitación oral
 						</h3>
-						<p class="text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+						<p class="text-[0.85rem] leading-relaxed font-light text-[#6b7b82]">
 							Tratamientos orientados a recuperar función, estética y estabilidad oclusal,
 							incluyendo prótesis fijas (coronas) y prótesis removibles, indicadas según las
 							necesidades clínicas y funcionales de cada paciente.
@@ -79,10 +87,10 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 
 					<!-- Servicio 2 -->
 					<div
-						class="border border-[#e6e6e6] bg-white p-10 transition-shadow duration-300 hover:shadow-lg"
+						class="border border-[#e6e6e6] bg-white p-6 transition-shadow duration-300 hover:shadow-md rounded-lg"
 					>
-						<h3 class="font-heading-1 mb-4 text-xl font-bold text-[#2F3E46]">Cirugía oral</h3>
-						<p class="text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+						<h3 class="font-heading-1 mb-2 text-[0.95rem] font-bold text-[#2F3E46]">Cirugía oral</h3>
+						<p class="text-[0.85rem] leading-relaxed font-light text-[#6b7b82]">
 							Procedimientos quirúrgicos ambulatorios como exodoncias complejas y cirugías asociadas
 							a tratamientos implantológicos, realizados con planificación y foco en la seguridad
 							del paciente.
@@ -91,12 +99,12 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 
 					<!-- Servicio 3 -->
 					<div
-						class="border border-[#e6e6e6] bg-white p-10 transition-shadow duration-300 hover:shadow-lg"
+						class="border border-[#e6e6e6] bg-white p-6 transition-shadow duration-300 hover:shadow-md rounded-lg"
 					>
-						<h3 class="font-heading-1 mb-4 text-xl font-bold text-[#2F3E46]">
+						<h3 class="font-heading-1 mb-2 text-[0.95rem] font-bold text-[#2F3E46]">
 							Tratamiento integral
 						</h3>
-						<p class="text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+						<p class="text-[0.85rem] leading-relaxed font-light text-[#6b7b82]">
 							Abordaje global de la salud oral que incluye tratamientos de odontología integral como
 							manejo de caries, tratamientos periodontales (encías), controles y mantención, siempre
 							como base para un diagnóstico claro y una planificación adecuada del tratamiento.
@@ -105,8 +113,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 				</div>
 
 				<!-- NOTA CLÍNICA -->
-				<div class="mt-20 max-w-[900px] border-l-4 border-[#4F7A7C] bg-white p-10 shadow-sm">
-					<p class="text-[1.05rem] leading-relaxed font-light text-[#4A4A4A]">
+				<div class="mt-12 max-w-[860px] border-l-4 border-[#4F7A7C] bg-white p-6 shadow-sm rounded-r-lg">
+					<p class="text-[0.88rem] leading-relaxed font-light text-[#4A4A4A]">
 						<strong class="font-semibold text-[#2F3E46]">Nota clínica:</strong> Los procedimientos específicos
 						no se indican de forma aislada. Cada intervención forma parte de un plan de tratamiento integral,
 						definido tras un diagnóstico completo y una evaluación personalizada del paciente.

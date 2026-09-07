@@ -1,7 +1,13 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usando la foto para el cierre temporalmente
+import profileImage from "@assets/images/hero-slide/sobre2.jpg"; // Usando la foto para el cierre temporalmente
+import caso1 from "@assets/images/hero-slide/casosint_clinicos_1.jpeg";
+import caso2 from "@assets/images/hero-slide/casosint_clinicos_2.jpeg";
+import caso3 from "@assets/images/hero-slide/casosint_clinicos_3.jpeg";
+import siteData from "@config/siteData.json";
+
+const { dentalinkUrl } = siteData.booking;
 ---
 
 <BaseLayout
@@ -33,10 +39,12 @@ import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usan
 					<article
 						class="group overflow-hidden rounded-[20px] border border-[#E0E5E5] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 					>
-						<div
-							class="flex h-[240px] items-center justify-center bg-[#E0E5E5] text-sm text-[#4A4A4A]"
-						>
-							Imagen caso clínico
+						<div class="h-[240px] w-full overflow-hidden">
+							<Image
+								src={caso1}
+								alt="Rehabilitación implantosoportada"
+								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+							/>
 						</div>
 						<div class="p-8">
 							<h3 class="font-heading-1 mb-3 text-xl font-bold text-[#2F3E46]">
@@ -52,10 +60,12 @@ import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usan
 					<article
 						class="group overflow-hidden rounded-[20px] border border-[#E0E5E5] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 					>
-						<div
-							class="flex h-[240px] items-center justify-center bg-[#E0E5E5] text-sm text-[#4A4A4A]"
-						>
-							Imagen caso clínico
+						<div class="h-[240px] w-full overflow-hidden">
+							<Image
+								src={caso2}
+								alt="Manejo quirúrgico"
+								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+							/>
 						</div>
 						<div class="p-8">
 							<h3 class="font-heading-1 mb-3 text-xl font-bold text-[#2F3E46]">
@@ -71,10 +81,12 @@ import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usan
 					<article
 						class="group overflow-hidden rounded-[20px] border border-[#E0E5E5] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 					>
-						<div
-							class="flex h-[240px] items-center justify-center bg-[#E0E5E5] text-sm text-[#4A4A4A]"
-						>
-							Imagen caso clínico
+						<div class="h-[240px] w-full overflow-hidden">
+							<Image
+								src={caso3}
+								alt="Implantes en zona estética"
+								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+							/>
 						</div>
 						<div class="p-8">
 							<h3 class="font-heading-1 mb-3 text-xl font-bold text-[#2F3E46]">
@@ -114,7 +126,9 @@ import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usan
 						definir el plan de tratamiento más adecuado según las necesidades de cada paciente.
 					</p>
 					<a
-						href="/contact-me"
+						href={dentalinkUrl}
+						target="_blank"
+						rel="noopener noreferrer"
 						class="inline-block rounded-full bg-[#4F7A7C] px-10 py-[16px] text-[1rem] font-medium text-white shadow-xl shadow-[#4F7A7C]/30 transition-all duration-300 hover:-translate-y-1 hover:bg-[#3F6668] hover:shadow-[#3F6668]/40"
 					>
 						Agendar evaluación
@@ -135,7 +149,7 @@ import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usan
 					<div
 						class="absolute bottom-6 mx-auto w-auto translate-y-4 transform rounded-full border border-[#E0E5E5] bg-white/90 px-6 py-2 text-sm font-medium text-[#4A4A4A] opacity-0 shadow-lg backdrop-blur-sm transition duration-300 group-hover:translate-y-0 group-hover:opacity-100"
 					>
-						Foto Dr. Rojas - brazos cruzados
+						Dr. Jose Tomás Rojas Vera.
 					</div>
 				</div>
 			</div>

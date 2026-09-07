@@ -6,7 +6,7 @@ interface Props {
 	class?: string;
 }
 
-const { navItem, class: className } = Astro.props as Props;
+const { navItem, class: className = "" } = Astro.props as Props;
 const { text, link, newTab = false } = navItem;
 
 // if the current page is the same as the link, we can change the styling
@@ -31,7 +31,11 @@ const { text, link, newTab = false } = navItem;
 
 <style>
 	.nav_link {
-		color: #4A4A4A;
+		color: var(--primary);
+		transition: color 0.3s ease;
+	}
+	.nav_link:hover {
+		color: #3f6668;
 	}
 </style>
 

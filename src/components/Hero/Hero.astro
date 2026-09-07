@@ -65,38 +65,7 @@ const { dentalinkUrl } = siteData.booking;
 		margin-bottom: 2.2rem;
 	}
 
-	/* ===== CTA PRINCIPAL ===== */
-	.hero-cta {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.6rem;
-		padding: 14px 34px;
-		background: var(--primary);
-		color: #ffffff;
-		text-decoration: none;
-		font-size: 0.95rem;
-		font-weight: 500;
-		letter-spacing: 0.04em;
-		border-radius: 999px;
-		box-shadow: 0 6px 18px rgba(79, 122, 124, 0.3);
-		transition:
-			transform 0.25s ease,
-			background 0.25s ease,
-			box-shadow 0.25s ease;
-	}
 
-	.hero-cta:hover,
-	.hero-cta:focus-visible {
-		background: #3f6668;
-		transform: translateY(-3px);
-		box-shadow: 0 10px 24px rgba(63, 102, 104, 0.4);
-		outline: none;
-	}
-
-	.hero-cta svg {
-		width: 18px;
-		height: 18px;
-	}
 
 	/* Foto del doctor: SOLO visible en móvil (oculta en desktop) */
 	.hero-mobile-photo {
@@ -128,8 +97,7 @@ const { dentalinkUrl } = siteData.booking;
 
 	.hero-content.visible h1,
 	.hero-content.visible h2,
-	.hero-content.visible .divider,
-	.hero-content.visible .hero-cta {
+	.hero-content.visible .divider {
 		animation: fadeInUp 0.8s ease-out forwards;
 	}
 
@@ -142,15 +110,10 @@ const { dentalinkUrl } = siteData.booking;
 	.hero-content.visible .divider {
 		animation-delay: 0.3s;
 	}
-	.hero-content.visible .hero-cta {
-		animation-delay: 0.4s;
-		opacity: 0;
-	}
 
 	.hero-content.hidden h1,
 	.hero-content.hidden h2,
-	.hero-content.hidden .divider,
-	.hero-content.hidden .hero-cta {
+	.hero-content.hidden .divider {
 		animation: fadeOutUp 0.5s ease-in forwards;
 	}
 
@@ -178,11 +141,6 @@ const { dentalinkUrl } = siteData.booking;
 			margin-bottom: 1.6rem;
 		}
 
-		.hero-cta {
-			width: 100%;
-			justify-content: center;
-		}
-
 		/* La foto del doctor, completa y centrada */
 		.hero-mobile-photo {
 			display: block;
@@ -195,12 +153,7 @@ const { dentalinkUrl } = siteData.booking;
 		}
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		.hero-content.visible .hero-cta {
-			opacity: 1;
-			animation: none;
-		}
-	}
+
 </style>
 
 <section class="hero" style={`background-image: url(${heroImageOne.src});`}>
@@ -208,22 +161,6 @@ const { dentalinkUrl } = siteData.booking;
 		<h1>Dr. José Tomás Rojas V.</h1>
 		<h2>Implantología Buco Maxilofacial</h2>
 		<div class="divider"></div>
-		<a
-			href={dentalinkUrl}
-			class="hero-cta"
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="Agendar hora online"
-		>
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-				></path>
-			</svg>
-			Agendar hora
-		</a>
 	</div>
 
 	<img

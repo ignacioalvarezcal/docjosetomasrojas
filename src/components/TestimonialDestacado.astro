@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets";
+// Usamos una imagen genérica del pabellón para el fondo oscuro
+import bgImage from "@assets/images/hero-slide/cortada4.png";
+---
+
+<section class="relative flex items-center justify-center overflow-hidden px-6 py-24 lg:px-8">
+	<!-- Background with gradient overlay -->
+	<div class="absolute inset-0 z-0 bg-[#0f1f2c]">
+		<!-- Contenedor de la foto centrado hacia la derecha, ocupando un 70% del ancho para reducir el zoom -->
+		<div class="absolute right-0 top-0 h-full w-full opacity-60 md:w-[70%] md:opacity-100">
+			<Image
+				src={bgImage}
+				alt="Fondo de pabellón clínico"
+				class="h-full w-full object-cover object-center md:object-[30%_center]"
+			/>
+			<!-- Gradiente: oscuro a la izq para el texto, transparente al centro para la foto, un poco oscuro a la der para la tarjeta -->
+			<div class="absolute inset-0 bg-gradient-to-r from-[#0f1f2c] via-transparent to-[#0f1f2c]/30 hidden md:block"></div>
+		</div>
+		<!-- Overlay base -->
+		<div class="absolute inset-0 bg-[#0f1f2c]/70 md:bg-[#0f1f2c]/10"></div>
+	</div>
+
+	<!-- Content -->
+	<div class="relative z-10 mx-auto flex w-full max-w-[1500px] flex-col items-center justify-between gap-10 md:flex-row lg:gap-12">
+		
+		<!-- Columna Izquierda: Texto -->
+		<div class="flex w-full max-w-[500px] flex-col items-start text-left">
+			<!-- Icon -->
+			<div class="mb-2 font-serif text-6xl leading-none text-[#cf9b5b]">“</div>
+
+			<!-- Quote -->
+			<h2
+				class="font-heading-1 mb-6 text-[2rem] font-light leading-tight text-white md:text-[2.2rem] lg:text-[2.5rem]"
+			>
+				La mejor <br />
+				recompensa <br />
+				de nuestro trabajo <br />
+				es saber que <br />
+				<span class="font-medium text-[#cf9b5b]">
+					pudimos <br />
+					cambiar una vida.
+				</span>
+			</h2>
+
+			<p class="mb-8 text-lg font-light text-white">Gracias por la confianza. 💛</p>
+
+			<!-- Footer Note -->
+			<div class="mt-4 flex items-center justify-start gap-3 text-xs font-medium tracking-wider text-white/70">
+				<svg class="h-6 w-6 text-[#cf9b5b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="1.5"
+						d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+					></path>
+				</svg>
+				<span class="text-left text-[0.65rem] uppercase leading-tight">
+					Testimonio compartido con<br />autorización de la paciente
+				</span>
+			</div>
+		</div>
+
+		<!-- Espaciador Central: Deja ver la foto -->
+		<div class="hidden flex-1 md:block"></div>
+
+		<!-- Columna Derecha: Tarjeta -->
+		<div class="flex w-full max-w-[550px] flex-col justify-center">
+			<!-- Testimonial Card -->
+			<div class="relative rounded-[20px] bg-white p-8 text-left shadow-2xl md:p-10">
+				<div class="absolute left-8 top-8 h-3 w-3 rounded-full bg-[#2F3E46]"></div>
+				<p class="indent-6 text-[0.88rem] font-light leading-relaxed text-[#2F3E46]">
+					<strong>Cambiando vidas:</strong> Agradezco a todos los profesionales, profesores guías, a compañeros
+					apañadores que ayudaron a que mi Dr José Tomás Rojas realice un trabajo de joyería, el cambio
+					no solo es en el ámbito de la salud bucal, es funcionalidad, el poder volver a comer con tranquilidad
+					y satisfactoriamente es algo que solo quien lo experimenta lo puede dimensionar además de ello
+					la auto imagen, autoestima, la seguridad vuelve a ti transformando lo impensado en algo real y
+					maravilloso, por su entrega, profesionalismo, empatía, simpatía, buen humor, buena música y ambiente
+					de camaradería les estaré agradecida por siempre del trato, cariño y resultado, los que me conocen
+					saber lo duro que es este proceso y con ellos fue posible. Joseto mi Dr favorito muchas, pero
+					muchas gracias y gracias por devolverme la tranquilidad, autoestima y sentirme fantástica !!!!
+					Bendiciones para Uds !! No pierdan nunca lo que dignifica humanizar la medicina !!! 🙏❤️
+				</p>
+			</div>
+		</div>
+	</div>
+</section>

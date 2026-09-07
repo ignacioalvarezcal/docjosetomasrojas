@@ -35,7 +35,7 @@ const navConfig: navItem[] = [
 	},
 	{
 		text: "Contacto",
-		link: "/#pricing",
+		link: "#footer",
 	},
 	/*
 	{

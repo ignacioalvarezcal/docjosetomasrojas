@@ -1,7 +1,11 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usando la imagen del Dr. Rojas
+import profileImage from "@assets/images/hero-slide/sobre.jpg"; // Usando la imagen del Dr. Rojas
+import attentionImage from "@assets/images/hero-slide/sobre2.png";
+import siteData from "@config/siteData.json";
+
+const { dentalinkUrl } = siteData.booking;
 ---
 
 <BaseLayout
@@ -37,7 +41,7 @@ import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usan
 					<div
 						class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#2F3E46]/80 to-transparent p-6 text-sm text-white opacity-0 transition duration-300 hover:opacity-100 md:text-base"
 					>
-						Foto profesional en consulta
+						Dr. José Tomás Rojas
 					</div>
 				</div>
 			</section>
@@ -225,7 +229,9 @@ import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usan
 						</p>
 						<div class="pt-4">
 							<a
-								href="/contact-me"
+								href={dentalinkUrl}
+								target="_blank"
+								rel="noopener noreferrer"
 								class="inline-block rounded-[3px] bg-[#4F7A7C] px-[38px] py-[14px] text-[0.9rem] font-normal tracking-[0.08em] text-white no-underline transition-colors duration-200 ease-in hover:bg-[#3f6668]"
 							>
 								Agendar evaluación
@@ -236,7 +242,7 @@ import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usan
 						class="group relative order-1 flex h-[400px] items-center justify-center overflow-hidden rounded-[2rem] border border-[#E0E5E5] bg-gradient-to-tr from-[#E0E5E5] to-[#F6F7F7] text-[#9FB6B8] shadow-inner lg:order-2 lg:col-span-5 lg:h-[500px]"
 					>
 						<Image
-							src={profileImage}
+							src={attentionImage}
 							alt="Dr. José Tomás Rojas de brazos cruzados"
 							class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
 						/>
@@ -244,8 +250,6 @@ import profileImage from "@assets/images/hero-slide/JoSlideMobile2.png"; // Usan
 							class="absolute inset-0 bg-[#2F3E46]/10 transition duration-500 group-hover:opacity-0"
 						>
 						</div>
-
-
 					</div>
 				</div>
 			</section>

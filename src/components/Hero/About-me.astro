@@ -1,5 +1,5 @@
 ---
-import heroImageOne from "@images/hero-slide/cortada.jpg";
+import heroImageOne from "@images/hero-slide/sobre_mi.png";
 ---
 
 <style>
@@ -11,43 +11,54 @@ import heroImageOne from "@images/hero-slide/cortada.jpg";
 		--accent-soft: #9fb6b8;
 	}
 
-	/* FIX responsive: la sección no tenía padding → texto pegado a los bordes en móvil */
+	/* La sección no tiene padding vertical → la foto toca los bordes */
 	.section {
-		padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 8vw, 6rem);
+		background: var(--primary);
+		overflow: hidden;
+		height: 560px;
 	}
 
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
+	/* El grid es el contenedor directo, limitado a 1200px */
 	.grid-2 {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 4rem;
-		align-items: center;
+		grid-template-columns: 1fr 1fr;
+		gap: 0;
+		align-items: stretch;
+		max-width: 1200px;
+		margin: 0 auto;
+		height: 560px;
 	}
+
+	/* Columna de texto: solo ella tiene padding */
+	.text-col {
+		padding: 2rem 2rem 2rem clamp(1.5rem, 6vw, 5rem);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
 	h2.section-title {
 		font-family: "Playfair Display", serif;
-		font-size: clamp(1.7rem, 5vw, 2.2rem); /* fluido */
+		font-size: clamp(1.7rem, 3.5vw, 2.1rem);
 		color: var(--bg-light);
-		margin-bottom: 1.5rem;
+		margin-bottom: 1rem;
 	}
 	p {
 		color: var(--bg-light);
 	}
 
-	.foto-container {
+	/* Columna de foto: ocupa toda la altura del grid sin márgenes */
+	.foto-col {
+		overflow: hidden;
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: center;
-		max-height: 600px;
 	}
 
-	.foto-container img {
-		width: 100%;
-		max-height: 600px;
-		object-fit: contain;
-		object-position: center center;
+	.foto-col img {
+		height: 100%;
+		width: auto;
+		display: block;
 	}
 
 	/* Enlace "Ver más" */
@@ -66,33 +77,39 @@ import heroImageOne from "@images/hero-slide/cortada.jpg";
 	}
 
 	@media (max-width: 900px) {
-		.grid-2,
-		.grid-3,
-		.grid-4 {
+		.grid-2 {
 			grid-template-columns: 1fr;
-			gap: 2rem; /* menos espacio vertical al apilarse */
+		}
+
+		.foto-col {
+			height: 320px;
+			order: -1; /* foto arriba en móvil */
+		}
+
+		.foto-col img {
+			object-position: center center;
 		}
 	}
 </style>
 
-<section id="about-me" class="section" style="background:var(--primary);">
-	<div class="grid-2 container">
-		<div>
+<section id="about-me" class="section">
+	<div class="grid-2">
+		<div class="text-col">
 			<h2 class="section-title">Sobre mí</h2>
-			<p style="line-height:1.8; margin-bottom:1.2rem;">
+			<p style="line-height:1.6; margin-bottom:0.9rem; font-size:1rem;">
 				Soy el Dr. José Tomás Rojas Vera, Cirujano Dentista con enfoque en implantología y
 				rehabilitación oral. Mi forma de trabajo se basa en una planificación cuidadosa, la
 				precisión clínica y una relación de confianza con cada paciente.
 			</p>
-			<p style="line-height:1.8;">
+			<p style="line-height:1.6; font-size:1rem;">
 				Creo en una odontología que acompaña, explica y propone soluciones pensadas para el largo
 				plazo, integrando ciencia, experiencia y criterio profesional.
 			</p>
-			<div style="margin-top:2rem;">
-				<a href="/sobre-mi" class="about-link">Ver más →</a>
+			<div style="margin-top:1rem;">
+				<a href="/sobre-mi" class="about-link" style="font-size:1rem;">Ver más →</a>
 			</div>
 		</div>
-		<div class="foto-container">
+		<div class="foto-col">
 			<img src={heroImageOne.src} alt="Foto del Dr. José Tomás Rojas Vera" />
 		</div>
 	</div>
