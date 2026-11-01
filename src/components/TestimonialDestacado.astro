@@ -4,28 +4,29 @@ import { Image } from "astro:assets";
 import bgImage from "@assets/images/hero-slide/cortada4.png";
 ---
 
-<section class="relative flex items-center justify-center overflow-hidden px-6 py-24 lg:px-8">
+<section class="relative flex items-center justify-center overflow-hidden px-6 py-24 md:py-32 lg:py-40 lg:px-12" style="min-height: 680px;">
 	<!-- Background with gradient overlay -->
 	<div class="absolute inset-0 z-0 bg-[#0f1f2c]">
-		<!-- Contenedor de la foto centrado hacia la derecha, ocupando un 70% del ancho para reducir el zoom -->
-		<div class="absolute right-0 top-0 h-full w-full opacity-60 md:w-[70%] md:opacity-100">
+		<!-- Desktop: contenedor hacia la derecha para que el doctor luzca despejado -->
+		<div class="absolute right-0 top-0 h-full w-full opacity-60 md:w-[65%] lg:w-[58%] md:opacity-100">
 			<Image
 				src={bgImage}
 				alt="Fondo de pabellón clínico"
-				class="h-full w-full object-cover object-center md:object-[30%_center]"
+				class="h-full w-full object-cover"
+				style="object-position: right 12%;"
 			/>
-			<!-- Gradiente: oscuro a la izq para el texto, transparente al centro para la foto, un poco oscuro a la der para la tarjeta -->
-			<div class="absolute inset-0 bg-gradient-to-r from-[#0f1f2c] via-transparent to-[#0f1f2c]/30 hidden md:block"></div>
+			<!-- Gradiente izq para fusionar con el fondo oscuro y proteger los textos -->
+			<div class="absolute inset-0 bg-gradient-to-r from-[#0f1f2c] via-[#0f1f2c]/40 to-transparent hidden md:block"></div>
 		</div>
-		<!-- Overlay base -->
-		<div class="absolute inset-0 bg-[#0f1f2c]/70 md:bg-[#0f1f2c]/10"></div>
+		<!-- Overlay base móvil -->
+		<div class="absolute inset-0 bg-[#0f1f2c]/65 md:bg-transparent"></div>
 	</div>
 
 	<!-- Content -->
-	<div class="relative z-10 mx-auto flex w-full max-w-[1500px] flex-col items-center justify-between gap-10 md:flex-row lg:gap-12">
+	<div class="relative z-10 mx-auto flex w-full max-w-[1500px] flex-col items-center gap-10 md:flex-row md:items-center md:justify-start lg:gap-14">
 		
 		<!-- Columna Izquierda: Texto -->
-		<div class="flex w-full max-w-[500px] flex-col items-start text-left">
+		<div class="flex w-full max-w-[440px] flex-shrink-0 flex-col items-start text-left">
 			<!-- Icon -->
 			<div class="mb-2 font-serif text-6xl leading-none text-[#cf9b5b]">“</div>
 
@@ -61,15 +62,12 @@ import bgImage from "@assets/images/hero-slide/cortada4.png";
 			</div>
 		</div>
 
-		<!-- Espaciador Central: Deja ver la foto -->
-		<div class="hidden flex-1 md:block"></div>
-
-		<!-- Columna Derecha: Tarjeta -->
-		<div class="flex w-full max-w-[550px] flex-col justify-center">
+		<!-- Columna Tarjeta: colocada más a la izquierda para despejar al doctor en el fondo -->
+		<div class="flex w-full max-w-[500px] flex-shrink-0 flex-col justify-center lg:max-w-[520px]">
 			<!-- Testimonial Card -->
-			<div class="relative rounded-[20px] bg-white p-8 text-left shadow-2xl md:p-10">
-				<div class="absolute left-8 top-8 h-3 w-3 rounded-full bg-[#2F3E46]"></div>
-				<p class="indent-6 text-[0.88rem] font-light leading-relaxed text-[#2F3E46]">
+			<div class="relative rounded-[20px] bg-white p-7 text-left shadow-2xl md:p-9">
+				<div class="absolute left-7 top-7 h-3 w-3 rounded-full bg-[#2F3E46]"></div>
+				<p class="indent-6 text-[0.86rem] font-light leading-relaxed text-[#2F3E46]">
 					<strong>Cambiando vidas:</strong> Agradezco a todos los profesionales, profesores guías, a compañeros
 					apañadores que ayudaron a que mi Dr José Tomás Rojas realice un trabajo de joyería, el cambio
 					no solo es en el ámbito de la salud bucal, es funcionalidad, el poder volver a comer con tranquilidad

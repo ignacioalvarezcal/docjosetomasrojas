@@ -11,14 +11,15 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 		--accent-soft: #9fb6b8;
 	}
 
-	/* La sección no tiene padding vertical → la foto toca los bordes */
+	/* ===== SECCIÓN ===== */
 	.section {
 		background: var(--primary);
 		overflow: hidden;
-		height: 560px;
+		/* Altura mínima en desktop pero crece con el contenido */
+		min-height: 480px;
 	}
 
-	/* El grid es el contenedor directo, limitado a 1200px */
+	/* ===== GRID ===== */
 	.grid-2 {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -26,12 +27,12 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 		align-items: stretch;
 		max-width: 1200px;
 		margin: 0 auto;
-		height: 560px;
+		min-height: 480px;
 	}
 
-	/* Columna de texto: solo ella tiene padding */
+	/* ===== COLUMNA TEXTO ===== */
 	.text-col {
-		padding: 2rem 2rem 2rem clamp(1.5rem, 6vw, 5rem);
+		padding: 2.5rem clamp(1.5rem, 5vw, 4rem) 2.5rem clamp(1.5rem, 6vw, 5rem);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -43,11 +44,12 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 		color: var(--bg-light);
 		margin-bottom: 1rem;
 	}
+
 	p {
 		color: var(--bg-light);
 	}
 
-	/* Columna de foto: ocupa toda la altura del grid sin márgenes */
+	/* ===== COLUMNA FOTO ===== */
 	.foto-col {
 		overflow: hidden;
 		display: flex;
@@ -59,9 +61,12 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 		height: 100%;
 		width: auto;
 		display: block;
+		/* En desktop muestra la imagen completa desde arriba */
+		object-fit: cover;
+		object-position: center top;
 	}
 
-	/* Enlace "Ver más" */
+	/* ===== ENLACE "VER MÁS" ===== */
 	.about-link {
 		display: inline-block;
 		color: var(--bg-light);
@@ -76,18 +81,51 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 		outline: none;
 	}
 
+	/* ===== RESPONSIVE: tablet ===== */
 	@media (max-width: 900px) {
-		.grid-2 {
-			grid-template-columns: 1fr;
+		.section {
+			min-height: unset;
+			height: auto;
 		}
 
+		.grid-2 {
+			grid-template-columns: 1fr;
+			min-height: unset;
+			height: auto;
+		}
+
+		/* Foto arriba en móvil, tamaño proporcional */
 		.foto-col {
-			height: 320px;
-			order: -1; /* foto arriba en móvil */
+			height: clamp(280px, 55vw, 420px);
+			order: -1;
+			align-items: center;
 		}
 
 		.foto-col img {
-			object-position: center center;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center 42%; /* muestra la cara y torso del doctor */
+		}
+
+		/* Texto con padding generoso para no pegarse a los bordes */
+		.text-col {
+			padding: 2.5rem clamp(1.25rem, 7vw, 3rem);
+		}
+	}
+
+	/* ===== RESPONSIVE: móvil pequeño ===== */
+	@media (max-width: 480px) {
+		.foto-col {
+			height: clamp(260px, 70vw, 360px);
+		}
+
+		.text-col {
+			padding: 2rem 1.25rem 2.5rem;
+		}
+
+		h2.section-title {
+			font-size: 1.65rem;
 		}
 	}
 </style>
@@ -109,8 +147,12 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 				<a href="/sobre-mi" class="about-link" style="font-size:1rem;">Ver más →</a>
 			</div>
 		</div>
-		<div class="foto-col">
-			<img src={heroImageOne.src} alt="Foto del Dr. José Tomás Rojas Vera" />
+			<div class="foto-col">
+			<img
+				src={heroImageOne.src}
+				alt="Foto del Dr. José Tomás Rojas Vera"
+				style="width:100%; height:100%; object-fit:cover; object-position: center top;"
+			/>
 		</div>
 	</div>
 </section>
