@@ -4,11 +4,30 @@ import { Image } from "astro:assets";
 import bgImage from "@assets/images/hero-slide/cortada4.png";
 ---
 
+<style>
+	/* Solo en celular: desplazamos el contenedor de la foto a la derecha para no tapar el texto */
+	.testimonial-photo-box {
+		width: 130%;
+		right: -30%;
+	}
+	@media (min-width: 768px) {
+		.testimonial-photo-box {
+			width: 65%;
+			right: 0;
+		}
+	}
+	@media (min-width: 1024px) {
+		.testimonial-photo-box {
+			width: 58%;
+		}
+	}
+</style>
+
 <section class="relative flex items-center justify-center overflow-hidden px-6 py-24 md:py-32 lg:py-40 lg:px-12" style="min-height: 680px;">
 	<!-- Background with gradient overlay -->
 	<div class="absolute inset-0 z-0 bg-[#0f1f2c]">
-		<!-- Desktop: contenedor hacia la derecha para que el doctor luzca despejado -->
-		<div class="absolute right-0 top-0 h-full w-full opacity-60 md:w-[65%] lg:w-[58%] md:opacity-100">
+		<!-- Contenedor de la foto: en celular desplazado a la derecha, en desktop exactamente igual que antes -->
+		<div class="testimonial-photo-box absolute top-0 h-full opacity-60 md:opacity-100">
 			<Image
 				src={bgImage}
 				alt="Fondo de pabellón clínico"

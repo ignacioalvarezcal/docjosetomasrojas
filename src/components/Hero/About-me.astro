@@ -58,10 +58,9 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 	}
 
 	.foto-col img {
+		width: 100%;
 		height: 100%;
-		width: auto;
 		display: block;
-		/* En desktop muestra la imagen completa desde arriba */
 		object-fit: cover;
 		object-position: center top;
 	}
@@ -94,18 +93,20 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 			height: auto;
 		}
 
-		/* Foto arriba en móvil, tamaño proporcional */
+		/* Foto arriba en móvil: contenedor ampliado para ver a la persona completa */
 		.foto-col {
-			height: clamp(280px, 55vw, 420px);
+			height: clamp(370px, 88vw, 520px);
 			order: -1;
 			align-items: center;
+			background: #ffffff;
 		}
 
 		.foto-col img {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-			object-position: center 42%; /* muestra la cara y torso del doctor */
+			/* Encuadre equilibrado y alejado: persona entera visible */
+			object-position: center 54% !important;
 		}
 
 		/* Texto con padding generoso para no pegarse a los bordes */
@@ -117,7 +118,11 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 	/* ===== RESPONSIVE: móvil pequeño ===== */
 	@media (max-width: 480px) {
 		.foto-col {
-			height: clamp(260px, 70vw, 360px);
+			height: clamp(350px, 92vw, 480px);
+		}
+
+		.foto-col img {
+			object-position: center 54% !important;
 		}
 
 		.text-col {
@@ -147,11 +152,10 @@ import heroImageOne from "@images/hero-slide/sobre_mi.png";
 				<a href="/sobre-mi" class="about-link" style="font-size:1rem;">Ver más →</a>
 			</div>
 		</div>
-			<div class="foto-col">
+		<div class="foto-col">
 			<img
 				src={heroImageOne.src}
 				alt="Foto del Dr. José Tomás Rojas Vera"
-				style="width:100%; height:100%; object-fit:cover; object-position: center top;"
 			/>
 		</div>
 	</div>

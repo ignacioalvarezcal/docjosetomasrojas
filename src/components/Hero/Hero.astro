@@ -3,7 +3,7 @@
  * * Hero responsive: fondo en desktop, apilado (texto + foto) en móvil
  */
 import heroImageOne from "@images/hero-slide/JoSlide1.png";
-import heroImageMobileOne from "@images/front-real.png";
+import heroImageMobileOne from "@images/hero-slide/JoSlide12.png";
 import siteData from "@config/siteData.json";
 
 const { dentalinkUrl } = siteData.booking;
@@ -123,29 +123,35 @@ const { dentalinkUrl } = siteData.booking;
 			flex-direction: column;
 			align-items: stretch;
 			justify-content: flex-start;
-			padding: 110px 7vw 0; /* deja espacio bajo el nav fijo */
-			gap: 1.5rem;
+			padding: 105px 0 0; /* deja espacio bajo el nav fijo */
+			gap: 0;
+			overflow-x: clip;
 		}
 
 		.hero-content {
 			max-width: none;
+			padding: 0 7vw; /* el texto mantiene su margen lateral */
 		}
 
 		.hero-content h1 {
-			margin-bottom: 1rem;
+			margin-bottom: 0.6rem;
+		}
+
+		.hero-content h2 {
+			margin-bottom: 0.75rem;
 		}
 
 		.divider {
-			margin-bottom: 1.6rem;
+			margin-bottom: 0.5rem;
 		}
 
-		/* La foto del doctor, completa y centrada */
+		/* La foto del doctor: de borde a borde y con distancia reducida al divider */
 		.hero-mobile-photo {
 			display: block;
-			width: 100%;
-			max-width: 460px;
+			width: 114%;
+			max-width: 580px;
 			height: auto;
-			margin: 0 auto;
+			margin: -0.85rem -7% -4px;
 			object-fit: contain;
 			object-position: bottom center;
 		}
